@@ -208,6 +208,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="ClassDiagrams\ClassDiagramGenerationAlgorithmPESP.cd" />
     <None Include="ClassDiagrams\ClassDiagramRepresentation.cd" />
     <None Include="ClassDiagrams\ClassDiagramGeneration.cd" />

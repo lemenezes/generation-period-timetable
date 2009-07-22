@@ -103,11 +103,17 @@ namespace PeriodicTimetableGeneration
 
 		public void generateTimetable()
 		{
-			List<Transfer> transfers;
+			// Initialize the algorithm.
 			List<Constraint> constraints;
-			this.initializeAlgorithm(out transfers, out constraints);
+			this.initializeAlgorithm(out constraints);
+
+			// Run the propagation phase.
 			IConstraintPropagator propagator = new BisectionPropagator(new SameTransferTime());
 			PropagationResult result = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
+
+			propagator = new SimplePropagator(new FullDiscreteSet());
+
+			// Search for the result.
 			this.runSearchAlgorithm(result);
 		}
 
@@ -227,13 +233,12 @@ namespace PeriodicTimetableGeneration
 
 			return bestRecords;
 		}
-
-		public void initializeAlgorithm(out List<Transfer> transfers, out List<Constraint> constraints)
+		public void initializeAlgorithm(out List<Constraint> constraints)
 		{
 			//------initialization-constraints-----------------------------------
 
 			// createConstraintSet transfers
-			transfers = GenerationAlgorithmPESPUtil.createTransfers();
+			List<Transfer> transfers = GenerationAlgorithmPESPUtil.createTransfers();
 			// createConstraintSet constraints
 			constraints = GenerationAlgorithmPESPUtil.createConstraints(transfers);
 		}
