@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PeriodicTimetableGeneration.FormRPproject" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MECIhKCGGDgMAUywAEyUIAA2MHTOEQctQIHAGphMzlA=</HashCode>
+      <FileName>Forms\FormMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.Program" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.Properties.Resources" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.Properties.Settings" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.TrainStation">
+    <Position X="4.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAABAAgAEAAJAAGAEgAUoCAAAIARAQCAEMEAAogA=</HashCode>
+      <FileName>DataRepresentation\TrainStation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.TrainLine">
+    <Position X="0.5" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACEQACACEKtAAESAKgAIAAAEAAAAAAQAAAwAAAAI=</HashCode>
+      <FileName>DataRepresentation\TrainLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.TrainStop">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACACAAMAIAAAgCBACAwBQBgIAQAQAICAQAAAkAggA=</HashCode>
+      <FileName>DataRepresentation\TrainStop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.IOUtil">
+    <Position X="0.5" Y="2.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EZAIAAgBAAAAAAAAAAAAAAAQAAAQAAAQgiAAUIAAAAA=</HashCode>
+      <FileName>Util\IOUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.TrainStationCache">
+    <Position X="8.25" Y="5.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PeriodicTimetableGeneration.TrainStationCache.SingletonHolder" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DataRepresentation\TrainStationCache.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAgQAAAABAAAAAABgAIAAAAhQAAAAAAAAAAAA=</HashCode>
+      <FileName>DataRepresentation\TrainStationCache.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.TrainLineCache">
+    <Position X="6.25" Y="5.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PeriodicTimetableGeneration.TrainLineCache.SingletonHolder" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DataRepresentation\TrainLineCache.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAACQAgEAAAAIAAAAAAAAAIAAAAhQAAAAAAAAAAAA=</HashCode>
+      <FileName>DataRepresentation\TrainLineCache.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.FloydWarshallUtil">
+    <Position X="13.25" Y="14.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAIAAAAAAAACAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShortestPathAlgorithm\FloydWarshallUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.Edge">
+    <Position X="15.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AwEBAAIAAAAAAAAAAAAAAAgAAEAIAEBAAABAAAEBAQA=</HashCode>
+      <FileName>ShortestPathAlgorithm\Edge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.ShortestPathAlgoritm">
+    <Position X="9.75" Y="14.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PeriodicTimetableGeneration.ShortestPathAlgoritm.SingletonHolder" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ShortestPathAlgorithm\ShortestPathAlgorithm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAABEBAAAFBAAACAAAGAAAAIACYsJAACQAAAAAA=</HashCode>
+      <FileName>ShortestPathAlgorithm\ShortestPathAlgorithm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.TrainConnection">
+    <Position X="0.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QWIBJAEAAYQIEEGQAACAFAACIEQADkBKAIBCAAEAoQA=</HashCode>
+      <FileName>DataRepresentation\TrainConncetion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.Time">
+    <Position X="7.75" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ACAACAAAAAAACAwEwAGAAgAAAAAAAKIAAAAqAAAAB6A=</HashCode>
+      <FileName>DataRepresentation\Time.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.TrainConnectionCache">
+    <Position X="2.25" Y="14.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PeriodicTimetableGeneration.TrainConnectionCache.SingletonHolder" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>DataRepresentation\TrainConncetionCache.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAEAGAIAAAAiQAAAAAAAAAAAA=</HashCode>
+      <FileName>DataRepresentation\TrainConncetionCache.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.NewtonFormula">
+    <Position X="4" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAgAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Util\NewtonFormula.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.FloydWarshall">
+    <Position X="11.5" Y="14.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EAABAAAFAZAQCgEBgIAIBAAAAEQEAECAEABAAAAAIgA=</HashCode>
+      <FileName>ShortestPathAlgorithm\FloydWarshall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.Stage">
+    <Position X="5.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQEBgAAAAIABAAAAAAAIAAAAIEAAAkBAAABAAAEBAQA=</HashCode>
+      <FileName>DataRepresentation\Stage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.StageUtil">
+    <Position X="7.5" Y="14.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAEAAAAAAAAAACIEAAAYAAQAAAAAAAA=</HashCode>
+      <FileName>DataRepresentation\StageUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="PeriodicTimetableGeneration.TypeOfTrain">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAEEAABAAAAAAAgAAAAQAAAAAAAAAAAYA=</HashCode>
+      <FileName>Enums\TypeOfTrain.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PeriodicTimetableGeneration.DayInWeek">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAABAIAIAAAAAAAAAEAAAAQAABAAAAAAAA=</HashCode>
+      <FileName>Enums\DayInWeek.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PeriodicTimetableGeneration.Direction">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Enums\Direction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PeriodicTimetableGeneration.TownCategory">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAIAAAAACAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\TownCategory.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PeriodicTimetableGeneration.Period">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQiAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\Period.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

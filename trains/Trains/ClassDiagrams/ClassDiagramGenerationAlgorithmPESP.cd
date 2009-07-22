@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="PeriodicTimetableGeneration.Set">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAoAABFAAwBIQBREIkAgBAUAAAgGAiAMAgACGQBUoAo=</HashCode>
+      <FileName>GenerationAlgorithmPESP\Set.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.Constraint">
+    <Position X="2.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAhQAQAAQAASAEEQEoAAAEAGgABgBA=</HashCode>
+      <FileName>GenerationAlgorithmPESP\Constraint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.ConstraintCache">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PeriodicTimetableGeneration.ConstraintCache.SingletonHolder" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GenerationAlgorithmPESP\ConstraintCache.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAQAIAAAAhQAQAAAAAEEAAA=</HashCode>
+      <FileName>GenerationAlgorithmPESP\ConstraintCache.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmPESP">
+    <Position X="6.25" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="PeriodicTimetableGeneration.GenerationAlgorithmPESP.SolutionItem" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GenerationAlgorithmPESP\GeneratoionAlgorithmPESP.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="PeriodicTimetableGeneration.GenerationAlgorithmPESP.Solution" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GenerationAlgorithmPESP\GeneratoionAlgorithmPESP.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AUAAAAAVAAAACAAAAAAQAAhQCAUAABAEAKAgAABAgAA=</HashCode>
+      <FileName>GenerationAlgorithmPESP\GeneratoionAlgorithmPESP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmPESPUtil">
+    <Position X="8.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAIKgAQQBAAAAQFAAEAAAAAAAEADAAAEgBAACAAIgQg=</HashCode>
+      <FileName>GenerationAlgorithmPESP\GenerationAlgorithmPESPUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="PeriodicTimetableGeneration.FactorRangeRecord">
+    <Position X="6.25" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAEAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>FactorRangeRecord.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="PeriodicTimetableGeneration.Interfaces.IBestChoiceSearcher">
+    <Position X="11.5" Y="0.5" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IBestChoiceSearcher.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PeriodicTimetableGeneration.Interfaces.IConstraintSetsCreator">
+    <Position X="11.5" Y="2.25" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IConstraintSetsCreator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PeriodicTimetableGeneration.Interfaces.IConstraintPropagator">
+    <Position X="11.5" Y="4" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IConstraintPropagator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
