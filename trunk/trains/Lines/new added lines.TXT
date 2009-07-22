@@ -1,0 +1,19 @@
+Trat 010:
+211X Praha Mas.n. - Pardubice
+
+Trat 011:
+931X Praha Mas.n. - Kolin
+
+Trat 070:
+950X Praha hl.n. - Mlada BOleslav
+956X Mlada Boleslav - Turnov
+
+Trat 071:
+605X Nymburk hl.n. - Mlada Boleslav
+
+Trat 072:
+641X Lysa n.Labem - Vsetaty
+
+Trat 231:
+222X 223X Praha Mas.n. - Kolin
+944X Praha Mas.n. - Lysa n.Labem
