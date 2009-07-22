@@ -94,7 +94,7 @@ namespace PeriodicTimetableGeneration
         /// <param name="otherConstraint">The other constraint.</param>
         public Constraint(Constraint otherConstraint) 
         {
-            //setDefaultValues(); // not needed, because all fields will be assigned
+            setDefaultValues(); // not needed, because all fields will be assigned
             this.constantMember1 = otherConstraint.constantMember1;
             this.constantMember2 = otherConstraint.constantMember2;
             this.index1 = otherConstraint.index1;

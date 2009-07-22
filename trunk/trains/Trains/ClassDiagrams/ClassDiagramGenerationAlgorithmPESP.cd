@@ -50,8 +50,8 @@
       </Struct>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AUAAAAAVAAAACAAAAAAQAAhQCAUAABAEAKAgAABAgAA=</HashCode>
-      <FileName>GenerationAlgorithmPESP\GeneratoionAlgorithmPESP.cs</FileName>
+      <HashCode>AEAAAAAQAAAAAAAAAAAAAAgAAAcAAAAEACAgAAAAgAA=</HashCode>
+      <FileName>GenerationAlgorithmPESP\GenerationAlgorithmPESP.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmPESPUtil">
@@ -64,8 +64,8 @@
   <Struct Name="PeriodicTimetableGeneration.FactorRangeRecord">
     <Position X="6.25" Y="8" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAEAAgAAAAAAAAAAAAA=</HashCode>
-      <FileName>FactorRangeRecord.cs</FileName>
+      <HashCode>AAAAAABEAAAAAAAAAAAAAAAAAAEAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>GenerationAlgorithmPESP\FactorRangeRecord.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="PeriodicTimetableGeneration.Interfaces.IBestChoiceSearcher">
