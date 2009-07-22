@@ -1,0 +1,37 @@
+Praha Masarykovo n.#200000#Praha
+Praha-Vysočany#100000#Praha
+Praha-Hor.Počernice#10000#Praha
+Zeleneč#8000
+Mstětice#2000
+Čelákovice#5000
+Čelákovice-Jiřina#5500
+Lysá n.Labem#12000
+Ostrá#3600 
+Stratov#4200
+Kostomlaty n.Labem#1200
+Kamenné Zboží#2200	 
+Nymburk hl.n.#28000
+Velké Zboží#5700
+Poděbrady#3900
+Libice n.Cidlinou#2900
+Velký Osek#1700
+Veltruby#3100
+Kolín-Zálabí#8000
+Kolín#24000
+Praha-Libeň#23000
+Praha-Kyje#12000
+Praha-Dolní Počernice#9600
+Praha-Běchovice#3500
+Praha-Klánovice#6500
+Úvaly#2800
+Tuklaty#4100
+Rostoklaty#3900
+Český Brod#9400
+Klučov#4300
+Poříčany#7100
+Tatce#5400
+Pečky#1200
+Cerhenice#2650
+Velim#4400
+Nová Ves u Kolína#4870
+Kolín zast.#12000
