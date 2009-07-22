@@ -6,11 +6,26 @@ using PeriodicTimetableGeneration.Interfaces;
 
 namespace PeriodicTimetableGeneration
 {
+
+	/// <summary>
+	/// Bisection utils - useful for bisection implementing propagators.
+	/// </summary>
     public static class BisectionUtils
     {
 
-        public static Set[,] Bisect(List<Constraint> constraints, IConstraintPropagator propagator, int lowerBoundStart, int upperBoundStart)
+		/// <summary>
+		/// Runs the bisection algorithm for initial phase of constraint propagation.
+		/// </summary>
+		/// <param name="constraints">List of constraints.</param>
+		/// <param name="constraintSetsCreator">Creator of the sets of constraints.</param>
+		/// <param name="lowerBoundStart">Lower bound for the bisection search.</param>
+		/// <param name="upperBoundStart">Upper bound for the bisection search.</param>
+		/// <returns>Result of the initial algorithm phase.</returns>
+		public static PropagationResult Bisect(List<Constraint> constraints, IConstraintSetsCreator constraintSetsCreator, int lowerBoundStart, int upperBoundStart)
         {
+			// create the result.
+			PropagationResult result = new PropagationResult();
+
             //-------bisection-algorithm-for-finding-the-proper-bound-for-discret-set------
             // set default lower and upper bounds
             int lowerBound = lowerBoundStart;
@@ -28,7 +43,7 @@ namespace PeriodicTimetableGeneration
 
                 // run rpopagation algorithm, which create constraintSet, constraintMatrix
                 // and propagate it (make it stable)
-                setMatrix = propagator.runPropagationAlgorithm(constraints, midpoint);
+				result = PropagationUtils.runPropagationAlgorithm(constraints, constraintSetsCreator, midpoint);
 
                 // if the constraint matrix is stable (previously), and valid
                 if (MatrixUtils.isValid(setMatrix))
@@ -42,12 +57,15 @@ namespace PeriodicTimetableGeneration
                     lowerBound = midpoint;
                 }
             }
+
+			// if the current found value is not valid, move to the looser restrictions
             while (!MatrixUtils.isValid(setMatrix))
             {
-                setMatrix = propagator.runPropagationAlgorithm(constraints, ++midpoint);
+				result = PropagationUtils.runPropagationAlgorithm(constraints, constraintSetsCreator, ++midpoint);
             }
 
-            return setMatrix;
+			// return the found result.
+			return result;
         }
 
     }
