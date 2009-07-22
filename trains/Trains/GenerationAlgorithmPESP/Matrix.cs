@@ -18,7 +18,7 @@ namespace PeriodicTimetableGeneration
 		/// <returns>
 		/// 	<c>true</c> if the specified matrix is stable; otherwise, <c>false</c>.
 		/// </returns>
-		public static Boolean isStable(this Set[,] matrix)
+		public static Boolean isStable(Set[,] matrix)
 		{
 			Set zeroSet = new Set(new int[] { 0 }, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
 
@@ -70,7 +70,7 @@ namespace PeriodicTimetableGeneration
 		/// <returns>
 		/// 	<c>true</c> if the specified matrix is valid; otherwise, <c>false</c>.
 		/// </returns>
-		public static Boolean isValid(this Set[,] matrix)
+		public static Boolean isValid(Set[,] matrix)
 		{
 			Boolean valid = true;
 

@@ -33,7 +33,6 @@ namespace PeriodicTimetableGeneration
             // set the boolean loop variable
             Boolean loop = true;
 
-            Set[,] setMatrix = null;
             int midpoint = 0;
 
             // loop while bounds are not crossed and loop
@@ -46,7 +45,7 @@ namespace PeriodicTimetableGeneration
 				result = PropagationUtils.runPropagationAlgorithm(constraints, constraintSetsCreator, midpoint);
 
                 // if the constraint matrix is stable (previously), and valid
-                if (MatrixUtils.isValid(setMatrix))
+                if (MatrixUtils.isValid(result.Matrix))
                 {
                     // change upperbound of interval, right part is thrown away
                     upperBound = midpoint;
@@ -59,7 +58,7 @@ namespace PeriodicTimetableGeneration
             }
 
 			// if the current found value is not valid, move to the looser restrictions
-            while (!MatrixUtils.isValid(setMatrix))
+            while (!MatrixUtils.isValid(result.Matrix))
             {
 				result = PropagationUtils.runPropagationAlgorithm(constraints, constraintSetsCreator, ++midpoint);
             }
