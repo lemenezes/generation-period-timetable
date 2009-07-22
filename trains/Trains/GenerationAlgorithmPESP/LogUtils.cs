@@ -9,6 +9,7 @@ namespace PeriodicTimetableGeneration
 
 	public static class LogUtils
 	{
+
 		public static void printToFile(Set[,] matrix, String fileName)
 		{
 			FileStream fs = new FileStream(fileName, FileMode.Create);
@@ -29,7 +30,6 @@ namespace PeriodicTimetableGeneration
 			sw.Close();
 			fs.Close();
 		}
-
 
 		public static void printToFileConstraints(List<Constraint> constraints, String fileName)
 		{

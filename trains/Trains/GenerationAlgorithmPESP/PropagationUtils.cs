@@ -6,10 +6,11 @@ using PeriodicTimetableGeneration.Interfaces;
 
 namespace PeriodicTimetableGeneration
 {
+
 	public static class PropagationUtils
 	{
 
-		// TODO: move to IPropagator Iface.
+		// TODO: move to the IPropagator Iface.
 		public static PropagationResult runPropagationAlgorithm(List<Constraint> originalConstraints, IConstraintSetsCreator constraintSetsCreator, int size)
 		{
 			// create working copy of constraints
@@ -102,4 +103,5 @@ namespace PeriodicTimetableGeneration
 		}
 
 	}
+
 }

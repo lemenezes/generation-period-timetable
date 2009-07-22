@@ -5,6 +5,7 @@ using System.Collections;
 
 namespace PeriodicTimetableGeneration
 {
+
     /// <summary>
     /// Interface that specifies a Set. Only one instance of an object
     /// will exist in an ISet even if it is added multiple times. An ISet
@@ -12,6 +13,7 @@ namespace PeriodicTimetableGeneration
     /// </summary>
     public interface ISet
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Set"/> class.
         /// Suggested Constructor takes an ICollection<int>.
@@ -41,18 +43,20 @@ namespace PeriodicTimetableGeneration
         /// <param name="objects">The objects.</param>
         void AddRange(ICollection objects);
 
-        /*    /// <summary>
-            /// Adds an item, with key and value, to ISet, especially to the minimization factor hashtable.
-            /// </summary>
-            /// <param name="key">The key.</param>
-            /// <param name="value">The value.</param>
-            void AddFactor(int key, int value); 
+        /*    
+		/// <summary>
+        /// Adds an item, with key and value, to ISet, especially to the minimization factor hashtable.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
+        void AddFactor(int key, int value); 
 
-            /// <summary>
-            /// Adds the specified items to the ISet, especially to the minimization factor hashtable.
-            /// </summary>
-            /// <param name="objects">The objects.</param>
-            void AddFactorRange(IDictionary objects);   */
+        /// <summary>
+        /// Adds the specified items to the ISet, especially to the minimization factor hashtable.
+        /// </summary>
+        /// <param name="objects">The objects.</param>
+        void AddFactorRange(IDictionary objects);   
+		 */
 
         /// <summary>
         /// Remove all items from the ISet.
@@ -961,6 +965,5 @@ namespace PeriodicTimetableGeneration
         #endregion
 
     }
-
 
 }
