@@ -194,7 +194,7 @@ namespace PeriodicTimetableGeneration
                 for (int j = i + 1, cols = s.GetLength(1); j != cols; ++j)
                 {
                     FactorRangeRecord currentRecord = new FactorRangeRecord { Row = i, Col = j };
-                    if (!createFactorRecord(s[i, j], ref currentRecord))
+                    if (!FactorRangeRecord.createFactorRecord(s[i, j], ref currentRecord))
                     {
                         continue;
                     }
