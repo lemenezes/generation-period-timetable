@@ -9,21 +9,45 @@ namespace PeriodicTimetableGeneration.Interfaces
         List<Constraint> createConstraintSet(List<Constraint> constraints, int size);
     }
 
-    public class BisectionSameTransferTimeCreator : IConstraintSetsCreator
-    {
+	namespace ConstraintSetsCreators
+	{
 
-        #region IConstraintSetsCreator Members
+		public class SameTransferTime : IConstraintSetsCreator 
+		{
+			#region IConstraintSetsCreator Members
 
-        public List<Constraint> createConstraintSet(List<Constraint> constraints, int size)
-        {
-            throw new NotImplementedException();
-        }
+			public List<Constraint> createConstraintSet(List<Constraint> constraints, int size)
+			{
+				return GenerationAlgorithmPESPUtil.createConstraintSets(constraints, size);
+			}
 
-        #endregion
-    }
+			#endregion
+		}
 
-  
+		public class AlfaTransferTime : IConstraintSetsCreator
+		{
+			#region IConstraintSetsCreator Members
 
-   
+			public List<Constraint> createConstraintSet(List<Constraint> constraints, int size)
+			{
+				return GenerationAlgorithmPESPUtil.createConstraintSetsWithDifferentPeriod(constraints, size);
+			}
+
+			#endregion
+		}
+
+		public class FullDiscreteSet : IConstraintSetsCreator
+		{
+			#region IConstraintSetsCreator Members
+
+			public List<Constraint> createConstraintSet(List<Constraint> constraints, int size)
+			{
+				return GenerationAlgorithmPESPUtil.createConstraintSets(constraints, size);
+			}
+
+			#endregion
+		}
+
+	}
 
 }
