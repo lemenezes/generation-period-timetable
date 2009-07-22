@@ -105,16 +105,19 @@ namespace PeriodicTimetableGeneration
 		{
 			// Initialize the algorithm.
 			List<Constraint> constraints;
-			this.initializeAlgorithm(out constraints);
+			initializeAlgorithm(out constraints);
 
 			// Run the propagation phase.
 			IConstraintPropagator propagator = new BisectionPropagator(new SameTransferTime());
 			PropagationResult result = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
-
-			propagator = new SimplePropagator(new FullDiscreteSet());
-
 			// Search for the result.
-			this.runSearchAlgorithm(result);
+			runSearchAlgorithm(result);
+
+			// Run the propagation phase.
+			propagator = new SimplePropagator(new FullDiscreteSet());
+			result = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
+			// Search for the result.
+			runSearchAlgorithm(result);
 		}
 
 		public void runSearchAlgorithm(PropagationResult result)
