@@ -16,7 +16,7 @@ namespace PeriodicTimetableGeneration.Interfaces
 		#region Contraint sets creator
 
 		private readonly IConstraintSetsCreator constraintSetsCreator;
-		
+
 		protected IConstraintSetsCreator ConstraintSetsCreator
 		{
 			get
@@ -32,7 +32,7 @@ namespace PeriodicTimetableGeneration.Interfaces
 			this.constraintSetsCreator = constraintSetsCreator;
 		}
 
-		
+
 		#region Default settings for the algorithm
 
 		/// <summary>
@@ -59,11 +59,30 @@ namespace PeriodicTimetableGeneration.Interfaces
 
 	public class SimplePropagator : IConstraintPropagator
 	{
+		#region Contraint sets creator
+
+		private readonly IConstraintSetsCreator constraintSetsCreator;
+
+		protected IConstraintSetsCreator ConstraintSetsCreator
+		{
+			get
+			{
+				return this.constraintSetsCreator;
+			}
+		}
+
+		#endregion
+
+		public SimplePropagator(IConstraintSetsCreator constraintSetsCreator)
+		{
+			this.constraintSetsCreator = constraintSetsCreator;
+		}
+
 		#region IConstraintPropagator Members
 
 		public PropagationResult runPropagationAlgorithm(List<Constraint> constraints, int size)
 		{
-			return PropagationUtils.runPropagationAlgorithm(constraints, new FullDiscreteSet(), size);
+			return PropagationUtils.runPropagationAlgorithm(constraints, this.ConstraintSetsCreator, size);
 		}
 
 		#endregion

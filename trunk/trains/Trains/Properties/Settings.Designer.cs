@@ -22,5 +22,14 @@ namespace PeriodicTimetableGeneration.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("120")]
+        public int Modulo {
+            get {
+                return ((int)(this["Modulo"]));
+            }
+        }
     }
 }
