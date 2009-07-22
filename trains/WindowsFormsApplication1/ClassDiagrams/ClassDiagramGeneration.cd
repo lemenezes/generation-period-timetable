@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PeriodicTimetableGeneration.Timetable">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAEAUIAIgQAARAAAAAACAAAEFBAAAQAhARhAokA=</HashCode>
+      <FileName>GenerationAlgorithm\Timetable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithm">
+    <Position X="4.25" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PeriodicTimetableGeneration.GenerationAlgorithm.SingletonHolder" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GenerationAlgorithm\GenerationAlgorithm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AUAAIQACAIQAAwAAAAIAAAASgAEAAIQAABAgAAIAoAA=</HashCode>
+      <FileName>GenerationAlgorithm\GenerationAlgorithm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.TrainLineVariable">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAIAAgAAIAEAAAAAoAJAAIAAAAgAAAAIAAAgBMAI=</HashCode>
+      <FileName>GenerationAlgorithm\TrainLineVariable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.GroupOfConnections">
+    <Position X="8" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABBAAAAAQAAAAgAAAAAAAAAAAgAgACIAAAAAAAAAA=</HashCode>
+      <FileName>GenerationAlgorithm\GroupOfConnections.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.FinalInput">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PeriodicTimetableGeneration.FinalInput.SingletonHolder" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GenerationAlgorithm\FinalInput.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAABAAAAAAAAAAgQhQAAAAAQAAAA=</HashCode>
+      <FileName>GenerationAlgorithm\FinalInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.Transfer">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAhIAAAISQAAAAEAgAEABIABAAAAAAAAAAAAAAgIA=</HashCode>
+      <FileName>GenerationAlgorithm\Transfer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
