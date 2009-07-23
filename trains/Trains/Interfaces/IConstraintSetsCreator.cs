@@ -18,19 +18,19 @@ namespace PeriodicTimetableGeneration.Interfaces
 
 			public List<Constraint> createConstraintSet(List<Constraint> constraints, int size)
 			{
-				return GenerationAlgorithmPESPUtil.createConstraintSets(constraints, size);
+				return GenerationAlgorithmPESPUtil.createConstraintSets_SameTransferTime(constraints, size);
 			}
 
 			#endregion
 		}
 
-		public class AlfaTransferTime : IConstraintSetsCreator
+		public class AlfaTTransferTime : IConstraintSetsCreator
 		{
 			#region IConstraintSetsCreator Members
 
 			public List<Constraint> createConstraintSet(List<Constraint> constraints, int size)
 			{
-				return GenerationAlgorithmPESPUtil.createConstraintSetsWithDifferentPeriod(constraints, size);
+				return GenerationAlgorithmPESPUtil.createConstraintSets_AlfaTTransferTime(constraints, size);
 			}
 
 			#endregion
@@ -42,7 +42,7 @@ namespace PeriodicTimetableGeneration.Interfaces
 
 			public List<Constraint> createConstraintSet(List<Constraint> constraints, int size)
 			{
-				return GenerationAlgorithmPESPUtil.createConstraintSets(constraints, size);
+				return GenerationAlgorithmPESPUtil.createConstraintSets_FullDiscreteSets(constraints, size);
 			}
 
 			#endregion
