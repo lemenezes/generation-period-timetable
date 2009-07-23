@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections;
 using System.Windows.Forms;
-using System.Collections;
+using System;
+using System.ComponentModel;
 
 namespace PeriodicTimetableGeneration
 {
@@ -13,15 +12,29 @@ namespace PeriodicTimetableGeneration
     /// </summary>
     public class ColHeader : ColumnHeader
     {
+
         public bool ascending;
+
+        [Category("Sorting")]
+        [DefaultValue(SortType.String)]
+        public SortType SortType
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ColHeader"/> class.
         /// </summary>
         public ColHeader()
+            : this(SortType.String)
+        {
+        }
+
+        public ColHeader(SortType sortType)
             : base()
         {
-
+            this.SortType = sortType;
         }
 
         /// <summary>
@@ -40,6 +53,12 @@ namespace PeriodicTimetableGeneration
         }
     }
 
+    public enum SortType
+    {
+        Integer,
+        Date,
+        String
+    }
 
     /// <summary>
     /// An instance of the SortWrapper class is created for
@@ -80,6 +99,8 @@ namespace PeriodicTimetableGeneration
         /// </summary>
         public class SortComparer : IComparer
         {
+            protected SortType sortType;
+
             bool ascending;
 
             /// <summary>
@@ -87,9 +108,10 @@ namespace PeriodicTimetableGeneration
             /// Constructor requires the sort order
             /// </summary>
             /// <param name="asc">True if ascending, otherwise descending.</param>
-            public SortComparer(bool asc)
+            public SortComparer(bool asc, SortType sortType)
             {
                 this.ascending = asc;
+                this.sortType = sortType;
             }
 
             /// <summary>
@@ -105,14 +127,27 @@ namespace PeriodicTimetableGeneration
             {
                 SortWrapper xItem = (SortWrapper)x;
                 SortWrapper yItem = (SortWrapper)y;
+                int res = 0;
 
-                string xText = xItem.sortItem.SubItems[xItem.sortColumn].Text;
-                string yText = yItem.sortItem.SubItems[yItem.sortColumn].Text;
-                return xText.CompareTo(yText) * (this.ascending ? 1 : -1);
+                switch (sortType)
+                {
+                    case SortType.Integer:
+                        res = Convert.ToInt32(xItem.sortItem.SubItems[xItem.sortColumn].Text) - Convert.ToInt32(yItem.sortItem.SubItems[yItem.sortColumn].Text);
+                        break;
+
+                    case SortType.Date:
+                    case SortType.String:
+                        string xText = xItem.sortItem.SubItems[xItem.sortColumn].Text;
+                        string yText = yItem.sortItem.SubItems[yItem.sortColumn].Text;
+                        res = xText.CompareTo(yText);
+                        break;
+                }
+
+                return res * (this.ascending ? 1 : -1);
             }
         }
     }
 
- 
+
 
 }
