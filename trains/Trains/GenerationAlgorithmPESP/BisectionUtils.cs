@@ -45,7 +45,7 @@ namespace PeriodicTimetableGeneration
 				result = PropagationUtils.runPropagationAlgorithm(constraints, constraintSetsCreator, midpoint);
 
                 // if the constraint matrix is stable (previously), and valid
-                if (MatrixUtils.isValid(result.Matrix))
+                if (MatrixUtils.isValid(result.DiscreteSetMatrix))
                 {
                     // change upperbound of interval, right part is thrown away
                     upperBound = midpoint;
@@ -58,7 +58,7 @@ namespace PeriodicTimetableGeneration
             }
 
 			// if the current found value is not valid, move to the looser restrictions
-            while (!MatrixUtils.isValid(result.Matrix))
+            while (!MatrixUtils.isValid(result.DiscreteSetMatrix))
             {
 				result = PropagationUtils.runPropagationAlgorithm(constraints, constraintSetsCreator, ++midpoint);
             }
