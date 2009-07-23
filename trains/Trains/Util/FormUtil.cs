@@ -45,7 +45,7 @@ namespace PeriodicTimetableGeneration.Util
             // the IComparer implementation (SortComparer) requires the sort
             // direction for its constructor; true if ascending, othwise false.
             //SortArray.Sort(0, SortArray.Count, new SortWrapper.SortComparer(clickedCol.ascending));
-            MergeSort.Sort(SortArray, 0, SortArray.Count, new SortWrapper.SortComparer(clickedCol.ascending));
+            MergeSort.Sort(SortArray, 0, SortArray.Count, new SortWrapper.SortComparer(clickedCol.ascending, clickedCol.SortType));
 
             // Clear the list, and repopulate with the sorted items.
             listView.Items.Clear();
