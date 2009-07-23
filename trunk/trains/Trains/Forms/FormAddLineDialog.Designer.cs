@@ -97,6 +97,7 @@
             // 
             // columnHeaderLineNumber
             // 
+            this.columnHeaderLineNumber.SortType = PeriodicTimetableGeneration.SortType.Integer;
             this.columnHeaderLineNumber.Text = "Line Number";
             this.columnHeaderLineNumber.Width = 80;
             // 
@@ -155,12 +156,12 @@
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.GroupBox groupBoxTrainLines;
         private System.Windows.Forms.ListView listViewListOfTrainLines;
-        private System.Windows.Forms.ColumnHeader columnHeaderLineNumber;
-        private System.Windows.Forms.ColumnHeader columnHeaderTypeOfTrain;
-        private System.Windows.Forms.ColumnHeader columnHeaderPeriod;
-        private System.Windows.Forms.ColumnHeader columnHeaderFrom;
-        private System.Windows.Forms.ColumnHeader columnHeaderTo;
         private System.Windows.Forms.ImageList imageListBig;
         private System.Windows.Forms.ImageList imageListSmall;
+        private ColHeader columnHeaderLineNumber;
+        private ColHeader columnHeaderTypeOfTrain;
+        private ColHeader columnHeaderPeriod;
+        private ColHeader columnHeaderFrom;
+        private ColHeader columnHeaderTo;
     }
 }

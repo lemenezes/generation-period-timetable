@@ -104,6 +104,7 @@
             // 
             // columnHeaderLineNumber
             // 
+            this.columnHeaderLineNumber.SortType = PeriodicTimetableGeneration.SortType.Integer;
             this.columnHeaderLineNumber.Text = "Line Number";
             this.columnHeaderLineNumber.Width = 80;
             // 
@@ -115,6 +116,7 @@
             // 
             // columnHeaderDistance
             // 
+            this.columnHeaderDistance.SortType = PeriodicTimetableGeneration.SortType.Integer;
             this.columnHeaderDistance.Text = "Distance";
             this.columnHeaderDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderDistance.Width = 80;
@@ -142,10 +144,10 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListView listViewListOfAvailableStages;
-        private System.Windows.Forms.ColumnHeader columnHeaderFrom;
-        private System.Windows.Forms.ColumnHeader columnHeaderTo;
-        private System.Windows.Forms.ColumnHeader columnHeaderLineNumber;
-        private System.Windows.Forms.ColumnHeader columnHeaderTime;
-        private System.Windows.Forms.ColumnHeader columnHeaderDistance;
+        private ColHeader columnHeaderFrom;
+        private ColHeader columnHeaderTo;
+        private ColHeader columnHeaderLineNumber;
+        private ColHeader columnHeaderTime;
+        private ColHeader columnHeaderDistance;
     }
 }
