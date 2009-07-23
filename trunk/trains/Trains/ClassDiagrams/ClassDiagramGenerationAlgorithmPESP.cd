@@ -50,28 +50,35 @@
       </Struct>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AEAAAAAQAAAAAAAAAAAAAAgAAAcAAAAEACAgAAAAgAA=</HashCode>
+      <HashCode>AAAAAAAQAAAAAAAIAAAAAAgAEAUAAAAEACAgAAAAgAA=</HashCode>
       <FileName>GenerationAlgorithmPESP\GenerationAlgorithmPESP.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmPESPUtil">
     <Position X="8.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>EAIKgAQQBAAAAQFAAEAAAAAAAEADAAAEgBAACAAIgQg=</HashCode>
+      <HashCode>EAIagAQQBAAQAQFCEEAAAAgAAAIAAAAEgBAACAAAgQg=</HashCode>
       <FileName>GenerationAlgorithmPESP\GenerationAlgorithmPESPUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.BestSearchUtil">
+    <Position X="2.75" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAABAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BestSearchUtil.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="PeriodicTimetableGeneration.FactorRangeRecord">
     <Position X="6.25" Y="8" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAABEAAAAAAAAAAAAAAAAAAEAAgAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAEAAAABAAAAAAAAAAAAAEAAgAAgAAAAABAAAA=</HashCode>
       <FileName>GenerationAlgorithmPESP\FactorRangeRecord.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="PeriodicTimetableGeneration.Interfaces.IBestChoiceSearcher">
     <Position X="11.5" Y="0.5" Width="4.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IBestChoiceSearcher.cs</FileName>
     </TypeIdentifier>
   </Interface>
