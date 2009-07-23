@@ -27,15 +27,20 @@ namespace PeriodicTimetableGeneration.Interfaces
 
 		#endregion
 
-		public BisectionPropagator(IConstraintSetsCreator constraintSetsCreator)
+
+        #region Constructor
+
+        public BisectionPropagator(IConstraintSetsCreator constraintSetsCreator)
 		{
 			this.constraintSetsCreator = constraintSetsCreator;
-		}
+        }
+
+        #endregion
 
 
-		#region Default settings for the algorithm
+        #region Default settings for the algorithm
 
-		/// <summary>
+        /// <summary>
 		/// Default value for lower bound used in Bisection Algorithm.
 		/// </summary>
 		private const int LOWER_BOUND_DEFAULT = 0;
