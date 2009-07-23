@@ -334,6 +334,27 @@ namespace PeriodicTimetableGeneration
         public void Remove(int anObject)
         {
             this.mySet.Remove(anObject);
+            this.minimizationFactor.Remove(anObject);
+        }
+
+        public void RemoveReverse(int minute)
+        {
+            this.Remove(reverseNumberModulo(minute, modulo));
+        }
+
+        public KeyValuePair<int, int> Min()
+        {
+            KeyValuePair<int, int> currentMin = new KeyValuePair<int,int>(-1, int.MaxValue);
+
+            foreach (KeyValuePair<int, int> factorPair in this.minimizationFactor)
+            {
+                if (currentMin.Value > factorPair.Value)
+                {
+                    currentMin = factorPair;
+                }
+            }
+
+            return currentMin;
         }
 
         #endregion
@@ -964,6 +985,8 @@ namespace PeriodicTimetableGeneration
 
         #endregion
 
+
+       
     }
 
 }
