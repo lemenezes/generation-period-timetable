@@ -20,14 +20,14 @@ namespace PeriodicTimetableGeneration.Interfaces
 		public PropagationResult(Set[,] matrix, List<TrainLine> trainLinesMap)
 			: this()
 		{
-			this.Matrix = matrix;
+			this.DiscreteSetMatrix = matrix;
 			this.TrainLinesMap = trainLinesMap;
 		}
 
 		/// <summary>
 		/// Constraint set matrix.
 		/// </summary>
-		public Set[,] Matrix
+		public Set[,] DiscreteSetMatrix
 		{
 			get;
 			set;
