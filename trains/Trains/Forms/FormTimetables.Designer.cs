@@ -180,17 +180,20 @@
             // 
             // columnHeaderAttempt
             // 
+            this.columnHeaderAttempt.SortType = PeriodicTimetableGeneration.SortType.Integer;
             this.columnHeaderAttempt.Text = "Attempt";
             this.columnHeaderAttempt.Width = 100;
             // 
             // columnHeaderProgressiveChanges
             // 
+            this.columnHeaderProgressiveChanges.SortType = PeriodicTimetableGeneration.SortType.Integer;
             this.columnHeaderProgressiveChanges.Text = "Progressive Changes";
             this.columnHeaderProgressiveChanges.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderProgressiveChanges.Width = 150;
             // 
             // columnHeaderRatingValue
             // 
+            this.columnHeaderRatingValue.SortType = PeriodicTimetableGeneration.SortType.Integer;
             this.columnHeaderRatingValue.Text = "Rating Value";
             this.columnHeaderRatingValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderRatingValue.Width = 100;
@@ -659,6 +662,7 @@
             // 
             // columnHeaderLineNumber
             // 
+            this.columnHeaderLineNumber.SortType = PeriodicTimetableGeneration.SortType.Integer;
             this.columnHeaderLineNumber.Text = "Line Number";
             this.columnHeaderLineNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderLineNumber.Width = 100;

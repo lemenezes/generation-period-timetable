@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControlTG = new System.Windows.Forms.TabControl();
             this.tabPageLoadFiles = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listViewLoadFiles = new System.Windows.Forms.ListView();
@@ -44,20 +44,11 @@
             this.tabPageListOfLines = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.listViewListOfLines = new System.Windows.Forms.ListView();
-            this.columnHeaderNumber = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderType = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderPeriod = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderStart = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderDestination = new PeriodicTimetableGeneration.ColHeader();
             this.buttonListOfLinesNext = new System.Windows.Forms.Button();
             this.buttonDetailsLine = new System.Windows.Forms.Button();
             this.tabPageListOfStation = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.listViewListOfStations = new System.Windows.Forms.ListView();
-            this.columnHeaderIdStation = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderNameStation = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderTownCategory = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderInhabitation = new PeriodicTimetableGeneration.ColHeader();
             this.ColumnHeaderTown = new System.Windows.Forms.ColumnHeader();
             this.buttonUpdateCategories = new System.Windows.Forms.Button();
             this.groupBoxSelectLine = new System.Windows.Forms.GroupBox();
@@ -67,6 +58,25 @@
             this.tabPageListOfConncetions = new System.Windows.Forms.TabPage();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.listViewListOfConnections = new System.Windows.Forms.ListView();
+            this.buttonListOfConncetionsNext = new System.Windows.Forms.Button();
+            this.buttonEditPath = new System.Windows.Forms.Button();
+            this.buttonDetailsConnection = new System.Windows.Forms.Button();
+            this.tabPageFinalInput = new System.Windows.Forms.TabPage();
+            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.listViewFinalInput = new System.Windows.Forms.ListView();
+            this.buttonGenerationPESP = new System.Windows.Forms.Button();
+            this.buttonGenerateTimetables = new System.Windows.Forms.Button();
+            this.openFileDialogTrainLines = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogUpdateTownCategories = new System.Windows.Forms.OpenFileDialog();
+            this.columnHeaderNumber = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderType = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderPeriod = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderStart = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderDestination = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderIdStation = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderNameStation = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderTownCategory = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderInhabitation = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderFrom = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderTo = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderTime = new PeriodicTimetableGeneration.ColHeader();
@@ -74,20 +84,10 @@
             this.columnHeaderPassangers = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderPath = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderChangingStations = new PeriodicTimetableGeneration.ColHeader();
-            this.buttonListOfConncetionsNext = new System.Windows.Forms.Button();
-            this.buttonEditPath = new System.Windows.Forms.Button();
-            this.buttonDetailsConnection = new System.Windows.Forms.Button();
-            this.tabPageFinalInput = new System.Windows.Forms.TabPage();
-            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
-            this.listViewFinalInput = new System.Windows.Forms.ListView();
             this.columnHeaderFIlistOfLines = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderFIchangingStations = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderFIpassengers = new PeriodicTimetableGeneration.ColHeader();
-            this.buttonGenerateTimetables = new System.Windows.Forms.Button();
-            this.openFileDialogTrainLines = new System.Windows.Forms.OpenFileDialog();
-            this.openFileDialogUpdateTownCategories = new System.Windows.Forms.OpenFileDialog();
-            this.buttonGenerationPESP = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
+            this.tabControlTG.SuspendLayout();
             this.tabPageLoadFiles.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -111,18 +111,18 @@
             this.splitContainer5.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabControlTG
             // 
-            this.tabControl1.Controls.Add(this.tabPageLoadFiles);
-            this.tabControl1.Controls.Add(this.tabPageListOfLines);
-            this.tabControl1.Controls.Add(this.tabPageListOfStation);
-            this.tabControl1.Controls.Add(this.tabPageListOfConncetions);
-            this.tabControl1.Controls.Add(this.tabPageFinalInput);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(984, 564);
-            this.tabControl1.TabIndex = 0;
+            this.tabControlTG.Controls.Add(this.tabPageLoadFiles);
+            this.tabControlTG.Controls.Add(this.tabPageListOfLines);
+            this.tabControlTG.Controls.Add(this.tabPageListOfStation);
+            this.tabControlTG.Controls.Add(this.tabPageListOfConncetions);
+            this.tabControlTG.Controls.Add(this.tabPageFinalInput);
+            this.tabControlTG.Location = new System.Drawing.Point(0, 0);
+            this.tabControlTG.Name = "tabControlTG";
+            this.tabControlTG.SelectedIndex = 0;
+            this.tabControlTG.Size = new System.Drawing.Size(984, 564);
+            this.tabControlTG.TabIndex = 0;
             // 
             // tabPageLoadFiles
             // 
@@ -283,31 +283,6 @@
             this.listViewListOfLines.ItemActivate += new System.EventHandler(this.listViewListOfLines_ItemActivate);
             this.listViewListOfLines.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewListOfLines_ColumnClick);
             // 
-            // columnHeaderNumber
-            // 
-            this.columnHeaderNumber.Text = "Line Number";
-            this.columnHeaderNumber.Width = 80;
-            // 
-            // columnHeaderType
-            // 
-            this.columnHeaderType.Text = "Type of Train";
-            this.columnHeaderType.Width = 80;
-            // 
-            // columnHeaderPeriod
-            // 
-            this.columnHeaderPeriod.Text = "Period";
-            this.columnHeaderPeriod.Width = 80;
-            // 
-            // columnHeaderStart
-            // 
-            this.columnHeaderStart.Text = "From";
-            this.columnHeaderStart.Width = 200;
-            // 
-            // columnHeaderDestination
-            // 
-            this.columnHeaderDestination.Text = "To";
-            this.columnHeaderDestination.Width = 200;
-            // 
             // buttonListOfLinesNext
             // 
             this.buttonListOfLinesNext.Location = new System.Drawing.Point(11, 497);
@@ -382,29 +357,6 @@
             this.listViewListOfStations.View = System.Windows.Forms.View.Details;
             this.listViewListOfStations.ItemActivate += new System.EventHandler(this.listViewListOfStations_ItemActivate);
             this.listViewListOfStations.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewListOfStations_ColumnClick);
-            // 
-            // columnHeaderIdStation
-            // 
-            this.columnHeaderIdStation.Text = "Id";
-            this.columnHeaderIdStation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderIdStation.Width = 80;
-            // 
-            // columnHeaderNameStation
-            // 
-            this.columnHeaderNameStation.Text = "Name of Station";
-            this.columnHeaderNameStation.Width = 220;
-            // 
-            // columnHeaderTownCategory
-            // 
-            this.columnHeaderTownCategory.Text = "Category";
-            this.columnHeaderTownCategory.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeaderTownCategory.Width = 80;
-            // 
-            // columnHeaderInhabitation
-            // 
-            this.columnHeaderInhabitation.Text = "Inhabitation";
-            this.columnHeaderInhabitation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderInhabitation.Width = 150;
             // 
             // ColumnHeaderTown
             // 
@@ -515,44 +467,6 @@
             this.listViewListOfConnections.ItemActivate += new System.EventHandler(this.listViewListOfConnections_ItemActivate);
             this.listViewListOfConnections.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewListOfConnections_ColumnClick);
             // 
-            // columnHeaderFrom
-            // 
-            this.columnHeaderFrom.Text = "From";
-            this.columnHeaderFrom.Width = 150;
-            // 
-            // columnHeaderTo
-            // 
-            this.columnHeaderTo.Text = "To";
-            this.columnHeaderTo.Width = 150;
-            // 
-            // columnHeaderTime
-            // 
-            this.columnHeaderTime.Text = "Time";
-            this.columnHeaderTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderTime.Width = 80;
-            // 
-            // columnHeaderDistance
-            // 
-            this.columnHeaderDistance.Text = "Distance";
-            this.columnHeaderDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderDistance.Width = 80;
-            // 
-            // columnHeaderPassangers
-            // 
-            this.columnHeaderPassangers.Text = "Passangers";
-            this.columnHeaderPassangers.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderPassangers.Width = 80;
-            // 
-            // columnHeaderPath
-            // 
-            this.columnHeaderPath.Text = "Path";
-            this.columnHeaderPath.Width = 150;
-            // 
-            // columnHeaderChangingStations
-            // 
-            this.columnHeaderChangingStations.Text = "Changing Stations";
-            this.columnHeaderChangingStations.Width = 150;
-            // 
             // buttonListOfConncetionsNext
             // 
             this.buttonListOfConncetionsNext.Location = new System.Drawing.Point(11, 497);
@@ -633,21 +547,15 @@
             this.listViewFinalInput.View = System.Windows.Forms.View.Details;
             this.listViewFinalInput.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewFinalInput_ColumnClick);
             // 
-            // columnHeaderFIlistOfLines
+            // buttonGenerationPESP
             // 
-            this.columnHeaderFIlistOfLines.Text = "Path (List of Lines)";
-            this.columnHeaderFIlistOfLines.Width = 300;
-            // 
-            // columnHeaderFIchangingStations
-            // 
-            this.columnHeaderFIchangingStations.Text = "Changing Stations";
-            this.columnHeaderFIchangingStations.Width = 400;
-            // 
-            // columnHeaderFIpassengers
-            // 
-            this.columnHeaderFIpassengers.Text = "Passengers";
-            this.columnHeaderFIpassengers.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderFIpassengers.Width = 100;
+            this.buttonGenerationPESP.Location = new System.Drawing.Point(11, 416);
+            this.buttonGenerationPESP.Name = "buttonGenerationPESP";
+            this.buttonGenerationPESP.Size = new System.Drawing.Size(100, 49);
+            this.buttonGenerationPESP.TabIndex = 6;
+            this.buttonGenerationPESP.Text = "Generate PESP";
+            this.buttonGenerationPESP.UseVisualStyleBackColor = true;
+            this.buttonGenerationPESP.Click += new System.EventHandler(this.buttonGenerationPESP_Click);
             // 
             // buttonGenerateTimetables
             // 
@@ -671,26 +579,124 @@
             this.openFileDialogUpdateTownCategories.FileName = "openFileDialogUpdateTownCategories";
             this.openFileDialogUpdateTownCategories.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogUpdateTownCategories_FileOk);
             // 
-            // buttonGenerationPESP
+            // columnHeaderNumber
             // 
-            this.buttonGenerationPESP.Location = new System.Drawing.Point(11, 416);
-            this.buttonGenerationPESP.Name = "buttonGenerationPESP";
-            this.buttonGenerationPESP.Size = new System.Drawing.Size(100, 49);
-            this.buttonGenerationPESP.TabIndex = 6;
-            this.buttonGenerationPESP.Text = "Generate PESP";
-            this.buttonGenerationPESP.UseVisualStyleBackColor = true;
-            this.buttonGenerationPESP.Click += new System.EventHandler(this.buttonGenerationPESP_Click);
+            this.columnHeaderNumber.SortType = PeriodicTimetableGeneration.SortType.Integer;
+            this.columnHeaderNumber.Text = "Line Number";
+            this.columnHeaderNumber.Width = 80;
+            // 
+            // columnHeaderType
+            // 
+            this.columnHeaderType.Text = "Type of Train";
+            this.columnHeaderType.Width = 80;
+            // 
+            // columnHeaderPeriod
+            // 
+            this.columnHeaderPeriod.Text = "Period";
+            this.columnHeaderPeriod.Width = 80;
+            // 
+            // columnHeaderStart
+            // 
+            this.columnHeaderStart.Text = "From";
+            this.columnHeaderStart.Width = 200;
+            // 
+            // columnHeaderDestination
+            // 
+            this.columnHeaderDestination.Text = "To";
+            this.columnHeaderDestination.Width = 200;
+            // 
+            // columnHeaderIdStation
+            // 
+            this.columnHeaderIdStation.SortType = PeriodicTimetableGeneration.SortType.Integer;
+            this.columnHeaderIdStation.Text = "Id";
+            this.columnHeaderIdStation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderIdStation.Width = 80;
+            // 
+            // columnHeaderNameStation
+            // 
+            this.columnHeaderNameStation.Text = "Name of Station";
+            this.columnHeaderNameStation.Width = 220;
+            // 
+            // columnHeaderTownCategory
+            // 
+            this.columnHeaderTownCategory.Text = "Category";
+            this.columnHeaderTownCategory.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeaderTownCategory.Width = 80;
+            // 
+            // columnHeaderInhabitation
+            // 
+            this.columnHeaderInhabitation.SortType = PeriodicTimetableGeneration.SortType.Integer;
+            this.columnHeaderInhabitation.Text = "Inhabitation";
+            this.columnHeaderInhabitation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderInhabitation.Width = 150;
+            // 
+            // columnHeaderFrom
+            // 
+            this.columnHeaderFrom.Text = "From";
+            this.columnHeaderFrom.Width = 150;
+            // 
+            // columnHeaderTo
+            // 
+            this.columnHeaderTo.Text = "To";
+            this.columnHeaderTo.Width = 150;
+            // 
+            // columnHeaderTime
+            // 
+            this.columnHeaderTime.Text = "Time";
+            this.columnHeaderTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTime.Width = 80;
+            // 
+            // columnHeaderDistance
+            // 
+            this.columnHeaderDistance.SortType = PeriodicTimetableGeneration.SortType.Integer;
+            this.columnHeaderDistance.Text = "Distance";
+            this.columnHeaderDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderDistance.Width = 80;
+            // 
+            // columnHeaderPassangers
+            // 
+            this.columnHeaderPassangers.SortType = PeriodicTimetableGeneration.SortType.Integer;
+            this.columnHeaderPassangers.Text = "Passangers";
+            this.columnHeaderPassangers.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderPassangers.Width = 80;
+            // 
+            // columnHeaderPath
+            // 
+            this.columnHeaderPath.Text = "Path";
+            this.columnHeaderPath.Width = 150;
+            // 
+            // columnHeaderChangingStations
+            // 
+            this.columnHeaderChangingStations.Text = "Changing Stations";
+            this.columnHeaderChangingStations.Width = 150;
+            // 
+            // columnHeaderFIlistOfLines
+            // 
+            this.columnHeaderFIlistOfLines.Text = "Path (List of Lines)";
+            this.columnHeaderFIlistOfLines.Width = 300;
+            // 
+            // columnHeaderFIchangingStations
+            // 
+            this.columnHeaderFIchangingStations.Text = "Changing Stations";
+            this.columnHeaderFIchangingStations.Width = 400;
+            // 
+            // columnHeaderFIpassengers
+            // 
+            this.columnHeaderFIpassengers.SortType = PeriodicTimetableGeneration.SortType.Integer;
+            this.columnHeaderFIpassengers.Text = "Passengers";
+            this.columnHeaderFIpassengers.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderFIpassengers.Width = 100;
             // 
             // FormRPproject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 564);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControlTG);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormRPproject";
             this.Text = "Generating Timetables :: Preparation of Input";
-            this.tabControl1.ResumeLayout(false);
+            this.tabControlTG.ResumeLayout(false);
             this.tabPageLoadFiles.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -718,7 +724,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControlTG;
         private System.Windows.Forms.TabPage tabPageLoadFiles;
         private System.Windows.Forms.TabPage tabPageListOfLines;
         private System.Windows.Forms.TabPage tabPageListOfStation;

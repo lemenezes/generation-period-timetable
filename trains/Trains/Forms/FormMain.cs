@@ -131,7 +131,7 @@ namespace PeriodicTimetableGeneration
         private void buttonListOfLinesNext_Click(object sender, EventArgs e)
         {
             prepareListViewListOfStations();
-            tabControl1.SelectTab(tabPageListOfStation);
+            tabControlTG.SelectTab(tabPageListOfStation);
             prepareComboBoxListOfLines(listViewListOfLines);
         }
 
@@ -205,7 +205,7 @@ namespace PeriodicTimetableGeneration
         {
             createTrainLinesFromFiles();
             prepareListViewListOfLines();
-            tabControl1.SelectTab(tabPageListOfLines);
+            tabControlTG.SelectTab(tabPageListOfLines);
         }
 
         private void prepareListViewListOfStations() 
@@ -427,7 +427,7 @@ namespace PeriodicTimetableGeneration
             // prepare list view
             prepareListViewListOfConnections();
             // open particular tab
-            tabControl1.SelectTab(tabPageListOfConncetions);
+            tabControlTG.SelectTab(tabPageListOfConncetions);
         }
 
         private void prepareListViewListOfConnections()
@@ -557,7 +557,7 @@ namespace PeriodicTimetableGeneration
         private void buttonListOfConncetionsNext_Click(object sender, EventArgs e)
         {
             prepareListViewFinalInput();
-            tabControl1.SelectTab(tabPageFinalInput);
+            tabControlTG.SelectTab(tabPageFinalInput);
         }
 
         //--------------------------------------------
