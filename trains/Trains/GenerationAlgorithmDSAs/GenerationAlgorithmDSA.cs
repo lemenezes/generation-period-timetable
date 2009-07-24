@@ -25,13 +25,16 @@ namespace PeriodicTimetableGeneration
         /// <summary>
         /// List of constructed algorithm.
         /// </summary>
-        private List<Timetable> timetable;
+        private List<Timetable> timetables;
 
 
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GenerationAlgorithmDSA"/> class.
+        /// </summary>
         public GenerationAlgorithmDSA()
         {
             setDefaultValues();
@@ -43,24 +46,51 @@ namespace PeriodicTimetableGeneration
 
         #region Public Methods
 
-        public void generateTimetable()
+        /// <summary>
+        /// Generates the timetables.
+        /// </summary>
+        public void generateTimetables()
         {
             // Initialize the algorithm.
             List<Constraint> constraints;
             runInitializeAlgorithm(out constraints);
+        
+        
+            List<Timetable> newTimetables = new List<Timetable>();
 
-            // Propagator variable.
-            IConstraintPropagator propagator;
-            // propagator result is a structure with SetMatrix and TrainLineMap
-            PropagationResult propagationResult;
+            newTimetables.AddRange(
+                runSpecializedGenerationAlgorithm(constraints,
+                    new BisectionPropagator( new SameTransferTime()),
+                    new DeterministicSearcher()));
+            
+            newTimetables.AddRange(
+                runSpecializedGenerationAlgorithm(constraints,
+                    new BisectionPropagator( new AlfaTTransferTime()),
+                    new DeterministicSearcher()));
 
+            newTimetables.AddRange(
+                runSpecializedGenerationAlgorithm(constraints,
+                    new SimplePropagator( new FullDiscreteSet()),
+                    new DeterministicSearcher()));
+
+            newTimetables.AddRange(
+                runSpecializedGenerationAlgorithm(constraints,
+                    new SimplePropagator( new FullDiscreteSet()),
+                    new ProbableSearcher()));
+
+
+            this.timetables = newTimetables;
+           
+            /*
+             
             //-----Run-Algorithm-Case-1:-Bisection-with-Same-Transfer-Time-&-Deterministic-Searcher------------------------------
             // Run the propagation phase.
             propagator = new BisectionPropagator(new SameTransferTime());
             propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmDSAUtil.MODULO_DEFAULT);
             // Search for the result with deterministic searcher.
             runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
-/*
+
+
             //-----Run-Algorithm-Case-2:-Bisection-with-AlfaT-Transfer-Time-&-Deterministic-Searcher------------------------------
             // Run the propagation phase.
             propagator = new BisectionPropagator(new AlfaTTransferTime());
@@ -84,6 +114,38 @@ namespace PeriodicTimetableGeneration
 
             */
 
+            
+        }
+
+
+        /// <summary>
+        /// Runs the specialized generation algorithm.
+        /// Propagetes constraints, searches for solutions and constructs timetables.
+        /// </summary>
+        /// <param name="constraints">The constraints.</param>
+        /// <param name="constraintPropagator">The constraint propagator.</param>
+        /// <param name="bestChoiceSearcher">The best choice searcher.</param>
+        /// <returns>The timetables.</returns>
+        public List<Timetable> runSpecializedGenerationAlgorithm(List<Constraint> constraints, IConstraintPropagator constraintPropagator, IBestChoiceSearcher bestChoiceSearcher) 
+        {          
+            // Propagate constraints with specific constraintPropagator
+            PropagationResult propagationResult = constraintPropagator.runPropagationAlgorithm(constraints, GenerationAlgorithmDSAUtil.MODULO_DEFAULT);
+            // Search for the solution with specific bestChoiceSearcher
+            List<Solution> solutions = runSearchAlgorithm(bestChoiceSearcher, propagationResult);
+            // Construct timetables from solutions generated above.
+            return runConstructionTimetableAlgorithm(solutions, propagationResult.TrainLinesMap);
+        }
+
+        /// <summary>
+        /// Runs the construction timetable algorithm.
+        /// Constructs timetables from solution.
+        /// </summary>
+        /// <param name="solutions">The solutions.</param>
+        /// <param name="trainLineMap">The train line map.</param>
+        /// <returns>The timetables.</returns>
+        public List<Timetable> runConstructionTimetableAlgorithm(List<Solution> solutions, List<TrainLine> trainLineMap)
+        {
+            return GenerationAlgorithmDSAUtil.constructTimetables(solutions, trainLineMap);
         }
 
         #endregion
@@ -92,12 +154,22 @@ namespace PeriodicTimetableGeneration
 
         #region Search Algorithm Methods
 
-        public void runSearchAlgorithm(IBestChoiceSearcher bestChoiceSearcher, PropagationResult result)
+        /// <summary>
+        /// Runs the search algorithm.
+        /// Call method Search, which search for solutions.
+        /// </summary>
+        /// <param name="bestChoiceSearcher">The best choice searcher.</param>
+        /// <param name="propagationResult">The propagation result.</param>
+        /// <returns>The solutions.</returns>
+        public List<Solution> runSearchAlgorithm(IBestChoiceSearcher bestChoiceSearcher, PropagationResult propagationResult)
         {
             List<Solution> solutions = new List<Solution>();
-            search(bestChoiceSearcher, result, solutions);
+            search(bestChoiceSearcher, propagationResult, solutions);
+
+            return solutions;
         }
 
+        // old search method
         /*
 		private void search2(IBestChoiceSearcher bestChoiceSearcher, PropagationResult result, List<Solution> solutions)
 		{
@@ -158,6 +230,13 @@ namespace PeriodicTimetableGeneration
 		}
         */
 
+        /// <summary>
+        /// Searches for solution.
+        /// It is called recursively, backtracking all possiblities with respect to specific choice searcher.
+        /// </summary>
+        /// <param name="bestChoiceSearcher">The best choice searcher.</param>
+        /// <param name="propagationResult">The propagation result.</param>
+        /// <param name="solutions">The solutions.</param>
         private void search(IBestChoiceSearcher bestChoiceSearcher, PropagationResult propagationResult, List<Solution> solutions)
         {
             // retreive discrete set matrix after propagation from propagation result
@@ -219,21 +298,13 @@ namespace PeriodicTimetableGeneration
             }
         }
 
-        private FactorRangeRecord rulette(List<FactorRangeRecord> records)
-        {
-            // TODO: Make a real rulette.
-            return records[0];
-        }
-
-
-
         #endregion
 
 
         #region Initialize Algorithm Methods
 
         /// <summary>
-        /// Runs the initialize algorithm which according the transfer constructs appropriate constraints.
+        /// Runs the initialize algorithm, which according the transfer constructs appropriate constraints.
         /// </summary>
         /// <param name="constraints">The constraints.</param>
         public void runInitializeAlgorithm(out List<Constraint> constraints)
@@ -255,23 +326,24 @@ namespace PeriodicTimetableGeneration
         /// </summary>
         private void setDefaultValues()
         {
-            this.timetable = new List<Timetable>();
+            this.timetables = new List<Timetable>();
         }
 
         #endregion
 
-        public List<Timetable> runConstructionAlgorithm()
-        {
-            throw new System.NotImplementedException();
-        }
+ 
 
         #region Properties
 
-        public Timetable Timetable
+        /// <summary>
+        /// Gets or sets the timetable.
+        /// </summary>
+        /// <value>The timetable.</value>
+        public List<Timetable> Timetables
         {
             get
             {
-                throw new System.NotImplementedException();
+                return timetables;
             }
             set
             {
