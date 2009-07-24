@@ -11,17 +11,34 @@ namespace PeriodicTimetableGeneration
         private List<TrainLine> trainLines;
         private List<TrainStation> trainStations;
 
+        #region Constructor
+
         public GenerationAlgorithm()
         {
             setDefaultValues();
         }
 
-        private void setDefaultValues()
+        #endregion
+
+
+        #region Nested Class - Singleton Holder
+
+        private static class SingletonHolder
         {
-            timetables = new List<Timetable>();
-            trainLines = TrainLineCache.getInstance().getCacheContent();
-            trainStations = TrainStationCache.getInstance().getCacheContent();
+            static SingletonHolder() { }
+
+            internal static readonly GenerationAlgorithm INSTANCE = new GenerationAlgorithm();
         }
+
+        public static GenerationAlgorithm getInstance()
+        {
+            return SingletonHolder.INSTANCE;
+        }
+
+        #endregion
+
+
+        #region Properties
 
         public List<TrainStation> TrainStations
         {
@@ -59,17 +76,11 @@ namespace PeriodicTimetableGeneration
             }
         }
 
-        private static class SingletonHolder 
-        {
-            static SingletonHolder() { }
 
-            internal static readonly GenerationAlgorithm INSTANCE = new GenerationAlgorithm();
-        }
+        #endregion
 
-        public static GenerationAlgorithm getInstance()
-        {
-            return SingletonHolder.INSTANCE;
-        }
+
+        #region Public Methods
 
         public Timetable createTimetable()
         {
@@ -473,6 +484,22 @@ namespace PeriodicTimetableGeneration
 
             return exist;
         }
+
+        #endregion
+
+
+
+        #region Private Methods
+
+        private void setDefaultValues()
+        {
+            timetables = new List<Timetable>();
+            trainLines = TrainLineCache.getInstance().getCacheContent();
+            trainStations = TrainStationCache.getInstance().getCacheContent();
+        }
+
+        #endregion
+
 
     }
 }
