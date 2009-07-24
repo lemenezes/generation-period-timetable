@@ -9,6 +9,8 @@ using PeriodicTimetableGeneration.Solutions;
 using PeriodicTimetableGeneration.Interfaces.ConstraintPropagators;
 using PeriodicTimetableGeneration.Interfaces.BestChoiceSearchers;
 using PeriodicTimetableGeneration.GenerationAlgorithmDSAs;
+using System.ComponentModel;
+using PeriodicTimetableGeneration.GenerationAlgorithm;
 
 namespace PeriodicTimetableGeneration
 {
@@ -17,7 +19,7 @@ namespace PeriodicTimetableGeneration
     /// Class represents sophisticated Generation Algorithm of Periodic Timetables.
     /// Implements appropriate methods for it.
     /// </summary>
-    public class GenerationAlgorithmDSA
+    public class GenerationAlgorithmDSA : IGenerationAlgorithm
     {
 
         #region Private Fields
@@ -43,80 +45,117 @@ namespace PeriodicTimetableGeneration
         #endregion
 
 
-
-        #region Public Methods
+        #region IGenerationAlgorithm Members
 
         /// <summary>
         /// Generates the timetables.
         /// </summary>
-        public void generateTimetables()
+        public void generateTimetables(int numberOftimetables)
         {
             // Initialize the algorithm.
             List<Constraint> constraints;
             runInitializeAlgorithm(out constraints);
-        
-        
+
+
             List<Timetable> newTimetables = new List<Timetable>();
 
-            newTimetables.AddRange(
-                runSpecializedGenerationAlgorithm(constraints,
-                    new BisectionPropagator( new SameTransferTime()),
-                    new DeterministicSearcher()));
-            
-            newTimetables.AddRange(
-                runSpecializedGenerationAlgorithm(constraints,
-                    new BisectionPropagator( new AlfaTTransferTime()),
-                    new DeterministicSearcher()));
 
-            newTimetables.AddRange(
-                runSpecializedGenerationAlgorithm(constraints,
-                    new SimplePropagator( new FullDiscreteSet()),
-                    new DeterministicSearcher()));
+            runSpecializedGenerationAlgorithm(constraints,
+                new BisectionPropagator(new SameTransferTime()),
+                new DeterministicSearcher(), newTimetables);
 
-            newTimetables.AddRange(
-                runSpecializedGenerationAlgorithm(constraints,
-                    new SimplePropagator( new FullDiscreteSet()),
-                    new ProbableSearcher()));
+
+            runSpecializedGenerationAlgorithm(constraints,
+                new BisectionPropagator(new AlfaTTransferTime()),
+                new DeterministicSearcher(), newTimetables);
+
+
+            runSpecializedGenerationAlgorithm(constraints,
+                new SimplePropagator(new FullDiscreteSet()),
+                new DeterministicSearcher(), newTimetables);
+
+
+            runSpecializedGenerationAlgorithm(constraints,
+                new SimplePropagator(new FullDiscreteSet()),
+                new ProbableSearcher(), newTimetables);
 
 
             this.timetables = newTimetables;
-           
-            /*
-             
-            //-----Run-Algorithm-Case-1:-Bisection-with-Same-Transfer-Time-&-Deterministic-Searcher------------------------------
-            // Run the propagation phase.
-            propagator = new BisectionPropagator(new SameTransferTime());
-            propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmDSAUtil.MODULO_DEFAULT);
-            // Search for the result with deterministic searcher.
-            runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
 
 
-            //-----Run-Algorithm-Case-2:-Bisection-with-AlfaT-Transfer-Time-&-Deterministic-Searcher------------------------------
-            // Run the propagation phase.
-            propagator = new BisectionPropagator(new AlfaTTransferTime());
-            propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
-            // Search for the result with deterministic searcher.
-            runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
 
-            //-----Run-Algorithm-Case-3:-Simple-with-Full-Discrete-Set-&-Deterministic-Searcher------------------------------
-            // Run the propagation phase.
-            propagator = new SimplePropagator(new FullDiscreteSet());
-            propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
-            // Search for the result with deterministic searcher.
-            runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
+            ////-----Run-Algorithm-Case-1:-Bisection-with-Same-Transfer-Time-&-Deterministic-Searcher------------------------------
+            //// Run the propagation phase.
+            //propagator = new BisectionPropagator(new SameTransferTime());
+            //propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmDSAUtil.MODULO_DEFAULT);
+            //// Search for the result with deterministic searcher.
+            //runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
 
-            //-----Run-Algorithm-Case-4:-Simple-with-Full-Discrete-Set-&-Probable-Searcher------------------------------
-            // Run the propagation phase.
-            propagator = new SimplePropagator(new FullDiscreteSet());
-            propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
-            // Search for the result with deterministic searcher.
-            runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
+            ////-----Run-Algorithm-Case-2:-Bisection-with-AlfaT-Transfer-Time-&-Deterministic-Searcher------------------------------
+            //// Run the propagation phase.
+            //propagator = new BisectionPropagator(new AlfaTTransferTime());
+            //propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
+            //// Search for the result with deterministic searcher.
+            //runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
 
-            */
+            ////-----Run-Algorithm-Case-3:-Simple-with-Full-Discrete-Set-&-Deterministic-Searcher------------------------------
+            //// Run the propagation phase.
+            //propagator = new SimplePropagator(new FullDiscreteSet());
+            //propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
+            //// Search for the result with deterministic searcher.
+            //runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
 
-            
+            ////-----Run-Algorithm-Case-4:-Simple-with-Full-Discrete-Set-&-Probable-Searcher------------------------------
+            //// Run the propagation phase.
+            //propagator = new SimplePropagator(new FullDiscreteSet());
+            //propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
+            //// Search for the result with deterministic searcher.
+            //runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
+
+
         }
 
+        /// <summary>
+        /// Occurs when [on progress changed].
+        /// </summary>
+        public event EventHandler<ProgressChangedEventArgs> OnProgressChanged;
+
+        /// <summary>
+        /// Reports the progress.
+        /// </summary>
+        /// <param name="percentageComplete">The percentage complete.</param>
+        protected void reportProgress(int percentageComplete)
+        {
+            if (this.OnProgressChanged != null)
+            {
+                this.OnProgressChanged(this, new ProgressChangedEventArgs(percentageComplete, this));
+            }
+        }
+
+        /// <summary>
+        /// Finds the timetable on select.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
+        public Timetable findTimetableOnSelect(int id)
+        {
+            return TimetableUtil.findTimetableOnSelect(this.timetables, id);
+        }
+
+        /// <summary>
+        /// Doeses the timetable exist.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
+        public Boolean doesTimetableExist(int id)
+        {
+            return TimetableUtil.doesTimetableExist(this.timetables, id);
+        }
+
+        #endregion
+
+
+        #region Public Methods
 
         /// <summary>
         /// Runs the specialized generation algorithm.
@@ -126,14 +165,15 @@ namespace PeriodicTimetableGeneration
         /// <param name="constraintPropagator">The constraint propagator.</param>
         /// <param name="bestChoiceSearcher">The best choice searcher.</param>
         /// <returns>The timetables.</returns>
-        public List<Timetable> runSpecializedGenerationAlgorithm(List<Constraint> constraints, IConstraintPropagator constraintPropagator, IBestChoiceSearcher bestChoiceSearcher) 
+        public void runSpecializedGenerationAlgorithm(List<Constraint> constraints, IConstraintPropagator constraintPropagator,
+            IBestChoiceSearcher bestChoiceSearcher, List<Timetable> timetables) 
         {          
             // Propagate constraints with specific constraintPropagator
             PropagationResult propagationResult = constraintPropagator.runPropagationAlgorithm(constraints, GenerationAlgorithmDSAUtil.MODULO_DEFAULT);
             // Search for the solution with specific bestChoiceSearcher
             List<Solution> solutions = runSearchAlgorithm(bestChoiceSearcher, propagationResult);
             // Construct timetables from solutions generated above.
-            return runConstructionTimetableAlgorithm(solutions, propagationResult.TrainLinesMap);
+            runConstructionTimetableAlgorithm(solutions, propagationResult.TrainLinesMap, timetables);
         }
 
         /// <summary>
@@ -143,9 +183,9 @@ namespace PeriodicTimetableGeneration
         /// <param name="solutions">The solutions.</param>
         /// <param name="trainLineMap">The train line map.</param>
         /// <returns>The timetables.</returns>
-        public List<Timetable> runConstructionTimetableAlgorithm(List<Solution> solutions, List<TrainLine> trainLineMap)
+        public void runConstructionTimetableAlgorithm(List<Solution> solutions, List<TrainLine> trainLineMap, List<Timetable> timetables)
         {
-            return GenerationAlgorithmDSAUtil.constructTimetables(solutions, trainLineMap);
+            GenerationAlgorithmDSAUtil.constructTimetables(solutions, trainLineMap, timetables);
         }
 
         #endregion
@@ -319,6 +359,7 @@ namespace PeriodicTimetableGeneration
 
         #endregion
 
+
         #region Private Methods
 
         /// <summary>
@@ -326,7 +367,9 @@ namespace PeriodicTimetableGeneration
         /// </summary>
         private void setDefaultValues()
         {
-            this.timetables = new List<Timetable>();
+            this.Timetables = new List<Timetable>();
+            this.TrainLines = TrainLineCache.getInstance().getCacheContent();
+            this.TrainStations = TrainStationCache.getInstance().getCacheContent();
         }
 
         #endregion
@@ -350,7 +393,40 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Gets or sets the train lines.
+        /// </summary>
+        /// <value>The train lines.</value>
+        public List<TrainLine> TrainLines
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the train stations.
+        /// </summary>
+        /// <value>The train stations.</value>
+        public List<TrainStation> TrainStations
+        {
+            get;            
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this generation is cancelled.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this generation is cancelled; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsCancelled
+        {
+            get;
+            set;
+        }
 
         #endregion
+
+ 
     }
 }

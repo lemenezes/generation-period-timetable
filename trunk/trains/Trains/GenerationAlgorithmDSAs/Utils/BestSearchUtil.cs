@@ -113,7 +113,7 @@ namespace PeriodicTimetableGeneration
         {
             // Create the list of MAX_RULETTE_COUNT best records.
             List<FactorRangeRecord> bestRecords = new List<FactorRangeRecord>();
-            int currentWorst = Int32.MaxValue;
+            int currentWorst = 0;
 
             // Search for the best records.
             for (int i = 0, rows = s.GetLength(0); i != rows; ++i)
@@ -131,13 +131,13 @@ namespace PeriodicTimetableGeneration
                         continue;
                     }
 
-                    if (currentRecord.RangeFactor < currentWorst)
+                    if (currentRecord.RangeFactor > currentWorst)
                     {
                         // Insert - create a space.
                         bestRecords.Add(currentRecord);
                         int k = bestRecords.Count - 1;
                         // Shift them - so that they are sorted.
-                        while (k > 0 && bestRecords[k - 1].RangeFactor > currentRecord.RangeFactor)
+                        while (k > 0 && bestRecords[k - 1].RangeFactor < currentRecord.RangeFactor)
                         {
                             bestRecords[k] = bestRecords[k - 1];
                             --k;

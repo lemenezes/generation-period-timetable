@@ -134,7 +134,8 @@ namespace PeriodicTimetableGeneration
             this.constantMember1 += otherConstraint.constantMember1;
             this.constantMember2 += otherConstraint.constantMember2;
             // intersects discrete set of appropriate constraints
-            this.DiscreteSet.IntersectWith(otherConstraint.DiscreteSet);
+            this.DiscreteSet.MergeWith(otherConstraint.DiscreteSet);
+            
         }
 
         /// <summary>
