@@ -62,7 +62,7 @@ namespace PeriodicTimetableGeneration
         }
 
         /// <summary>
-        /// solutionFactor difference for the - suitability - the bigger the better.
+        /// Range Minimal Factor difference for the - suitability - the bigger the better.
         /// </summary>
         public int RangeFactor
         {
