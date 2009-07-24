@@ -8,10 +8,22 @@ using PeriodicTimetableGeneration.GenerationAlgorithmDSAs;
 namespace PeriodicTimetableGeneration
 {
 
+    /// <summary>
+    /// Class represents and implements utility methods for propagation.
+    /// </summary>
 	public static class PropagationUtil
 	{
 
 		// TODO: move to the IPropagator Iface.
+
+        /// <summary>
+        /// Runs the propagation algorithm.
+        /// Create discrete set for constraints, normalize and merge them, and propagate constraints' sets in matrix.
+        /// </summary>
+        /// <param name="originalConstraints">The original constraints.</param>
+        /// <param name="constraintSetsCreator">The constraint sets creator.</param>
+        /// <param name="size">The size.</param>
+        /// <returns></returns>
 		public static PropagationResult runPropagationAlgorithm(List<Constraint> originalConstraints, IConstraintSetsCreator constraintSetsCreator, int size)
 		{
 			// create working copy of constraints
@@ -20,23 +32,23 @@ namespace PeriodicTimetableGeneration
 
 			//------createConstraintSet-potential-set-for-constraints-----------------------
 
-			constraints = constraintSetsCreator.createConstraintSet(constraints, size);
+			constraints = constraintSetsCreator.createConstraintSets(constraints, size);
 
 			//------modification-constraints----------------------------------
 
-			LogUtil.printToFileConstraints(constraints, "originalConstraints");
+			//LogUtil.printToFileConstraints(constraints, "originalConstraints");
 
 			// normalize constraints
 			constraints = ConstraintUtil.normalizeConstraints(constraints);
 
-			LogUtil.printToFileConstraints(constraints, "normalizedConstraints");
+			//LogUtil.printToFileConstraints(constraints, "normalizedConstraints");
 
 			// find equivalent constraints
 			List<List<Constraint>> groupOfconstraints = ConstraintUtil.findEquivalentConstraints(constraints);
 			// try to merge them
 			constraints = ConstraintUtil.mergeEquivalentConstrains(groupOfconstraints);
 
-			LogUtil.printToFileConstraints(constraints, "mergedConstraints");
+			//LogUtil.printToFileConstraints(constraints, "mergedConstraints");
 
 			// createConstraintSet a hashtable only of all trainLines used in constraints
 			List<TrainLine> trainLinesMap = GenerationAlgorithmDSAUtil.createTrainLineMap(constraints);
@@ -57,10 +69,15 @@ namespace PeriodicTimetableGeneration
 			return new PropagationResult(setMatrix, trainLinesMap);
 		}
 
+        /// <summary>
+        /// Propagates the specified matrix of discrete sets.
+        /// Matrix S must hold true for: S[i,j] is subset of S[i,k] + S[k,j].
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <param name="trainLinesMap">The train lines map.</param>
 		public static void propagate(Set[,] matrix, List<TrainLine> trainLinesMap)
 		{
-			Boolean changed = true;
-			// determine size of 
+			Boolean changed = true;			
 
 			//printToFile(matrix, "matrixBefore");
 
