@@ -663,10 +663,10 @@ namespace PeriodicTimetableGeneration
             listViewFinalInput.EndUpdate();
         }
 
-        private void buttonGenerateTimetables_Click(object sender, EventArgs e)
+        private void buttonGenerateTimetablesRandomized_Click(object sender, EventArgs e)
         {
-            FormTimetables formTimetables = new FormTimetables();
-            formTimetables.Show();
+            FormTimetables formTimetablesRandomized = new FormTimetables(new GenerationAlgorithmRandomized());
+            formTimetablesRandomized.Show();
         }
 
         //-----------------------------------------------------------
@@ -706,11 +706,14 @@ namespace PeriodicTimetableGeneration
             FormUtil.listView_ColumnClick_Sorting(sender, e, this.listViewFinalInput);
         }
 
-        private void buttonGenerationPESP_Click(object sender, EventArgs e)
+        //-----------------------------------------------------------
+        // Button GenerationAlgorithm start
+        //-----------------------------------------------------------
+
+        private void buttonGenerationAlgorithmDSA_Click(object sender, EventArgs e)
         {
-            GenerationAlgorithmPESP genAlgo = new GenerationAlgorithmPESP();
-            //genAlgo.runPreparationAlgorithm();
-            genAlgo.generateTimetable();
+            FormTimetables formTimetablesDSA = new FormTimetables(new GenerationAlgorithmDSA());
+            formTimetablesDSA.Show();
         }
 
 

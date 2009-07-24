@@ -8,11 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections;
 using PeriodicTimetableGeneration.Util;
+using PeriodicTimetableGeneration.Interfaces;
 
 namespace PeriodicTimetableGeneration.Forms
 {
     public partial class FormTimetables : Form
     {
+        #region Settings
 
         private const int NUMBER_OF_PERIOD = 5;
         private const int NUMBER_OF_TIMETABLES = 15;
@@ -20,34 +22,51 @@ namespace PeriodicTimetableGeneration.Forms
         private static Time START_TIME_OF_ST = new Time(8, 0);
         private static Time END_TIME_OF_ST = new Time(11, 0);
 
-        public FormTimetables()
+        #endregion
+
+        #region Constructors
+
+        public FormTimetables(IGenerationAlgorithm generationAlgorithm)
         {
             InitializeComponent();
+
+            // initialize generation algorithm
+            this.CurrentGenerationAlgorithm = generationAlgorithm;
         }
+
+        #endregion
+
+        #region Properties
+
+        protected IGenerationAlgorithm CurrentGenerationAlgorithm
+        {
+            get;
+            set;
+        }
+
+        #endregion
+
+        #region Form Members
 
         private void FormTimetables_Load(object sender, EventArgs e)
         {
-            prepareNumericUpDownTimetables();    
+            prepareNumericUpDownTimetables();
         }
 
-        //--------------------------------------------------
-        // Button EXIT stations timetables
-        //--------------------------------------------------
 
-        private void buttonExitStationsTimetables_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        #endregion
+
+
+        #region Generating Timetables TabPage
 
         //--------------------------------------------------
         // Button NEXT generating timetables
         //--------------------------------------------------
-
         private void buttonNextGeneratingTimtables_Click(object sender, EventArgs e)
         {
             // prepare comboBoxes
-            prepareComboBoxSelectedTimetableLT(GenerationAlgorithm.getInstance().Timetables);
-            prepareComboBoxSelectedLine(GenerationAlgorithm.getInstance().TrainLines);
+            prepareComboBoxSelectedTimetableLT(CurrentGenerationAlgorithm.Timetables);
+            prepareComboBoxSelectedLine(CurrentGenerationAlgorithm.TrainLines);
             // check if the options are selected
             lineTimetable_SelectIndexChanged();
             // open tab
@@ -55,14 +74,107 @@ namespace PeriodicTimetableGeneration.Forms
         }
 
         //--------------------------------------------------
-        // Button EXIT lines timetables
+        // Generating Timetables presentation
+        //--------------------------------------------------
+
+        private void prepareListViewGeneratingTimetable()
+        {
+
+            listViewGeneratingTimetables.BeginUpdate();
+            listViewGeneratingTimetables.Items.Clear();
+
+            foreach (Timetable timetable in CurrentGenerationAlgorithm.Timetables)
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = timetable.ID.ToString();
+                lvi.Tag = timetable.ID.ToString();
+
+                lvi.SubItems.Add(timetable.ProgressiveChanges.ToString());
+                lvi.SubItems.Add(timetable.RatingValue.ToString());
+
+                listViewGeneratingTimetables.Items.Add(lvi);
+            }
+
+            listViewGeneratingTimetables.EndUpdate();
+        }
+
+        //--------------------------------------------------
+        // Button START generation
+        //--------------------------------------------------
+
+        private void buttonStartGeneration_Click(object sender, EventArgs e)
+        {
+            // disable button
+            this.buttonStartGeneration.Enabled = false;
+            this.buttonNextGeneratingTimtables.Enabled = false;
+            // enable butttons
+            this.buttonAbortGeneration.Enabled = true;
+            this.buttonCompleteAndStop.Enabled = true;
+
+            // TODO: select howMany timetables you want
+
+            // start asynchronous operation            
+
+            this.backgroundWorkerTG.RunWorkerAsync(CurrentGenerationAlgorithm);
+        }
+
+        //--------------------------------------------------
+        // Button ABORT generation
+        //--------------------------------------------------
+
+        private void buttonAbortGeneration_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //--------------------------------------------------
+        // Button COMPLETE and STOP generation
+        //--------------------------------------------------
+
+        private void buttonCompleteAndStop_Click(object sender, EventArgs e)
+        {
+            // cancel computation
+            this.backgroundWorkerTG.CancelAsync();
+
+            // disable buttons
+            this.buttonCompleteAndStop.Enabled = false;
+            this.buttonAbortGeneration.Enabled = false;
+
+        }
+
+        //-----------------------------------------------------------
+        // NumberUpDown
+        //-----------------------------------------------------------
+
+        private void prepareNumericUpDownTimetables()
+        {
+            numericUpDownTimetables.Value = NUMBER_OF_TIMETABLES;
+        }
+
+        //-----------------------------------------------------------
+        // ListView GENERATING TIMETABLES - ColumnClick - Sorting
+        //-----------------------------------------------------------
+
+        private void listViewGeneratingTimetables_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            FormUtil.listView_ColumnClick_Sorting(sender, e, listViewGeneratingTimetables);
+        }
+
+
+        #endregion
+
+
+        #region Lines' Timetables TabPage
+
+        //--------------------------------------------------
+        // Button NEXT lines timetables
         //--------------------------------------------------
 
         private void buttonNextLinesTimetables_Click(object sender, EventArgs e)
         {
             // prepare comboBoxes
-            prepareComboBoxSelectedTimetableST(GenerationAlgorithm.getInstance().Timetables);
-            prepareComboBoxSelectedStation(GenerationAlgorithm.getInstance().TrainStations);
+            prepareComboBoxSelectedTimetableST(CurrentGenerationAlgorithm.Timetables);
+            prepareComboBoxSelectedStation(CurrentGenerationAlgorithm.TrainStations);
             // check if the options are selected
             stationTimetable_SelectIndexChanged();
             // open tab
@@ -120,78 +232,13 @@ namespace PeriodicTimetableGeneration.Forms
                 // check whether both comboBox has a selection and 
                 int ttIndex = Convert.ToInt32(comboBoxSelectedTimetableLT.SelectedItem);
                 int lineNumber = Convert.ToInt32(comboBoxSelectedLine.SelectedItem);
-                if (GenerationAlgorithm.getInstance().doesTimetableExist(ttIndex))
+                if (CurrentGenerationAlgorithm.doesTimetableExist(ttIndex))
                 {
-                    tt = GenerationAlgorithm.getInstance().findTimetableOnSelect(ttIndex);
+                    tt = CurrentGenerationAlgorithm.findTimetableOnSelect(ttIndex);
                     // fill line's details
                     fillLineDetails(tt, lineNumber);
                     // createConstraintSet list view of line timetable
                     prepareListViewLineTimetable(tt, lineNumber);
-                }
-
-            }
-        }
-
-        //--------------------------------------------------
-        // ComboBox Selected Timetables ST
-        //--------------------------------------------------
-
-        private void prepareComboBoxSelectedTimetableST(List<Timetable> timetables) 
-        {
-            comboBoxSelectedTimetableST.BeginUpdate();
-            comboBoxSelectedTimetableST.Items.Clear();
-
-            foreach (Timetable timetable in timetables) 
-            {
-                comboBoxSelectedTimetableST.Items.Add(timetable.ID);
-            }
-
-            comboBoxSelectedTimetableST.EndUpdate();
-        }
-
-        private void comboBoxSelectedTimtableST_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            stationTimetable_SelectIndexChanged();
-        }
-
-        //--------------------------------------------------
-        // ComboBox Selected Station
-        //--------------------------------------------------
-
-        private void prepareComboBoxSelectedStation(List<TrainStation> stations)
-        {
-            comboBoxSelectedStation.BeginUpdate();
-            comboBoxSelectedStation.Items.Clear();
-
-            foreach (TrainStation station in stations) 
-            {
-                comboBoxSelectedStation.Items.Add(station.Name);
-            }
-            //Array.Sort(comboBoxSelectedStation.Items);
-
-            comboBoxSelectedStation.EndUpdate();
-        }
-
-        private void comboBoxSelectedStation_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            stationTimetable_SelectIndexChanged();
-        }
-
-        private void stationTimetable_SelectIndexChanged()
-        {
-            Timetable tt;
-            if (comboBoxSelectedStation.SelectedIndex != -1 && comboBoxSelectedTimetableST.SelectedIndex != -1)
-            {
-                // check whether both comboBox has a selection and 
-                int ttIndex = Convert.ToInt32(comboBoxSelectedTimetableST.SelectedItem);
-                String stationName = (String) comboBoxSelectedStation.SelectedItem;
-                if (GenerationAlgorithm.getInstance().doesTimetableExist(ttIndex))
-                {
-                    tt = GenerationAlgorithm.getInstance().findTimetableOnSelect(ttIndex);
-                    // fill station's details
-                    fillStationDetails(stationName);
-                    // createConstraintSet list view of station timetable
-                    prepareListViewStationTimetable(tt, stationName);
                 }
 
             }
@@ -213,7 +260,7 @@ namespace PeriodicTimetableGeneration.Forms
 
         }
 
-        private void prepareListViewLineTimetable(Timetable timetable, int lineNumber) 
+        private void prepareListViewLineTimetable(Timetable timetable, int lineNumber)
         {
             if (timetable == null) return;
 
@@ -224,7 +271,7 @@ namespace PeriodicTimetableGeneration.Forms
 
 
             // loop over ALL trainStops
-            foreach (TrainStop stop in line.Line.getTrainStops()) 
+            foreach (TrainStop stop in line.Line.getTrainStops())
             {
                 ListViewItem lvi = new ListViewItem();
 
@@ -235,10 +282,10 @@ namespace PeriodicTimetableGeneration.Forms
                 lvi.SubItems.Add(stop.KmFromStart.ToString());
 
                 // loop over number of displaying period
-                for (int i = 0; i < NUMBER_OF_PERIOD; i++ )
+                for (int i = 0; i < NUMBER_OF_PERIOD; i++)
                 {
                     // inicialize time with start time of line and plus multiplication of period
-                    Time time = line.StartTime + Time.ToTime(i * (int) line.Period) + START_TIME_OF_LT;
+                    Time time = line.StartTime + Time.ToTime(i * (int)line.Period) + START_TIME_OF_LT;
                     // if departure exists (is not a empty value)
                     if (!stop.TimeDepartureChecked.Equals(Time.EmptyValue))
                     {
@@ -246,7 +293,7 @@ namespace PeriodicTimetableGeneration.Forms
                         time += stop.TimeDepartureChecked;
                     }
                     // otherwise
-                    else 
+                    else
                     {
                         // if departure is empty - use arrival (last stop)
                         time += stop.TimeArrivalChecked;
@@ -256,6 +303,86 @@ namespace PeriodicTimetableGeneration.Forms
                 listViewLineTimetable.Items.Add(lvi);
             }
             listViewLineTimetable.EndUpdate();
+        }
+
+
+        #endregion
+
+
+        #region Stations' Timetables Tabpage
+
+        //--------------------------------------------------
+        // Button EXIT stations timetables
+        //--------------------------------------------------
+   
+        private void buttonExitStationsTimetables_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        //--------------------------------------------------
+        // ComboBox Selected Timetables ST
+        //--------------------------------------------------
+
+        private void prepareComboBoxSelectedTimetableST(List<Timetable> timetables)
+        {
+            comboBoxSelectedTimetableST.BeginUpdate();
+            comboBoxSelectedTimetableST.Items.Clear();
+
+            foreach (Timetable timetable in timetables)
+            {
+                comboBoxSelectedTimetableST.Items.Add(timetable.ID);
+            }
+
+            comboBoxSelectedTimetableST.EndUpdate();
+        }
+
+        private void comboBoxSelectedTimtableST_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            stationTimetable_SelectIndexChanged();
+        }
+
+        //--------------------------------------------------
+        // ComboBox Selected Station
+        //--------------------------------------------------
+
+        private void prepareComboBoxSelectedStation(List<TrainStation> stations)
+        {
+            comboBoxSelectedStation.BeginUpdate();
+            comboBoxSelectedStation.Items.Clear();
+
+            foreach (TrainStation station in stations)
+            {
+                comboBoxSelectedStation.Items.Add(station.Name);
+            }
+            //Array.Sort(comboBoxSelectedStation.Items);
+
+            comboBoxSelectedStation.EndUpdate();
+        }
+
+        private void comboBoxSelectedStation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            stationTimetable_SelectIndexChanged();
+        }
+
+        private void stationTimetable_SelectIndexChanged()
+        {
+            Timetable tt;
+            if (comboBoxSelectedStation.SelectedIndex != -1 && comboBoxSelectedTimetableST.SelectedIndex != -1)
+            {
+                // check whether both comboBox has a selection and 
+                int ttIndex = Convert.ToInt32(comboBoxSelectedTimetableST.SelectedItem);
+                String stationName = (String)comboBoxSelectedStation.SelectedItem;
+                if (CurrentGenerationAlgorithm.doesTimetableExist(ttIndex))
+                {
+                    tt = CurrentGenerationAlgorithm.findTimetableOnSelect(ttIndex);
+                    // fill station's details
+                    fillStationDetails(stationName);
+                    // createConstraintSet list view of station timetable
+                    prepareListViewStationTimetable(tt, stationName);
+                }
+
+            }
         }
 
         //--------------------------------------------------
@@ -284,7 +411,7 @@ namespace PeriodicTimetableGeneration.Forms
             // find all lines passing this station
             List<TrainLineVariable> lines = findTrainLinesVariable(station.getTrainLines(), timetable);
 
-            foreach(TrainLineVariable line in lines)
+            foreach (TrainLineVariable line in lines)
             {
                 TrainStop stop = line.Line.getTrainStopOnStation(station.Name);
 
@@ -292,7 +419,7 @@ namespace PeriodicTimetableGeneration.Forms
                 Time departure = stop.TimeDeparture;
                 int m = (END_TIME_OF_ST - START_TIME_OF_ST).ToMinutes();
                 // loop until we are still in interval -> max M
-                for( int i = 0; i * (int)line.Period  < m; i++)
+                for (int i = 0; i * (int)line.Period < m; i++)
                 {
                     ListViewItem lvi = new ListViewItem();
                     lvi.Text = line.LineNumber.ToString();
@@ -301,8 +428,8 @@ namespace PeriodicTimetableGeneration.Forms
                     // if areival is not equal 00:00
                     if (!arrival.Equals(Time.MinValue))
                     {
-                        // start time of timetable + arrival on station + period time factor
-                        lvi.SubItems.Add((START_TIME_OF_ST + arrival + line.StartTime + Time.ToTime(i* (int) line.Period)).ToString());
+                        // start time of timetable + arrival on station + period time solutionFactor
+                        lvi.SubItems.Add((START_TIME_OF_ST + arrival + line.StartTime + Time.ToTime(i * (int)line.Period)).ToString());
                     }
                     // otherwise
                     else
@@ -321,7 +448,7 @@ namespace PeriodicTimetableGeneration.Forms
                         lvi.SubItems.Add((START_TIME_OF_ST + departure + line.StartTime + Time.ToTime(i * (int)line.Period)).ToString());
                     }
                     // otherwise
-                    else 
+                    else
                     {
                         // if stop is a first one, there it is a legal time, use it
                         if (stop.OrderInTrainLine.Equals(0))
@@ -329,7 +456,7 @@ namespace PeriodicTimetableGeneration.Forms
                         // otherwise (time is 00:00 but the stop is not first)
                         else
                             // it has to be last stop, which has no departure (not continue)
-                            lvi.SubItems.Add("");                        
+                            lvi.SubItems.Add("");
                     }
 
                     listViewStationTimetable.Items.Add(lvi);
@@ -341,15 +468,15 @@ namespace PeriodicTimetableGeneration.Forms
             listViewStationTimetable.EndUpdate();
         }
 
-        private List<TrainLineVariable> findTrainLinesVariable(List<TrainLine> lines, Timetable tt) 
+        private List<TrainLineVariable> findTrainLinesVariable(List<TrainLine> lines, Timetable tt)
         {
             List<TrainLineVariable> resultLines = new List<TrainLineVariable>();
             // loop over all lines included in lines
-            foreach(TrainLine line in lines)
+            foreach (TrainLine line in lines)
             {
                 // if timetable contains a trainLineVariable
                 TrainLineVariable ll = tt.getVariableLineOnSelect(line.LineNumber);
-                if (ll != null) 
+                if (ll != null)
                 {
                     resultLines.Add(ll);
                 }
@@ -357,73 +484,22 @@ namespace PeriodicTimetableGeneration.Forms
             return resultLines;
         }
 
-        //--------------------------------------------------
-        // Generating Timetables presentation
-        //--------------------------------------------------
+        //-----------------------------------------------------------
+        // ListView STATION TIMETABLE - ColumnClick - Sorting
+        //-----------------------------------------------------------
 
-        private void prepareListViewGeneratingTimetable() 
-        {
-            
-            listViewGeneratingTimetables.BeginUpdate();
-            listViewGeneratingTimetables.Items.Clear();
-
-            foreach (Timetable timetable in GenerationAlgorithm.getInstance().Timetables) 
-            {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = timetable.ID.ToString();
-                lvi.Tag = timetable.ID.ToString();
-
-                lvi.SubItems.Add(timetable.ProgressiveChanges.ToString());
-                lvi.SubItems.Add(timetable.RatingValue.ToString());
-
-                listViewGeneratingTimetables.Items.Add(lvi);
-            }
-
-            listViewGeneratingTimetables.EndUpdate();
-        }
-
-        //--------------------------------------------------
-        // Button START generation
-        //--------------------------------------------------
-
-        private void buttonStartGeneration_Click(object sender, EventArgs e)
-        {
-            // disable button
-            this.buttonStartGeneration.Enabled = false;
-            this.buttonNextGeneratingTimtables.Enabled = false;
-            // enable butttons
-            this.buttonAbortGeneration.Enabled = true;
-            this.buttonCompleteAndStop.Enabled = true;
-
-            // TODO: select howMany timetables you want
-
-            // start asynchronous operation
-           this.backgroundWorkerTG.RunWorkerAsync();
-        }
-
-        //--------------------------------------------------
-        // Button ABORT generation
-        //--------------------------------------------------
-
-        private void buttonAbortGeneration_Click(object sender, EventArgs e)
+        private void listViewStationTimetable_ColumnClick(object sender, ColumnClickEventArgs e)
         {
 
+            FormUtil.listView_ColumnClick_Sorting(sender, e, listViewStationTimetable);
         }
 
-        //--------------------------------------------------
-        // Button COMPLETE and STOP generation
-        //--------------------------------------------------
 
-        private void buttonCompleteAndStop_Click(object sender, EventArgs e)
-        {
-            // cancel computation
-            this.backgroundWorkerTG.CancelAsync();
+        #endregion
 
-            // disable buttons
-            this.buttonCompleteAndStop.Enabled = false;
-            this.buttonAbortGeneration.Enabled = false;
 
-        }
+
+        #region BackGroundWorker Methods
 
         //--------------------------------------------------
         // BACKGROUND WORKER methods
@@ -433,10 +509,15 @@ namespace PeriodicTimetableGeneration.Forms
         {
             // get the worker, who call this method
             BackgroundWorker worker = sender as BackgroundWorker;
+            IGenerationAlgorithm algorithm = (IGenerationAlgorithm)e.Argument;
+            algorithm.OnProgressChanged += algorithmProgressChanged;
+
             //
-            int number = (int) numericUpDownTimetables.Value;
+            int number = (int)numericUpDownTimetables.Value;
             // do generation of timetables
-            GenerationAlgorithm.getInstance().generateTimetables(number, worker, e);
+            algorithm.generateTimetables(number);
+
+            e.Cancel = algorithm.IsCancelled;
         }
 
         private void backgroundWorkerTG_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -444,21 +525,6 @@ namespace PeriodicTimetableGeneration.Forms
             // when progress changed, update listView and draw automatically again
             this.progressBarGT.Value = e.ProgressPercentage;
             prepareListViewGeneratingTimetable();
-        }
-
-        private void updateListViewProgressChanged() 
-        {
-            listViewGeneratingTimetables.BeginUpdate();
-            // access last timetable
-            Timetable tt = GenerationAlgorithm.getInstance().Timetables
-                [GenerationAlgorithm.getInstance().Timetables.Count - 1];
-            // access last listView
-            ListViewItem lvi = listViewGeneratingTimetables.Items
-                [listViewGeneratingTimetables.Items.Count - 1];
-            lvi.SubItems[1].Text = tt.ProgressiveChanges.ToString();
-            lvi.SubItems[2].Text = tt.RatingValue.ToString();
-
-            listViewGeneratingTimetables.EndUpdate();
         }
 
         private void backgroundWorkerTG_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -482,33 +548,42 @@ namespace PeriodicTimetableGeneration.Forms
             this.buttonAbortGeneration.Enabled = false;
         }
 
-        //-----------------------------------------------------------
-        // ListView STATION TIMETABLE - ColumnClick - Sorting
-        //-----------------------------------------------------------
-
-        private void listViewStationTimetable_ColumnClick(object sender, ColumnClickEventArgs e)
+        private void algorithmProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            IGenerationAlgorithm algorithm = (IGenerationAlgorithm)e.UserState;
+            if (this.backgroundWorkerTG.CancellationPending)
+            {
+                algorithm.IsCancelled = true;
+            }
 
-            FormUtil.listView_ColumnClick_Sorting(sender, e, listViewStationTimetable);
+            this.backgroundWorkerTG.ReportProgress(e.ProgressPercentage, e.UserState);
         }
 
-        //-----------------------------------------------------------
-        // NumberUpDown
-        //-----------------------------------------------------------
-
-        private void prepareNumericUpDownTimetables() 
+        private void updateListViewProgressChanged()
         {
-            numericUpDownTimetables.Value = NUMBER_OF_TIMETABLES;
+            listViewGeneratingTimetables.BeginUpdate();
+            // access last timetable
+            Timetable tt = CurrentGenerationAlgorithm.Timetables
+                [CurrentGenerationAlgorithm.Timetables.Count - 1];
+            // access last listView
+            ListViewItem lvi = listViewGeneratingTimetables.Items
+                [listViewGeneratingTimetables.Items.Count - 1];
+            lvi.SubItems[1].Text = tt.ProgressiveChanges.ToString();
+            lvi.SubItems[2].Text = tt.RatingValue.ToString();
+
+            listViewGeneratingTimetables.EndUpdate();
         }
 
-        //-----------------------------------------------------------
-        // ListView GENERATING TIMETABLES - ColumnClick - Sorting
-        //-----------------------------------------------------------
+        #endregion
 
-        private void listViewGeneratingTimetables_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            FormUtil.listView_ColumnClick_Sorting(sender, e, listViewGeneratingTimetables);
-        }
+
+
+
+
+
+
+
+ 
 
     }
 }
