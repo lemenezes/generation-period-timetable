@@ -7,10 +7,19 @@ using System.IO;
 namespace PeriodicTimetableGeneration
 {
 
+    /// <summary>
+    /// Implements utility method for logs.
+    /// </summary>
 	public static class LogUtil
 	{
 
-		public static void printToFile(Set[,] matrix, String fileName)
+
+        /// <summary>
+        /// Prints the discrete set matrix to file.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <param name="fileName">Name of the file.</param>
+		public static void printDiscreteSetMatrixToFile(Set[,] matrix, String fileName)
 		{
 			FileStream fs = new FileStream(fileName, FileMode.Create);
 			StreamWriter sw = new StreamWriter(fs);
@@ -31,7 +40,12 @@ namespace PeriodicTimetableGeneration
 			fs.Close();
 		}
 
-		public static void printToFileConstraints(List<Constraint> constraints, String fileName)
+        /// <summary>
+        /// Prints the constraints to file.
+        /// </summary>
+        /// <param name="constraints">The constraints.</param>
+        /// <param name="fileName">Name of the file.</param>
+		public static void printConstraintsToFile(List<Constraint> constraints, String fileName)
 		{
 			FileStream fs = new FileStream(fileName, FileMode.Create);
 			StreamWriter sw = new StreamWriter(fs);
