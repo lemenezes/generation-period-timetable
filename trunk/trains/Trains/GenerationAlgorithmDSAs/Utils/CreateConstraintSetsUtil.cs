@@ -6,10 +6,17 @@ using PeriodicTimetableGeneration.Properties;
 
 namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
 {
+    /// <summary>
+    /// Class represents and implements utilities for
+    /// </summary>
     public static class CreateConstraintSetsUtil
     {
         #region Setting Properties
 
+        /// <summary>
+        /// Gets the default modulo from Setting of poject.
+        /// </summary>
+        /// <value>The default modulo.</value>
         public static int MODULO_DEFAULT
         {
             get 
