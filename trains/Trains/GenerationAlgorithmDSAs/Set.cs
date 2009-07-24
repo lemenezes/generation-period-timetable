@@ -337,11 +337,19 @@ namespace PeriodicTimetableGeneration
             this.minimizationFactor.Remove(anObject);
         }
 
+        /// <summary>
+        /// Removes the reverse item of specified item from the ISet.
+        /// </summary>
+        /// <param name="minute">The minute.</param>
         public void RemoveReverse(int minute)
         {
             this.Remove(reverseNumberModulo(minute, modulo));
         }
 
+        /// <summary>
+        /// Finds a key value pair from minimization factor dictionary, with minimum factor.
+        /// </summary>
+        /// <returns></returns>
         public KeyValuePair<int, int> Min()
         {
             KeyValuePair<int, int> currentMin = new KeyValuePair<int,int>(-1, int.MaxValue);
@@ -492,7 +500,8 @@ namespace PeriodicTimetableGeneration
             foreach (int item in this.mySet) 
             {    
                 // create new minFactor only with the values contained in discrete set.
-                minFactor.Add(item, this.minimizationFactor[item]);
+                int newFactor = this.minimizationFactor[item] + otherSet.minimizationFactor[item];
+                minFactor.Add(item, newFactor);
             }
 
 
