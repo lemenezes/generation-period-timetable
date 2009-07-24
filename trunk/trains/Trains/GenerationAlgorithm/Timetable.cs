@@ -7,17 +7,56 @@ namespace PeriodicTimetableGeneration
 {
     public class Timetable
     {
-        private List<TrainLineVariable> variableLines;
-        private int ratingValue;
-        private Queue<TrainLineVariable> stableLines;
-        private int id;
-        private int progressiveChanges;
+        #region Private Fields
 
+        
+        //private Queue<TrainLineVariable> stableLines;
+
+        /// <summary>
+        /// List of train lines with specific start time.
+        /// </summary>
+        private List<TrainLineVariable> variableLines;
+        /// <summary>
+        /// Rating value of minimization factor of this timetable.
+        /// </summary>
+        private int ratingValue;
+        /// <summary>
+        /// Id of timetable.
+        /// </summary>
+        private int id;
+        /// <summary>
+        /// The number of progressive changes, which has been made to improve this timetable.
+        /// </summary>
+        private int progressiveChanges;
+        /// <summary>
+        /// The note about this timetable.
+        /// </summary>
+        private String note;
+        /// <summary>
+        /// Instance of class Random, used for randomizing start time of lines.
+        /// </summary>
+        public static Random random = new Random();
+
+
+        #endregion
+
+        
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Timetable"/> class.
+        /// </summary>
         public Timetable()
         {
             setDefaultValues();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Timetable"/> class.
+        /// </summary>
+        /// <param name="id_">The id.</param>
+        /// <param name="lines">The lines.</param>
         public Timetable(int id_, List<TrainLine> lines)
         {
             // set default values for variables
@@ -37,15 +76,16 @@ namespace PeriodicTimetableGeneration
             variableLines = varLines;
         }
 
-        private void setDefaultValues() 
-        {
-            id = -1;
-            ratingValue = int.MaxValue;
-            progressiveChanges = 0;
-            stableLines = new Queue<TrainLineVariable>();
-            variableLines = new List<TrainLineVariable>();
-        }
+        #endregion
 
+
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the ID.
+        /// </summary>
+        /// <value>The ID.</value>
         public int ID
         {
             get
@@ -58,6 +98,10 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Gets or sets the progressive changes.
+        /// </summary>
+        /// <value>The progressive changes.</value>
         public int ProgressiveChanges
         {
             get
@@ -70,6 +114,10 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Gets or sets the rating value.
+        /// </summary>
+        /// <value>The rating value.</value>
         public int RatingValue
         {
             get
@@ -82,6 +130,10 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Gets or sets the train lines.
+        /// </summary>
+        /// <value>The train lines.</value>
         public List<TrainLineVariable> TrainLines
         {
             get
@@ -93,22 +145,30 @@ namespace PeriodicTimetableGeneration
             }
         }
 
-        public List<TrainLineVariable> findFixedLines()
+        /// <summary>
+        /// Gets or sets the note for this timetable.
+        /// </summary>
+        /// <value>The note.</value>
+        public String Note 
         {
-
-            List<TrainLineVariable> fixedLines = new List<TrainLineVariable>();
-            // loop over all lines
-            foreach(TrainLineVariable line in variableLines)
+            get 
             {
-                if (line.isFixed()) 
-                {
-                    fixedLines.Add(line);
-                }
+                return note;
             }
-
-            return fixedLines;
+            set 
+            {
+                note = value;
+            }
         }
 
+        #endregion
+
+        #region Get Set Add Methods
+
+        /// <summary>
+        /// Adds the variable line.
+        /// </summary>
+        /// <param name="line">The variable train line.</param>
         public void addVariableLine(TrainLineVariable line)
         {
             if (!doesVariableLineExist(variableLines, line.LineNumber))
@@ -117,45 +177,94 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Sets the variable lines.
+        /// </summary>
+        /// <param name="lines">The variable train lines.</param>
         public void setVariableLines(List<TrainLineVariable> lines)
         {
             variableLines = lines;
         }
 
+        /// <summary>
+        /// Gets the variable lines.
+        /// </summary>
+        /// <returns>The list of variable train lines.</returns>
         public List<TrainLineVariable> getVariableLines()
         {
             return variableLines;
         }
 
-        public void addStableLine(TrainLineVariable line)
-        {
-            if (!stableLines.Contains(line))
-            {
-                stableLines.Enqueue(line);
-            }
+        //public void addStableLine(TrainLineVariable line)
+        //{
+        //    if (!stableLines.Contains(line))
+        //    {
+        //        stableLines.Enqueue(line);
+        //    }
 
-            //if (!doesVariableLineExist(stableLines, line.LineNumber)) 
-            //{
-            //    stableLines.Enqueue(line);               
-            //}
+        //    //if (!doesVariableLineExist(stableLines, line.LineNumber)) 
+        //    //{
+        //    //    stableLines.Enqueue(line);               
+        //    //}
+        //}
+
+        //public void setStableLines(Queue<TrainLineVariable> lines)
+        //{
+        //    this.stableLines = lines;
+        //}
+
+        //public void clearStableLines()
+        //{
+        //    stableLines.Clear();
+        //}
+
+
+        //public Queue<TrainLineVariable> getStableLines()
+        //{
+        //    return stableLines;
+        //}
+
+        #endregion
+
+
+
+        #region Public Methods
+
+        //public List<TrainLineVariable> findFixedLines()
+        //{
+
+        //    List<TrainLineVariable> fixedLines = new List<TrainLineVariable>();
+        //    // loop over all lines
+        //    foreach(TrainLineVariable line in variableLines)
+        //    {
+        //        if (line.isFixed()) 
+        //        {
+        //            fixedLines.Add(line);
+        //        }
+        //    }
+
+        //    return fixedLines;
+        //}
+
+
+
+        /// <summary>
+        /// Gets the variable line on select.
+        /// </summary>
+        /// <param name="lineNumber">The line number.</param>
+        /// <returns>The variable train line.</returns>
+        public TrainLineVariable getVariableLineOnSelect(int lineNumber) 
+        {
+            return findVariableLine(variableLines, lineNumber);
         }
 
-        public void setStableLines(Queue<TrainLineVariable> lines)
-        {
-            this.stableLines = lines;
-        }
-
-        public void clearStableLines()
-        {
-            stableLines.Clear();
-        }
-
-        public Queue<TrainLineVariable> getStableLines()
-        {
-            return stableLines;
-        }
-
-        public static TrainLineVariable findVariableLine(List<TrainLineVariable> lines, int lineNumber) 
+        /// <summary>
+        /// Finds the variable line from specified lines.
+        /// </summary>
+        /// <param name="lines">The lines.</param>
+        /// <param name="lineNumber">The line number.</param>
+        /// <returns>The variable train line.</returns>
+        public static TrainLineVariable findVariableLine(List<TrainLineVariable> lines, int lineNumber)
         {
             TrainLineVariable wantedLine = null;
             // loop over all lines
@@ -167,17 +276,18 @@ namespace PeriodicTimetableGeneration
                     // we found the line
                     wantedLine = line;
                     // and escape the loop
-                    break;                   
+                    break;
                 }
             }
             return wantedLine;
         }
 
-        public TrainLineVariable getVariableLineOnSelect(int lineNumber) 
-        {
-            return findVariableLine(variableLines, lineNumber);
-        }
-
+        /// <summary>
+        /// Determines whether the variable line exists within specified lines.
+        /// </summary>
+        /// <param name="lines">The lines.</param>
+        /// <param name="lineNumber">The line number.</param>
+        /// <returns>True if lines contains line, otherwise false.</returns>
         public static Boolean doesVariableLineExist(List<TrainLineVariable> lines, int lineNumber) 
         {
             Boolean exists = true;
@@ -188,6 +298,10 @@ namespace PeriodicTimetableGeneration
             return exists;
         }
 
+        /// <summary>
+        /// Randomizes the timetable.
+        /// Set random strat time for all train lines of timetable.
+        /// </summary>
         public void randomizeTimetable()
         {
             DateTime now = DateTime.Now;
@@ -195,8 +309,6 @@ namespace PeriodicTimetableGeneration
             //FileStream fs = new FileStream("randomNumbers" + now.Month + now.Day + now.Hour + now.Minute + ".tmp", FileMode.Create);
             //StreamWriter sw = new StreamWriter(fs);
 
-            // createConstraintSet instance of class Random
-            Random random = new Random();
 
             foreach (TrainLineVariable line in variableLines) 
             {
@@ -213,6 +325,17 @@ namespace PeriodicTimetableGeneration
             //fs.Close();
         }
 
+
+        #endregion
+
+
+        #region Calculation Methods
+
+        /// <summary>
+        /// Calculates the timetable rating value.
+        /// </summary>
+        /// <param name="tt">The timetable.</param>
+        /// <returns>The rating value.</returns>
         public static int calculateTimetableRatingValue(Timetable tt)
         {
             int ratingValue = 0;
@@ -225,11 +348,19 @@ namespace PeriodicTimetableGeneration
             return ratingValue;
         }
 
+        /// <summary>
+        /// Calculates the rating value of this instance.
+        /// </summary>
         public void calculateRatingValue()
         {
             ratingValue = calculateTimetableRatingValue(this);
         }
 
+        /// <summary>
+        /// Calculates the timetable progressive changes.
+        /// </summary>
+        /// <param name="tt">The timetable.</param>
+        /// <returns>The progressive changes.</returns>
         public static int calculateTimetableProgressiveChanges(Timetable tt)
         {
             int progressiveChanges = 0;
@@ -241,9 +372,31 @@ namespace PeriodicTimetableGeneration
             return progressiveChanges;
         }
 
+        /// <summary>
+        /// Calculates the progressive changes of this instance.
+        /// </summary>
         public void calculateProgressiveChanges()
         {
             progressiveChanges = calculateTimetableProgressiveChanges(this);
         }
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Sets the default values for fields this of instance.
+        /// </summary>
+        private void setDefaultValues()
+        {
+            id = -1;
+            ratingValue = int.MaxValue;
+            progressiveChanges = 0;
+            variableLines = new List<TrainLineVariable>();
+            //stableLines = new Queue<TrainLineVariable>();
+        }
+
+        #endregion
+
     }
 }
