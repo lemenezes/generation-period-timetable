@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+<ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="PeriodicTimetableGeneration.Set">
     <Position X="0.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
@@ -38,14 +38,14 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAQAAAAAAAAAAAAAAAAEAUAAAAEACAgAAAEgAA=</HashCode>
+      <HashCode>AAAAAAAQAAAAQAAAEAAAAAAAkAEAAIAAACAAAAAAgAA=</HashCode>
       <FileName>GenerationAlgorithmDSAs\GenerationAlgorithmDSA.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmDSAUtil">
     <Position X="8.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>EAAKgAAQAAAQAAFAAEAAAAAAAAAAAAAAgIAACAAAgAA=</HashCode>
+      <HashCode>UAAKgAEQAAAQAAFAAEAAAAAAAAAAAAAAgIAACAAAgAA=</HashCode>
       <FileName>GenerationAlgorithmDSAs\Utils\GenerationAlgorithmDSAUtil.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -101,7 +101,7 @@
   <Struct Name="PeriodicTimetableGeneration.Solutions.Solution">
     <Position X="11.25" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAABAAAAAAAAAAAAAAAAAAgAAAAIAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAACAAAAAgAAAAAAAAAAAAAgAAAAIAAAAA=</HashCode>
       <FileName>GenerationAlgorithmDSAs\Solution.cs</FileName>
     </TypeIdentifier>
   </Struct>
@@ -115,7 +115,7 @@
   <Interface Name="PeriodicTimetableGeneration.Interfaces.IConstraintSetsCreator">
     <Position X="11.5" Y="2.25" Width="4.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
       <FileName>Interfaces\IConstraintSetsCreator.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -124,6 +124,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IConstraintPropagator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PeriodicTimetableGeneration.Interfaces.IGenerationAlgorithm">
+    <Position X="11.5" Y="5.5" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEgAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IGenerationAlgorithm.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

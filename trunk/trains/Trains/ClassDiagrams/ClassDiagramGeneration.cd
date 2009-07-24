@@ -3,31 +3,25 @@
   <Class Name="PeriodicTimetableGeneration.Timetable">
     <Position X="0.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAgAAEAUIAIgQAARAAAAAACAAAEFBAAAQAhARhAokA=</HashCode>
+      <HashCode>AQAgAAEAUAAIgQAABAAAAAACAAAEFAAAAAQhAAlAokA=</HashCode>
       <FileName>GenerationAlgorithm\Timetable.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithm">
+  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmRandomized">
     <Position X="4.25" Y="0.5" Width="1.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Class Name="PeriodicTimetableGeneration.GenerationAlgorithm.SingletonHolder" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>GenerationAlgorithm\GenerationAlgorithm.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AUAAIQACAIQAAwAAAAIAAAASgAEAAIQAABAgAAIAoAA=</HashCode>
-      <FileName>GenerationAlgorithm\GenerationAlgorithm.cs</FileName>
+      <HashCode>AUAAIQACAIQAAwAAAgIAAAASgAEgAIAAABAgIAIAoAA=</HashCode>
+      <FileName>GenerationAlgorithm\GenerationAlgorithmRandomized.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="PeriodicTimetableGeneration.TrainLineVariable">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAIAAgAAIAEAAAAAoAJAAIAAAAgAAAAIAAAgBMAI=</HashCode>
+      <HashCode>AAAgAIAAgAAIAEAAAAAoABAAIAAAAAAAAAAAAAgBMAI=</HashCode>
       <FileName>GenerationAlgorithm\TrainLineVariable.cs</FileName>
     </TypeIdentifier>
   </Class>
