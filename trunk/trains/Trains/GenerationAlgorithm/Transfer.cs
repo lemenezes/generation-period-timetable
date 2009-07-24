@@ -4,6 +4,9 @@ using System.Text;
 
 namespace PeriodicTimetableGeneration
 {
+    /// <summary>
+    /// Class represents a tranfer from one and to another train line.
+    /// </summary>
     public class Transfer
     {
         #region Private Fields
@@ -222,7 +225,7 @@ namespace PeriodicTimetableGeneration
             const int factor = 10;
 
             int result = time.ToMinutes() * transfer.passengers / factor;
-            //Console.Out.WriteLine("Rating: " + time.ToMinutes() + " * " + transfers.passengers + " / " + factor + " = " + result);
+            //Console.Out.WriteLine("Rating: " + time.ToMinutes() + " * " + transfers.passengers + " / " + solutionFactor + " = " + result);
             return result;
         }
 
