@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace PeriodicTimetableGeneration.Solutions
 {
 
     /// <summary>
-    /// Struct represent an a item of solution. One item of Solution[,] which is hold by Solution.
+    /// Struct represents an a item of solution. One item of Solution[,] which is hold by Solution.
     /// </summary>
     public struct SolutionItem
     {
         #region Private Fields
 
+        /// <summary>
+        /// Minute.
+        /// </summary>
         private int minute;
+        /// <summary>
+        /// Factor related with minute.
+        /// </summary>
         private int factor;
+        /// <summary>
+        /// Indicates if proposed Set is single.
+        /// </summary>
         private Boolean notSingleton;
 
         #endregion
@@ -25,20 +35,18 @@ namespace PeriodicTimetableGeneration.Solutions
         /// Initializes a new instance of the <see cref="SolutionItem"/> struct.
         /// </summary>
         /// <param name="s">The s.</param>
-        public SolutionItem(Set s)
+        public SolutionItem(Set set)
         {
 
-            if (s.Count == 1)
+            if (set.Count == 1)
             {
                 minute = 0;
                 factor = 0;
 
                 // Should be the only one element in the set, so remember it.
-                foreach (KeyValuePair<int, int> p in s.MinimizationFactor)
-                {
-                    minute = p.Key;
-                    factor = p.Value;
-                }
+                KeyValuePair<int, int> p = set.MinimizationFactor.First();
+                minute = p.Key;
+                factor = p.Value;
                 notSingleton = false;
             }
             else
@@ -55,6 +63,10 @@ namespace PeriodicTimetableGeneration.Solutions
 
         #region Properties
 
+        /// <summary>
+        /// Gets the factor.
+        /// </summary>
+        /// <value>The factor.</value>
         public int Factor
         {
             get
@@ -63,6 +75,10 @@ namespace PeriodicTimetableGeneration.Solutions
             }    
         }
 
+        /// <summary>
+        /// Gets the minute.
+        /// </summary>
+        /// <value>The minute.</value>
         public int Minute
         {
             get
@@ -71,6 +87,10 @@ namespace PeriodicTimetableGeneration.Solutions
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether [not singleton].
+        /// </summary>
+        /// <value><c>true</c> if [not singleton]; otherwise, <c>false</c>.</value>
         public Boolean NotSingleton
         {
             get
@@ -98,29 +118,50 @@ namespace PeriodicTimetableGeneration.Solutions
         #endregion
 
     }
-    
+
+    /// <summary>
+    /// Struct represents solution, consists of solution items.
+    /// </summary>
     public struct Solution
     {
         #region Private Fields
 
-        public SolutionItem[,] solutionMatrix;
-        public int solutionFactor;
+        /// <summary>
+        /// Holds solution items.
+        /// </summary>
+        private SolutionItem[] solutionVector;
+        /// <summary>
+        /// Factor of solution.
+        /// </summary>
+        private int solutionFactor;
 
         #endregion
 
 
         #region Constructor
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Solution"/> struct.
+        /// </summary>
+        /// <param name="discreteSetMatrix">The discrete set matrix.</param>
         public Solution(Set[,] discreteSetMatrix)
         {
-            solutionMatrix = new SolutionItem[discreteSetMatrix.GetLength(0), discreteSetMatrix.GetLength(1)];
+            solutionVector = new SolutionItem[discreteSetMatrix.GetLength(0)];
             solutionFactor = 0;
+
+            // loop over all items in upper triangle part of matrix
             for (int i = 0, rows = discreteSetMatrix.GetLength(0); i < rows; ++i)
             {
-                for (int j = 0, cols = discreteSetMatrix.GetLength(1); j < cols; ++j)
+                for (int j = i + 1, cols = discreteSetMatrix.GetLength(1); j < cols; ++j)
                 {
-                    solutionMatrix[i, j] = new SolutionItem(discreteSetMatrix[i, j]);
-                    solutionFactor += solutionMatrix[i, j].Factor;
+                    if (i == 0)
+                    {
+                        // solution is presented by one row of matrix
+                        solutionVector[j] = new SolutionItem(discreteSetMatrix[i, j]);
+                    }
+
+                    // for all items in upper triangle part - calculate global min factor
+                    solutionFactor += discreteSetMatrix[i, j].MinimizationFactor.Values.First();
                 }
             }
         }
@@ -130,6 +171,10 @@ namespace PeriodicTimetableGeneration.Solutions
 
         #region Properties
 
+        /// <summary>
+        /// Gets the solution factor.
+        /// </summary>
+        /// <value>The solution factor.</value>
         public int SolutionFactor
         {
             get
@@ -138,11 +183,15 @@ namespace PeriodicTimetableGeneration.Solutions
             }
         }
 
-        public SolutionItem[,] SolutionSingleMatrix
+        /// <summary>
+        /// Gets the solution vector.
+        /// </summary>
+        /// <value>The solution vector.</value>
+        public SolutionItem[] SolutionVector
         {
             get
             {
-                return solutionMatrix;
+                return solutionVector;
             }
         }
 
