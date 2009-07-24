@@ -31,5 +31,14 @@ namespace PeriodicTimetableGeneration.Properties {
                 return ((int)(this["Modulo"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int MinimalTransferTime {
+            get {
+                return ((int)(this["MinimalTransferTime"]));
+            }
+        }
     }
 }
