@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using PeriodicTimetableGeneration.Interfaces;
+using PeriodicTimetableGeneration.Properties;
+using PeriodicTimetableGeneration.GenerationAlgorithm;
 
 namespace PeriodicTimetableGeneration
 {
     public class GenerationAlgorithmRandomized : IGenerationAlgorithm
     {
+        #region Private Fields
+
         private List<Timetable> timetables;
         private List<TrainLine> trainLines;
         private List<TrainStation> trainStations;
+
+        #endregion
+
 
         #region Constructor
 
@@ -59,8 +66,67 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        public bool IsCancelled
+        {
+            get;
+            set;
+        }
+
+        public Time MinimalTransferTime 
+        {
+            get 
+            {
+                return Time.ToTime(Settings.Default.MinimalTransferTime);
+            }
+        }
 
         #endregion
+
+
+        #region IGenerationAlgorithm Members
+
+        public void generateTimetables(int numberOfTimetables)
+        {
+            // clear previous timetables
+            timetables.Clear();
+
+            for (int i = 1; i <= numberOfTimetables; i++)
+            {
+                if (IsCancelled)
+                {
+                    return;
+                }
+
+                Timetable tt = generateTimetable();
+                timetables.Add(tt);
+
+                int percentageComplete = (int)((float)i / (float)numberOfTimetables * 100);
+                reportProgress(percentageComplete);
+            }
+        }
+
+        protected void reportProgress(int percentageComplete)
+        {
+            if (this.OnProgressChanged != null)
+            {
+                this.OnProgressChanged(this, new ProgressChangedEventArgs(percentageComplete, this));
+            }
+        }
+
+        public event EventHandler<ProgressChangedEventArgs> OnProgressChanged;
+
+        public Timetable findTimetableOnSelect(int id)
+        {
+            return TimetableUtil.findTimetableOnSelect(this.timetables, id);
+        }
+
+        public Boolean doesTimetableExist(int id)
+        {
+            return TimetableUtil.doesTimetableExist(this.timetables, id);
+        }
+
+        #endregion
+
 
         #region Public Methods
 
@@ -80,48 +146,8 @@ namespace PeriodicTimetableGeneration
         {
             timetable.randomizeTimetable();
             return timetable;
-        }
+        }          
 
-        public void generateTimetables(int numberOfTimetables)
-        {
-            // clear previous timetables
-            timetables.Clear();
-
-            for (int i = 1; i <= numberOfTimetables; i++)
-            {
-                if (IsCancelled)
-                {
-                    return;
-                }
-
-                Timetable tt = generateTimetable();
-                timetables.Add(tt);
-            
-                int percentageComplete = (int)((float)i / (float)numberOfTimetables * 100);
-                reportProgress(percentageComplete);
-            }
-        }
-
-        public event EventHandler<ProgressChangedEventArgs> OnProgressChanged;
-
-        protected void reportProgress(int percentageComplete)
-        {
-            if (this.OnProgressChanged != null)
-            {
-                this.OnProgressChanged(this, new ProgressChangedEventArgs(percentageComplete, this));
-            }
-        }
-
-        public bool IsCancelled
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public Timetable generateTimetable()
         {
             // generate randomizedTimetable
@@ -202,6 +228,19 @@ namespace PeriodicTimetableGeneration
             return timetable;
         }
 
+        #endregion
+
+
+
+        #region Private Methods
+
+        private void setDefaultValues()
+        {
+            timetables = new List<Timetable>();
+            trainLines = TrainLineCache.getInstance().getCacheContent();
+            trainStations = TrainStationCache.getInstance().getCacheContent();
+        }
+
         private List<TrainLineVariable> cloneVariableLines(List<TrainLineVariable> lines)
         {
             List<TrainLineVariable> cloneLines = new List<TrainLineVariable>();
@@ -217,7 +256,7 @@ namespace PeriodicTimetableGeneration
         private int calculateTransfers(Timetable timetable, TrainLineVariable line, Time startTime)
         {
             // define all possibleTransfers
-            List<Transfer> transfers = createTransfers(line.LineNumber);
+            List<Transfer> transfers = TransferUtil.createTransfers(line.LineNumber);
 
             // set global globalRatingValue
             int globalRatingValue = 0;
@@ -233,10 +272,10 @@ namespace PeriodicTimetableGeneration
             return globalRatingValue;
         }
 
-        public int calculateTransfer(Timetable timetable, Transfer transfer, TrainLineVariable line, Time startTime)
+        private int calculateTransfer(Timetable timetable, Transfer transfer, TrainLineVariable line, Time startTime)
         {
-            // minimal transfers time set on 5 min
-            Time minimalTransferTime = Time.ToTime(5);
+            // minimal transfers time set
+            Time minimalTransferTime = MinimalTransferTime;
             // result rating value
             int ratingValue;
             // saveTime
@@ -300,199 +339,10 @@ namespace PeriodicTimetableGeneration
             return ratingValue;
         }
 
-        /*public Transfer createTransfer()
-        {
-        
-            Transfer transfers = new Transfer(
-
-            return transfers;
-        }*/
-
-        public static List<Transfer> createTransfers(int line)
-        {
-            List<Transfer> transfers = new List<Transfer>();
-            List<GroupOfConnections> connections = FinalInput.getInstance().getCacheContent();
-
-            transfers.AddRange(findOnTransfers(connections, line));
-            transfers.AddRange(findOffTransfers(connections, line));
-
-            return transfers;
-        }
-
-        private static List<Transfer> findOnTransfers(List<GroupOfConnections> connections, int lineNumber)
-        {
-            List<Transfer> transfers = new List<Transfer>();
-
-            // loop over all group of connection
-            foreach (GroupOfConnections connection in connections)
-            {
-                TrainLine previousLine = null;
-                // loop over all lines in that group
-                foreach (TrainLine line in connection.LinesOfConnection)
-                {
-                    // if we indicate the wanted line
-                    if (line.LineNumber.Equals(lineNumber))
-                    {
-                        // and if previous line exists, we indicate Transfer ON LINE
-                        if (previousLine != null)
-                        {
-                            // determine changing station
-                            TrainStation station = connection.getConnections()[0].findChangingStation(previousLine.LineNumber, lineNumber);
-
-                            // if transfers already exists
-                            if (doesTransferExist(transfers, previousLine.LineNumber, lineNumber, station.Id))
-                            {
-                                // find the transfers and update details
-                                Transfer tranUpd = findTransfer(transfers, previousLine.LineNumber, lineNumber, station.Id);
-                                tranUpd.Passengers += connection.Passengers;
-                            }
-                            // otherwise
-                            else
-                            {
-                                // createConstraintSet a new Transfer, and fill the details
-                                Transfer tran = new Transfer(previousLine, line, station);
-                                tran.Passengers = connection.Passengers;
-                                // addConstraint into transfers
-                                transfers.Add(tran);
-                            }
-                        }
-                    }
-
-
-                    // set line as prevous for next loop
-                    previousLine = line;
-                }
-
-
-            }
-
-            return transfers;
-        }
-
-        private static List<Transfer> findOffTransfers(List<GroupOfConnections> connections, int lineNumber)
-        {
-            List<Transfer> transfers = new List<Transfer>();
-
-            // loop over all group of connection
-            foreach (GroupOfConnections connection in connections)
-            {
-                TrainLine previousLine = null;
-                // loop over all lines in that group
-                foreach (TrainLine line in connection.LinesOfConnection)
-                {
-                    // if the previous line is wanted line
-                    if (previousLine != null && previousLine.Equals(lineNumber))
-                    {
-                        // determine changing station
-                        TrainStation station = connection.getConnections()[0].findChangingStation(previousLine.LineNumber, line.LineNumber);
-
-                        // if transfers already exists
-                        if (doesTransferExist(transfers, previousLine.LineNumber, line.LineNumber, station.Id))
-                        {
-                            // find the transfers and update details
-                            Transfer tranUpd = findTransfer(transfers, previousLine.LineNumber, lineNumber, station.Id);
-                            tranUpd.Passengers += connection.Passengers;
-                        }
-                        // otherwise
-                        else
-                        {
-                            // createConstraintSet a new Transfer, and fill the details
-                            Transfer tran = new Transfer(previousLine, line, station);
-                            tran.Passengers = connection.Passengers;
-                            // addConstraint into transfers
-                            transfers.Add(tran);
-                        }
-                    }
-
-
-                    // set line as prevous for next loop
-                    previousLine = line;
-                }
-            }
-
-            return transfers;
-        }
-
-        public static Transfer findTransfer(List<Transfer> transfers, int off, int on, int stationID)
-        {
-            Transfer transfer = null;
-
-            foreach (Transfer tran in transfers)
-            {
-                // if OFF and ON are equals, we found a transfers
-                if (tran.Off.Equals(off) && tran.On.Equals(on) && tran.StationID.Equals(stationID))
-                {
-                    transfer = tran;
-                    break;
-                }
-            }
-
-            return transfer;
-        }
-
-        public static Timetable findTimetableOnSelect(List<Timetable> timetables, int id)
-        {
-            Timetable tt = null;
-
-            foreach (Timetable timetable in timetables)
-            {
-                if (timetable.ID.Equals(id))
-                {
-                    tt = timetable;
-                    break;
-                }
-            }
-            return tt;
-        }
-
-        public Timetable findTimetableOnSelect(int id)
-        {
-            return findTimetableOnSelect(this.timetables, id);
-        }
-
-        public static Boolean doesTimetableExist(List<Timetable> timetables, int id)
-        {
-            Boolean exists = false;
-            if (findTimetableOnSelect(timetables, id) != null)
-            {
-                exists = true;
-            }
-            return exists;
-        }
-
-        public Boolean doesTimetableExist(int id)
-        {
-            return doesTimetableExist(this.timetables, id);
-        }
-
-        public static Boolean doesTransferExist(List<Transfer> transfers, int off, int on, int stationID)
-        {
-            Boolean exist = false;
-
-            // if we found transfers different than null
-            if (findTransfer(transfers, off, on, stationID) != null)
-            {
-                // then transfers exists
-                exist = true;
-            }
-
-            return exist;
-        }
 
         #endregion
 
 
-
-        #region Private Methods
-
-        private void setDefaultValues()
-        {
-            timetables = new List<Timetable>();
-            trainLines = TrainLineCache.getInstance().getCacheContent();
-            trainStations = TrainStationCache.getInstance().getCacheContent();
-        }
-
-        #endregion
 
 
     }

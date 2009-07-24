@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PeriodicTimetableGeneration.GenerationAlgorithm;
 
 namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
 {
@@ -44,7 +45,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
         {
             List<Transfer> transfers = new List<Transfer>();
             foreach (TrainLine line in TrainLineCache.getInstance().getCacheContent())
-                transfers.AddRange(GenerationAlgorithm.createTransfers(line.LineNumber));
+                transfers.AddRange(TransferUtil.createTransfers(line.LineNumber));
             return transfers;
         }
 

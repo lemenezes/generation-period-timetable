@@ -134,10 +134,6 @@ namespace PeriodicTimetableGeneration
         #endregion
 
 
-       
-	
-
-
 		#region Copy Methods
 
 		/// <summary>
@@ -183,19 +179,120 @@ namespace PeriodicTimetableGeneration
 
         #region Timetable Construction Methods
 
-        public static List<Timetable> constructTimetables(List<Solution> solutions)
+        //public static List<Timetable> constructTimetables(List<Solution> solutions, List<TrainLine> trainLineMap, int numberOfTimetables)
+        //{
+        //    List<Timetable> timetables = new List<Timetable>();
+        //    foreach (Solution solution in solutions)
+        //    {
+        //        timetables.Add(constructTimetable(solution, trainLineMap));
+        //    }
+        //    return timetables;
+        //}
+
+        /// <summary>
+        /// Constructs the timetables.
+        /// </summary>
+        /// <param name="solutions">The solutions.</param>
+        /// <param name="trainLineMap">The train line map.</param>
+        /// <param name="timetables">The timetables.</param>
+        public static void constructTimetables(List<Solution> solutions, List<TrainLine> trainLineMap, List<Timetable> timetables)
         {
-            throw new System.NotImplementedException();
+            foreach (Solution solution in solutions) 
+            {
+                // construct timetable from solution
+                Timetable tt = constructTimetable(solution, trainLineMap, timetables.Count + 1);
+                // add timetable to results
+                timetables.Add(tt);
+            }
         }
 
-        public static List<Timetable> constructTimetables(List<Solution> solutions, int numberOfTimetables)
+
+
+        /// <summary>
+        /// Constructs the timetable.
+        /// </summary>
+        /// <param name="solution">The solution.</param>
+        /// <param name="trainLineMap">The train line map.</param>
+        /// <param name="id">The id.</param>
+        /// <returns>The timetable.</returns>
+        public static Timetable constructTimetable(Solution solution, List<TrainLine> trainLineMap, int id)
         {
-            throw new System.NotImplementedException();
+            // create new timetable
+            Timetable timetable = new Timetable();
+            // set id
+            timetable.ID = id;
+            timetable.RatingValue = solution.SolutionFactor;
+            // create train lines dependent on solution
+            timetable.TrainLines.AddRange(createTrainLineVariablesDependentOnSolution(solution, trainLineMap));
+            // create trian lins independent on solution
+            timetable.TrainLines.AddRange(createTrainLineVariablesIndependentOnSolution(solution, trainLineMap));
+
+            return timetable;
         }
 
-        public static Timetable constructTimetable(Solution solution)
+        /// <summary>
+        /// Creates the train line variables dependent on solution.
+        /// </summary>
+        /// <param name="solution">The solution.</param>
+        /// <param name="trainLineMap">The train line map.</param>
+        /// <returns>Train line variables.</returns>
+        private static List<TrainLineVariable> createTrainLineVariablesDependentOnSolution(Solution solution, List<TrainLine> trainLineMap) 
         {
-            throw new System.NotImplementedException();
+            // new train lines variable
+            List<TrainLineVariable> newTrainLineVariables = new List<TrainLineVariable>();
+
+            // loop index
+            int index = 0;
+            // for all mapped line at solution
+            foreach (TrainLine line in trainLineMap) 
+            {
+                // create a trainLine
+                TrainLineVariable tlv = new TrainLineVariable(line);
+                //initialize fields
+                tlv.StartTime = Time.ToTime(solution.SolutionVector[index].Minute);
+                //tlv.RatingValue = solution.SolutionFactor;
+
+                // add to the list
+                newTrainLineVariables.Add(tlv);
+                // increment index
+                index++;
+            }
+
+            return newTrainLineVariables;
+        }
+
+        /// <summary>
+        /// Creates the train line variables independent on solution.
+        /// </summary>
+        /// <param name="solution">The solution.</param>
+        /// <param name="trainLineMap">The train line map.</param>
+        /// <returns>Train line variables.</returns>
+        private static List<TrainLineVariable> createTrainLineVariablesIndependentOnSolution(Solution solution, List<TrainLine> trainLineMap)
+        {            
+            // retreive all lines from train line cache
+            List<TrainLine> allLines = TrainLineCache.getInstance().getCacheContent();
+            // new train lines variable
+            List<TrainLineVariable> trainLineVariables = new List<TrainLineVariable>();
+
+            // if not all lines already contained, otherwise return
+            if (allLines.Count != trainLineMap.Count) 
+            {
+                foreach (TrainLine line in allLines) 
+                {
+                    // if line is not contained in trian line map
+                    if (!containsTrainLine(trainLineMap, line)) 
+                    {
+                        // create new line of timetable
+                        TrainLineVariable tlv = new TrainLineVariable(line);
+                        // set independent start time
+                        tlv.StartTime = Time.MinValue;
+                        // add
+                        trainLineVariables.Add(tlv);
+                    }
+                }
+            }
+
+            return trainLineVariables;
         }
 
         #endregion
@@ -227,6 +324,8 @@ namespace PeriodicTimetableGeneration
                     else
                     {   // otherwise initialize with a discreteSet
                         setMatrix[i, j] = new Set(createSequenceOfNumber(sizeOfDiscretSet), MODULO_DEFAULT);
+                        // create default minimization solutionFactor, which is for passengers = 0;
+                        setMatrix[i, j].createMinimizationFactor(0);
                     }
                 }
 		}

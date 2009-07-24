@@ -493,17 +493,20 @@ namespace PeriodicTimetableGeneration
         public void IntersectWith(Set otherSet)
         {
             // intersects discrete set in hashset implementation
-            this.mySet.IntersectWith(otherSet.getContentSet());
+            this.mySet.IntersectWith(otherSet.DiscreteSet);
             // create a new Dictionary for minFactor
             Dictionary<int, int> minFactor = new Dictionary<int, int>();
             // loop over all new items in discrete set O(all new items)
             foreach (int item in this.mySet) 
             {    
                 // create new minFactor only with the values contained in discrete set.
-                int newFactor = this.minimizationFactor[item] + otherSet.minimizationFactor[item];
+                int newFactor = this.minimizationFactor[item];
                 minFactor.Add(item, newFactor);
             }
 
+            //// create new minFactor only with the values contained in discrete set.
+            //int newFactor = this.minimizationFactor[item] + otherSet.minimizationFactor[item];
+            //minFactor.Add(item, newFactor);
 
             /*  // replaced, coz: all_old_keys > all_new_items
              // loop over all keys in old minFactor  O(all old keys)
@@ -642,6 +645,35 @@ namespace PeriodicTimetableGeneration
             }
             mySet = discretSet;
             minimizationFactor = minFactor;
+        }
+
+        public void MergeWith(Set otherSet) 
+        {
+            // intersects discrete set in hashset implementation
+            this.mySet.IntersectWith(otherSet.DiscreteSet);
+            // create a new Dictionary for minFactor
+            Dictionary<int, int> minFactor = new Dictionary<int, int>();
+            // loop over all new items in discrete set O(all new items)
+            foreach (int item in this.mySet)
+            {
+                // create new minFactor only with the values contained in discrete set.
+                int newFactor = this.minimizationFactor[item] + otherSet.minimizationFactor[item];
+                minFactor.Add(item, newFactor);
+            }
+
+
+            /*  // replaced, coz: all_old_keys > all_new_items
+             // loop over all keys in old minFactor  O(all old keys)
+            foreach (int item in this.minimizationFactor.Keys) 
+            {
+                if (this.mySet.Contains(item))
+                {
+                    minFactor.Add(item, this.minimizationFactor[item]);
+                }
+            }*/
+
+            this.minimizationFactor = minFactor;
+
         }
 
         #endregion
