@@ -3,8 +3,8 @@
   <Class Name="PeriodicTimetableGeneration.Set">
     <Position X="0.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAoAABFAAwBIQBREIkAgBAUAAAgGAiAMAgACGQBUoAo=</HashCode>
-      <FileName>GenerationAlgorithmPESP\Set.cs</FileName>
+      <HashCode>AAoAABFAAwBIQBREMkAgBAUAAAgGgiAMAgACGQBUoAo=</HashCode>
+      <FileName>GenerationAlgorithmDSAs\Set.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -12,7 +12,7 @@
     <Position X="2.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAACAAhQAQAAQAASAEEQEoAAAEAGgABgBA=</HashCode>
-      <FileName>GenerationAlgorithmPESP\Constraint.cs</FileName>
+      <FileName>GenerationAlgorithmDSAs\Constraint.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.ConstraintCache">
@@ -23,56 +23,86 @@
     <NestedTypes>
       <Class Name="PeriodicTimetableGeneration.ConstraintCache.SingletonHolder" Collapsed="true">
         <TypeIdentifier>
-          <NewMemberFileName>GenerationAlgorithmPESP\ConstraintCache.cs</NewMemberFileName>
+          <NewMemberFileName>GenerationAlgorithmDSAs\ConstraintCache.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
     </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAgAAAAAAAAAAAAAQAIAAAAhQAQAAAAAEEAAA=</HashCode>
-      <FileName>GenerationAlgorithmPESP\ConstraintCache.cs</FileName>
+      <FileName>GenerationAlgorithmDSAs\ConstraintCache.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmPESP">
+  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmDSA">
     <Position X="6.25" Y="0.5" Width="2" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Struct Name="PeriodicTimetableGeneration.GenerationAlgorithmPESP.SolutionItem" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>GenerationAlgorithmPESP\GeneratoionAlgorithmPESP.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-      <Struct Name="PeriodicTimetableGeneration.GenerationAlgorithmPESP.Solution" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>GenerationAlgorithmPESP\GeneratoionAlgorithmPESP.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAQAAAAAAAIAAAAAAgAEAUAAAAEACAgAAAAgAA=</HashCode>
-      <FileName>GenerationAlgorithmPESP\GenerationAlgorithmPESP.cs</FileName>
+      <HashCode>AAAAAAAQAAAAAAAAAAAAAAAAEAUAAAAEACAgAAAEgAA=</HashCode>
+      <FileName>GenerationAlgorithmDSAs\GenerationAlgorithmDSA.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmPESPUtil">
+  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmDSAUtil">
     <Position X="8.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>EAIagAQQBAAQAQFCEEAAAAgAAAIAAAAEgBAACAAAgQg=</HashCode>
-      <FileName>GenerationAlgorithmPESP\GenerationAlgorithmPESPUtil.cs</FileName>
+      <HashCode>EAAKgAAQAAAQAAFAAEAAAAAAAAAAAAAAgIAACAAAgAA=</HashCode>
+      <FileName>GenerationAlgorithmDSAs\Utils\GenerationAlgorithmDSAUtil.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.BestSearchUtil">
-    <Position X="2.75" Y="9" Width="2" />
+    <Position X="2.5" Y="9" Width="2" />
     <TypeIdentifier>
-      <HashCode>AEAAAAABAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>BestSearchUtil.cs</FileName>
+      <HashCode>AEAAgAABAAQAAAAAAAAAAAgCAAAAAQAAAAQAAAAAAAA=</HashCode>
+      <FileName>GenerationAlgorithmDSAs\Utils\BestSearchUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.BisectionUtil">
+    <Position X="4.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>GenerationAlgorithmDSAs\Utils\BisectionUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.MatrixUtils">
+    <Position X="4.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GenerationAlgorithmDSAs\Utils\MatrixUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmDSAs.CreateConstraintSetsUtil">
+    <Position X="6.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAQAAACEAAAAAgAAAIAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>GenerationAlgorithmDSAs\Utils\CreateConstraintSetsUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmDSAs.ConstraintUtil">
+    <Position X="8.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAQABAAAAQAAAAAAAAAAAAAAAAAEABAAAAAAAQg=</HashCode>
+      <FileName>GenerationAlgorithmDSAs\Utils\ConstraintUtil.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="PeriodicTimetableGeneration.FactorRangeRecord">
-    <Position X="6.25" Y="8" Width="1.75" />
+    <Position X="14.75" Y="9" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAABAAAAAAAAAAAAAEAAgAAgAAAAABAAAA=</HashCode>
-      <FileName>GenerationAlgorithmPESP\FactorRangeRecord.cs</FileName>
+      <FileName>GenerationAlgorithmDSAs\FactorRangeRecord.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PeriodicTimetableGeneration.Solutions.SolutionItem">
+    <Position X="13" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAQAAEAAAAAAAIAAAAACAAAAAgAAAIAAA=</HashCode>
+      <FileName>GenerationAlgorithmDSAs\Solution.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PeriodicTimetableGeneration.Solutions.Solution">
+    <Position X="11.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAABAAAAAAAAAAAAAAAAAAgAAAAIAAAAA=</HashCode>
+      <FileName>GenerationAlgorithmDSAs\Solution.cs</FileName>
     </TypeIdentifier>
   </Struct>
   <Interface Name="PeriodicTimetableGeneration.Interfaces.IBestChoiceSearcher">
