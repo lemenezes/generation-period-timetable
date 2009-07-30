@@ -40,6 +40,10 @@ namespace PeriodicTimetableGeneration
         /// List of lines, which are connected with this line.
         /// </summary>
         private List<TrainLine> connectedTrainLInes;
+        /// <summary>
+        /// Time of original departure loaded from input.
+        /// </summary>
+        private Time originalDepartureFromFirstStation;
 
         #endregion
 
@@ -72,6 +76,22 @@ namespace PeriodicTimetableGeneration
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the time of original departure.
+        /// </summary>
+        /// <value>The time of original departure.</value>
+        public Time OriginalDeparture 
+        {
+            get
+            {
+                return originalDepartureFromFirstStation;
+            }
+            set
+            {
+                originalDepartureFromFirstStation = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the direction.
@@ -337,6 +357,7 @@ namespace PeriodicTimetableGeneration
             direction = Direction.Forward;
             period = Period.interval60;
             connectedTrainLInes = new List<TrainLine>();
+            originalDepartureFromFirstStation == Time.MinValue;
         }
 
 
