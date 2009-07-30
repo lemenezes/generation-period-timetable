@@ -90,7 +90,7 @@ namespace PeriodicTimetableGeneration
 				// loop over all combination i,j,k
 				for (int k = 0; k < trainLinesMap.Count; k++)
 					for (int i = 0; i < trainLinesMap.Count; i++)
-						for (int j = i+1; j < trainLinesMap.Count; j++)
+						for (int j = i; j < trainLinesMap.Count; j++)
 						{
 							// if at least 2 of indices are equal ,then continue, or if i > j (search only when i<)
 							//if (i == j || j == k || i == k || i > j)

@@ -74,17 +74,30 @@ namespace PeriodicTimetableGeneration
 		{
 			Boolean valid = true;
 
-			foreach (Set item in matrix)
-			{
-				// if at least one of item is empty, all matrix is empty
-				if (item.isDiscreteSetEmpty())
-				{
-					valid = false;
-					break;
-				}
-			}
 
-			return valid;
+            // complexity NxN, where N is size of matrix
+            //foreach (Set item in matrix)
+            //{
+            //    // if at least one of item is empty, all matrix is empty
+            //    if (item.isDiscreteSetEmpty())
+            //    {
+            //        valid = false;
+            //        break;
+            //    }
+            //}
+
+            // complexity N, where N is size of matrix
+            for (int i = 0, rows = matrix.GetLength(0); i < rows; i++) 
+            {
+                // if at least one of the items on diagonal is empty, all matrix is empty
+                if (matrix[i, i].isDiscreteSetEmpty()) 
+                {
+                    valid = false;
+                }
+            }
+
+
+                return valid;
 		}
 
     }

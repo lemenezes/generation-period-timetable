@@ -6,6 +6,9 @@ using PeriodicTimetableGeneration.GenerationAlgorithm;
 
 namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
 {
+    /// <summary>
+    /// Class implements utility methods for Constraint.
+    /// </summary>
     public static class ConstraintUtil
     {
         #region Create Methods

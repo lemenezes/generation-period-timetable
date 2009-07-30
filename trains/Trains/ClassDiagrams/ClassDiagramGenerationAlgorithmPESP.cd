@@ -1,15 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Propagate changed i &lt;= j&#xD;&#xA;Search -&gt; backtrack, linear">
+    <Position X="8.781" Y="7.438" Height="0.75" Width="1.7" />
+  </Comment>
   <Class Name="PeriodicTimetableGeneration.Set">
     <Position X="0.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAoAABFAAwBIQBREMkAgBAUAAAgGgiAMAgACGQBUoAo=</HashCode>
+      <HashCode>AAoAABFAAwBIQBREMkAgBAUAAAgmgiAMAgACGQBUoAo=</HashCode>
       <FileName>GenerationAlgorithmDSAs\Set.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="PeriodicTimetableGeneration.Constraint">
     <Position X="2.5" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAACAAhQAQAAQAASAEEQEoAAAEAGgABgBA=</HashCode>
       <FileName>GenerationAlgorithmDSAs\Constraint.cs</FileName>
@@ -38,9 +44,10 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAQAAAAQAAAEAAAAAAAkAEAAIAAACAAAAAAgAA=</HashCode>
+      <HashCode>AAAAIAAQAAQAQAAAEgIAAAAAkAEgAIAAACAgIAAAgAA=</HashCode>
       <FileName>GenerationAlgorithmDSAs\GenerationAlgorithmDSA.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmDSAUtil">
     <Position X="8.5" Y="0.5" Width="2.5" />
@@ -129,7 +136,7 @@
   <Interface Name="PeriodicTimetableGeneration.Interfaces.IGenerationAlgorithm">
     <Position X="11.5" Y="5.5" Width="4.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEgAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAIAAAAAQAAAAAAAIAAAAAAAEgAIAAAAAgIAAAAAA=</HashCode>
       <FileName>Interfaces\IGenerationAlgorithm.cs</FileName>
     </TypeIdentifier>
   </Interface>

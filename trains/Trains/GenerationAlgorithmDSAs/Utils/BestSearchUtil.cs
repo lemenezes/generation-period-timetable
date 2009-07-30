@@ -131,7 +131,7 @@ namespace PeriodicTimetableGeneration
                         continue;
                     }
 
-                    if (currentRecord.RangeFactor > currentWorst)
+                    if (currentRecord.RangeFactor >= currentWorst)
                     {
                         // Insert - create a space.
                         bestRecords.Add(currentRecord);
