@@ -48,6 +48,10 @@ namespace PeriodicTimetableGeneration
 
         #region IGenerationAlgorithm Members
 
+        protected double percentageComplete = 0;
+
+        protected int stepCount = 0;
+
         /// <summary>
         /// Generates the timetables.
         /// </summary>
@@ -60,22 +64,29 @@ namespace PeriodicTimetableGeneration
 
             List<Timetable> newTimetables = new List<Timetable>();
 
-
+            percentageComplete = 0.0;
+            stepCount = 0;
             runSpecializedGenerationAlgorithm(constraints,
                 new BisectionPropagator(new SameTransferTime()),
                 new DeterministicSearcher(), newTimetables);
 
-
+            percentageComplete = 0.25;
+            stepCount = 0;
+            reportProgress();
             runSpecializedGenerationAlgorithm(constraints,
                 new BisectionPropagator(new AlfaTTransferTime()),
                 new DeterministicSearcher(), newTimetables);
 
-
+            percentageComplete = 0.5;
+            stepCount = 0;
+            reportProgress();
             runSpecializedGenerationAlgorithm(constraints,
                 new SimplePropagator(new FullDiscreteSet()),
                 new DeterministicSearcher(), newTimetables);
 
-
+            percentageComplete = 0.75;
+            stepCount = 0;
+            reportProgress();
             runSpecializedGenerationAlgorithm(constraints,
                 new SimplePropagator(new FullDiscreteSet()),
                 new ProbableSearcher(), newTimetables);
@@ -125,11 +136,12 @@ namespace PeriodicTimetableGeneration
         /// Reports the progress.
         /// </summary>
         /// <param name="percentageComplete">The percentage complete.</param>
-        protected void reportProgress(int percentageComplete)
+        protected void reportProgress()
         {
+            ++ stepCount;
             if (this.OnProgressChanged != null)
             {
-                this.OnProgressChanged(this, new ProgressChangedEventArgs(percentageComplete, this));
+                this.OnProgressChanged(this, new ProgressChangedEventArgs((int)(100 * (percentageComplete + 0.25 * (1 - 1 / (double) stepCount))), this));
             }
         }
 
@@ -181,15 +193,13 @@ namespace PeriodicTimetableGeneration
 
             // finish time
             watch.Stop();
-
-   
             TimeSpan runningTime = watch.Elapsed;
 
             // crete note for generated solutions
             String note = constraintPropagator.getDescription() + ", " + bestChoiceSearcher.getDescription();
 
             // Construct timetables from solutions generated above.
-            runConstructionTimetableAlgorithm(solutions, propagationResult.TrainLinesMap, timetables, note, runningTime);
+            runConstructionTimetableAlgorithm(solutions, propagationResult.TrainLinesMap, timetables, stepCount, note, runningTime);
         }
 
         /// <summary>
@@ -200,9 +210,9 @@ namespace PeriodicTimetableGeneration
         /// <param name="trainLineMap">The train line map.</param>
         /// <param name="timetables">The timetables.</param>
         /// <param name="note">The note.</param>
-        public void runConstructionTimetableAlgorithm(List<Solution> solutions, List<TrainLine> trainLineMap, List<Timetable> timetables, String note, TimeSpan runningTime)
+        public void runConstructionTimetableAlgorithm(List<Solution> solutions, List<TrainLine> trainLineMap, List<Timetable> timetables, int stepCount, String note, TimeSpan runningTime)
         {
-            GenerationAlgorithmDSAUtil.constructTimetables(solutions, trainLineMap, timetables, note, runningTime);
+            GenerationAlgorithmDSAUtil.constructTimetables(solutions, trainLineMap, timetables, stepCount, note, runningTime);
         }
 
         #endregion
@@ -297,6 +307,8 @@ namespace PeriodicTimetableGeneration
         /// <returns>True if solution found, terminate recursive calls. Otherwise continue in backtracking.</returns>
         private Boolean search(IBestChoiceSearcher bestChoiceSearcher, PropagationResult propagationResult, List<Solution> solutions)
         {
+            reportProgress();
+
             // retreive discrete set matrix after propagation from propagation result
             Set[,] discreteSetMatrix = propagationResult.DiscreteSetMatrix;
 
