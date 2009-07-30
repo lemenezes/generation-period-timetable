@@ -17,6 +17,12 @@ namespace PeriodicTimetableGeneration.Interfaces
         /// <param name="size">The size.</param>
         /// <returns></returns>
         List<Constraint> createConstraintSets(List<Constraint> constraints, int size);
+
+        /// <summary>
+        /// Gets the description.
+        /// </summary>
+        /// <returns></returns>
+        String getDescription();
     }
 
 	namespace ConstraintSetsCreators
@@ -42,8 +48,17 @@ namespace PeriodicTimetableGeneration.Interfaces
 				return CreateConstraintSetsUtil.createConstraintSets_SameTransferTime(constraints, size);
 			}
 
-			#endregion
-		}
+            /// <summary>
+            /// Gets the description.
+            /// </summary>
+            /// <returns></returns>
+            public string getDescription()
+            {
+                return "Same discrete sets";
+            }
+
+            #endregion
+        }
 
         /// <summary>
         /// Create constraint sets, the alfa*period transfer time is quaranteed for all transfers.
@@ -65,8 +80,18 @@ namespace PeriodicTimetableGeneration.Interfaces
                 return CreateConstraintSetsUtil.createConstraintSets_AlfaTTransferTime(constraints, size);
 			}
 
-			#endregion
-		}
+
+            /// <summary>
+            /// Gets the description.
+            /// </summary>
+            /// <returns></returns>
+            public string getDescription()
+            {
+                return "Alpha*T size of discrete sets";
+            }
+
+            #endregion
+        }
 
         /// <summary>
         /// Create constraint full discrete sets.
@@ -88,8 +113,17 @@ namespace PeriodicTimetableGeneration.Interfaces
                 return CreateConstraintSetsUtil.createConstraintSets_FullDiscreteSets(constraints, size);
 			}
 
-			#endregion
-		}
+            /// <summary>
+            /// Gets the description.
+            /// </summary>
+            /// <returns></returns>
+            public string getDescription()
+            {
+                return "Full discrete sets";
+            }
+
+            #endregion
+        }
 
 	}
 

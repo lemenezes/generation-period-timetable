@@ -16,6 +16,12 @@ namespace PeriodicTimetableGeneration.Interfaces
         /// <param name="resultFactorRangeRecord">The result factor range record.</param>
         /// <returns></returns>
         Boolean chooseBestRecord(Set[,] matrix, out FactorRangeRecord resultFactorRangeRecord);
+
+        /// <summary>
+        /// Gets the description.
+        /// </summary>
+        /// <returns></returns>
+        String getDescription();
     }
 
     namespace BestChoiceSearchers
@@ -41,7 +47,17 @@ namespace PeriodicTimetableGeneration.Interfaces
                 return BestSearchUtil.deterministicSearchForBestRecord(matrix, out resultFactorRangeRecord);
             }
 
+            /// <summary>
+            /// Gets the description.
+            /// </summary>
+            /// <returns></returns>
+            public string getDescription()
+            {
+                return "Deterministic searcher";
+            }
+
             #endregion
+
         }
 
         public class ProbableSearcher : IBestChoiceSearcher
@@ -59,6 +75,15 @@ namespace PeriodicTimetableGeneration.Interfaces
             {
                 // use probablistic choice
                 return BestSearchUtil.probableSearchForBestRecord(matrix, out resultFactorRangeRecord);
+            }
+
+            /// <summary>
+            /// Gets the description.
+            /// </summary>
+            /// <returns></returns>
+            public string getDescription()
+            {
+                return "Probabilistic searcher";
             }
 
             #endregion
