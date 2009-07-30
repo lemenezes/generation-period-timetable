@@ -17,7 +17,13 @@ namespace PeriodicTimetableGeneration.Interfaces
         /// <param name="size">The size.</param>
         /// <returns></returns>
 		PropagationResult runPropagationAlgorithm(List<Constraint> constraints, int size);
-	}
+
+        /// <summary>
+        /// Gets the description.
+        /// </summary>
+        /// <returns></returns>
+        String getDescription();
+    }
 
     namespace ConstraintPropagators
     {
@@ -79,6 +85,15 @@ namespace PeriodicTimetableGeneration.Interfaces
                 return BisectionUtil.Bisect(constraints, this.ConstraintSetsCreator, LOWER_BOUND_DEFAULT, UPPER_BOUND_DEFAULT);
             }
 
+            /// <summary>
+            /// Gets the description.
+            /// </summary>
+            /// <returns></returns>
+            public string getDescription()
+            {
+                return "Bisection propagator" + " with " + constraintSetsCreator.getDescription();
+            }
+
             #endregion
 
             #region Properties
@@ -96,6 +111,7 @@ namespace PeriodicTimetableGeneration.Interfaces
             }
 
             #endregion
+
         }
 
         /// <summary>
@@ -141,6 +157,15 @@ namespace PeriodicTimetableGeneration.Interfaces
                 return PropagationUtil.runPropagationAlgorithm(constraints, this.ConstraintSetsCreator, size);
             }
 
+            /// <summary>
+            /// Gets the description.
+            /// </summary>
+            /// <returns></returns>
+            public string getDescription()
+            {
+                return "Simple propagator" + " with " + constraintSetsCreator.getDescription();
+            }
+
             #endregion
 
             #region Properties
@@ -158,6 +183,7 @@ namespace PeriodicTimetableGeneration.Interfaces
             }
 
             #endregion
+
         }
     }
 }

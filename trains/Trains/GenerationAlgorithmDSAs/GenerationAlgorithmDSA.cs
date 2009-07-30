@@ -172,8 +172,12 @@ namespace PeriodicTimetableGeneration
             PropagationResult propagationResult = constraintPropagator.runPropagationAlgorithm(constraints, GenerationAlgorithmDSAUtil.MODULO_DEFAULT);
             // Search for the solution with specific bestChoiceSearcher
             List<Solution> solutions = runSearchAlgorithm(bestChoiceSearcher, propagationResult);
+
+            // crete note for generated solutions
+            String note = constraintPropagator.getDescription() + ", " + bestChoiceSearcher.getDescription();
+
             // Construct timetables from solutions generated above.
-            runConstructionTimetableAlgorithm(solutions, propagationResult.TrainLinesMap, timetables);
+            runConstructionTimetableAlgorithm(solutions, propagationResult.TrainLinesMap, timetables, note);
         }
 
         /// <summary>
@@ -182,10 +186,11 @@ namespace PeriodicTimetableGeneration
         /// </summary>
         /// <param name="solutions">The solutions.</param>
         /// <param name="trainLineMap">The train line map.</param>
-        /// <returns>The timetables.</returns>
-        public void runConstructionTimetableAlgorithm(List<Solution> solutions, List<TrainLine> trainLineMap, List<Timetable> timetables)
+        /// <param name="timetables">The timetables.</param>
+        /// <param name="note">The note.</param>
+        public void runConstructionTimetableAlgorithm(List<Solution> solutions, List<TrainLine> trainLineMap, List<Timetable> timetables, String note)
         {
-            GenerationAlgorithmDSAUtil.constructTimetables(solutions, trainLineMap, timetables);
+            GenerationAlgorithmDSAUtil.constructTimetables(solutions, trainLineMap, timetables, note);
         }
 
         #endregion
@@ -277,7 +282,8 @@ namespace PeriodicTimetableGeneration
         /// <param name="bestChoiceSearcher">The best choice searcher.</param>
         /// <param name="propagationResult">The propagation result.</param>
         /// <param name="solutions">The solutions.</param>
-        private void search(IBestChoiceSearcher bestChoiceSearcher, PropagationResult propagationResult, List<Solution> solutions)
+        /// <returns>True if solution found, terminate recursive calls. Otherwise continue in backtracking.</returns>
+        private Boolean search(IBestChoiceSearcher bestChoiceSearcher, PropagationResult propagationResult, List<Solution> solutions)
         {
             // retreive discrete set matrix after propagation from propagation result
             Set[,] discreteSetMatrix = propagationResult.DiscreteSetMatrix;
@@ -292,7 +298,7 @@ namespace PeriodicTimetableGeneration
                 if (!MatrixUtils.isValid(discreteSetMatrix))
                 {
                     // No valid matrix - solution can not be found.
-                    return;
+                    return false;
                 }
 
                 // Find the set to be shortened.
@@ -301,20 +307,24 @@ namespace PeriodicTimetableGeneration
                 // if no best record found ()
                 if (!bestChoiceSearcher.chooseBestRecord(discreteSetMatrix, out bestRecord))
                 {
-                    // then solution founded, matrix is single (contains singletons only).
+                    // then solution found, matrix is single (contains singletons only).
                     solutions.Add(new Solution(discreteSetMatrix));
 
-                    // TODO: here finish recursive call
-
-                    // end of recursive calls
-                    return;
+                    // End of recursive calls
+                    return true;
                 }
 
                 // fix one potential set with item founded as best
                 Set[,] newMatrix = fixOnePotentialOfSetInMatrix(discreteSetMatrix, bestRecord);
 
                 // matrix was changed, continue in recursive calls
-                search(bestChoiceSearcher, new PropagationResult(newMatrix, propagationResult.TrainLinesMap), solutions);
+                Boolean solutionFound = search(bestChoiceSearcher, new PropagationResult(newMatrix, propagationResult.TrainLinesMap), solutions);
+
+                // Test if solution was found
+                if (solutionFound)
+                {
+                    return true;    
+                }
 
                 // after return from recursive call, remove fixed object and try to
                 discreteSetMatrix[bestRecord.Row, bestRecord.Col].Remove(bestRecord.MinItemOfSet);
