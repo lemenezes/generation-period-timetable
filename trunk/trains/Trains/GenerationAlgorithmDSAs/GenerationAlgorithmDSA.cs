@@ -11,6 +11,7 @@ using PeriodicTimetableGeneration.Interfaces.BestChoiceSearchers;
 using PeriodicTimetableGeneration.GenerationAlgorithmDSAs;
 using System.ComponentModel;
 using PeriodicTimetableGeneration.GenerationAlgorithm;
+using System.Diagnostics;
 
 namespace PeriodicTimetableGeneration
 {
@@ -168,16 +169,27 @@ namespace PeriodicTimetableGeneration
         public void runSpecializedGenerationAlgorithm(List<Constraint> constraints, IConstraintPropagator constraintPropagator,
             IBestChoiceSearcher bestChoiceSearcher, List<Timetable> timetables) 
         {          
+
+            // start time
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
             // Propagate constraints with specific constraintPropagator
             PropagationResult propagationResult = constraintPropagator.runPropagationAlgorithm(constraints, GenerationAlgorithmDSAUtil.MODULO_DEFAULT);
             // Search for the solution with specific bestChoiceSearcher
             List<Solution> solutions = runSearchAlgorithm(bestChoiceSearcher, propagationResult);
 
+            // finish time
+            watch.Stop();
+
+   
+            TimeSpan runningTime = watch.Elapsed;
+
             // crete note for generated solutions
             String note = constraintPropagator.getDescription() + ", " + bestChoiceSearcher.getDescription();
 
             // Construct timetables from solutions generated above.
-            runConstructionTimetableAlgorithm(solutions, propagationResult.TrainLinesMap, timetables, note);
+            runConstructionTimetableAlgorithm(solutions, propagationResult.TrainLinesMap, timetables, note, runningTime);
         }
 
         /// <summary>
@@ -188,9 +200,9 @@ namespace PeriodicTimetableGeneration
         /// <param name="trainLineMap">The train line map.</param>
         /// <param name="timetables">The timetables.</param>
         /// <param name="note">The note.</param>
-        public void runConstructionTimetableAlgorithm(List<Solution> solutions, List<TrainLine> trainLineMap, List<Timetable> timetables, String note)
+        public void runConstructionTimetableAlgorithm(List<Solution> solutions, List<TrainLine> trainLineMap, List<Timetable> timetables, String note, TimeSpan runningTime)
         {
-            GenerationAlgorithmDSAUtil.constructTimetables(solutions, trainLineMap, timetables, note);
+            GenerationAlgorithmDSAUtil.constructTimetables(solutions, trainLineMap, timetables, note, runningTime);
         }
 
         #endregion

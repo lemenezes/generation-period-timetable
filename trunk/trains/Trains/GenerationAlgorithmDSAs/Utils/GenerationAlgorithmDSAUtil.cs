@@ -196,13 +196,14 @@ namespace PeriodicTimetableGeneration
         /// <param name="trainLineMap">The train line map.</param>
         /// <param name="timetables">The timetables.</param>
         /// <param name="note">The note.</param>
-        public static void constructTimetables(List<Solution> solutions, List<TrainLine> trainLineMap, List<Timetable> timetables, String note)
+        public static void constructTimetables(List<Solution> solutions, List<TrainLine> trainLineMap, List<Timetable> timetables, String note, TimeSpan runningTime)
         {
             foreach (Solution solution in solutions) 
             {
                 // construct timetable from solution
                 Timetable tt = constructTimetable(solution, trainLineMap, timetables.Count + 1);
                 tt.Note = note;
+                tt.GenerationTime = runningTime;
                 // add timetable to results
                 timetables.Add(tt);
             }
