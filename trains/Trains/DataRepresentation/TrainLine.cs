@@ -357,7 +357,7 @@ namespace PeriodicTimetableGeneration
             direction = Direction.Forward;
             period = Period.interval60;
             connectedTrainLInes = new List<TrainLine>();
-            originalDepartureFromFirstStation == Time.MinValue;
+            originalDepartureFromFirstStation = Time.MinValue;
         }
 
 

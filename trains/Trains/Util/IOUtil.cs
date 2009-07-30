@@ -77,10 +77,14 @@ namespace PeriodicTimetableGeneration
             fillHeader(line, header);
             // delete header, leave only stops information
             dataListStrings = deleteHeader(dataListStrings);
+
+            // original departure time
+            Time originalDepartureTime = Time.MinValue;
             // createConstraintSet list of stops
-            List<TrainStop> trainStops = createTrainStops(dataListStrings, line);
+            List<TrainStop> trainStops = createTrainStops(dataListStrings, line, out originalDepartureTime);
             // asign stops toStation the line_
             line.setTrainStops(trainStops);
+            line.OriginalDeparture = originalDepartureTime;
 
             return line;
         }
@@ -92,7 +96,7 @@ namespace PeriodicTimetableGeneration
         /// <param name="data">The data.</param>
         /// <param name="line">The line.</param>
         /// <returns>The train stops.</returns>
-        private static List<TrainStop> createTrainStops(List<String[]> data, TrainLine line)
+        private static List<TrainStop> createTrainStops(List<String[]> data, TrainLine line, out Time originalDepartureTime)
         {
             List<TrainStop> trainStops = new List<TrainStop>();
             TrainStationCache stationCache = TrainStationCache.getInstance();
@@ -102,6 +106,9 @@ namespace PeriodicTimetableGeneration
             Time arrival;
             int kmFromStart;
             Time timeStart = Time.ToTime(data[0][2]);//Time.MinValue;
+            // set original departure time
+            originalDepartureTime = new Time(timeStart);
+
             Time timePrev = Time.MinValue; 
             int kmPrev = 0;
 
