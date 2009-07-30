@@ -7,30 +7,62 @@ using System.IO;
 
 namespace PeriodicTimetableGeneration
 {
+    /// <summary>
+    /// Utility methods for Input/Output operations.
+    /// </summary>
     public class IOUtil
     {
 
         #region Local Constants
 
+        /// <summary>
+        /// String "TypeOfTrain".
+        /// </summary>
         public const String TYPE_OF_TRAIN = "TypeOfTrain";
+        /// <summary>
+        /// String "TrainLineNumber".
+        /// </summary>
         public const String TRAIN_LINE_NUMBER = "TrainLineNumber";
+        /// <summary>
+        /// String "Period".
+        /// </summary>
         public const String PERIOD =  "Period";
+        /// <summary>
+        /// String "Direction".
+        /// </summary>
         public const String DIRECTION = "Direction";
+        /// <summary>
+        /// String "Provider".
+        /// </summary>
         public const String PROVIDER = "Provider";
 //        public const direction[] HEADER_PROPERTIES = { TYPE_OF_TRAIN, TYPE_OF_TRAIN,
 //                                                      PERIOD,  DIRECTION, PROVIDER};
+        /// <summary>
+        /// Delimiter of fields used in input files.
+        /// </summary>
         public const char DELIMITER = '#';
+        /// <summary>
+        /// Number of stop's details.
+        /// </summary>
         public const int NUMBER_OF_STOP_DETAILS = 4;
 
         #endregion
 
 
 
+        /// <summary>
+        /// Writes the train line to file.
+        /// </summary>
         public static void writeTrainLineToFile()
         {
             throw new System.NotImplementedException();
         }
 
+        /// <summary>
+        /// Reads the train line from file.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>The train line.</returns>
         public static TrainLine readTrainLineFromFile(String fileName)
         {
             List<String[]> dataListStrings = readFromFile(fileName);   //read fromStation file line_ by line_
@@ -54,6 +86,12 @@ namespace PeriodicTimetableGeneration
         }
 
 
+        /// <summary>
+        /// Creates the train stops.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="line">The line.</param>
+        /// <returns>The train stops.</returns>
         private static List<TrainStop> createTrainStops(List<String[]> data, TrainLine line)
         {
             List<TrainStop> trainStops = new List<TrainStop>();
@@ -123,9 +161,11 @@ namespace PeriodicTimetableGeneration
             return trainStops;
         }
 
-        /**
-         * Fill information about train line_ fromStation header.
-         */
+        /// <summary>
+        /// Fills fields with information about train line from header.
+        /// </summary>
+        /// <param name="trainLine">The train line.</param>
+        /// <param name="header">The header.</param>
         private static void fillHeader(TrainLine trainLine, Hashtable header)
         {
             if( header.ContainsKey(TRAIN_LINE_NUMBER))
@@ -140,10 +180,11 @@ namespace PeriodicTimetableGeneration
                 trainLine.TypeTrain = TypeOfTrainUtil.getTypeOfTrain( header[TYPE_OF_TRAIN].ToString() );
         }
 
-        /**
-         * Function reads firt variableLines of input files and
-         * fill header information about line_;
-         */
+        /// <summary>
+        /// Reads the header information about the train line.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <returns>The header.</returns>
         private static Hashtable readHeader(List<String[]> data){
             Hashtable hashTable = new Hashtable();
 
@@ -158,10 +199,11 @@ namespace PeriodicTimetableGeneration
             return hashTable;
         }
 
-        /**
-         * Function for deleting first records in header
-         * about line_ information.
-         */
+        /// <summary>
+        /// Deletes the header, first part of line's information.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <returns>The data.</returns>
         private static List<String[]> deleteHeader(List<String[]> data)
         {
             List<String[]> newData = new List<String[]>();
@@ -180,6 +222,11 @@ namespace PeriodicTimetableGeneration
         }
 
 
+        /// <summary>
+        /// Reads from file and parse the information separeted by delimiter.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>The data.</returns>
         public static List<String[]> readFromFile(String fileName)
         {
             List<String[]> listString = new List<string[]>();
@@ -210,6 +257,11 @@ namespace PeriodicTimetableGeneration
             return listString;
         }
 
+        /// <summary>
+        /// Gets the direction.
+        /// </summary>
+        /// <param name="direction">The direction.</param>
+        /// <returns>The direction.</returns>
         public Direction getDirection(String direction)
         {
             Direction newDirection;
@@ -224,9 +276,9 @@ namespace PeriodicTimetableGeneration
         }
 
         /// <summary>
-        /// function reads trainStation information (inhabitants) off file
+        /// Reads station's information from file.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The stations.</returns>
         public static List<TrainStation> readTrainStationFromFile(String fileName)
         {
             List<String[]> listOfStrings = readFromFile(fileName);
@@ -246,7 +298,9 @@ namespace PeriodicTimetableGeneration
                 station.Name = strings[0];
                 station.Inhabitation = Convert.ToInt32(strings[1]);
 
+                // if there is 3rd item represented town
                 if (strings.Length.Equals(3))
+                    // save it
                     station.Town = strings[2];
 
                 stations.Add(station);
@@ -255,5 +309,128 @@ namespace PeriodicTimetableGeneration
             return stations;
         }
 
+        /// <summary>
+        /// Updates the field town category for stations from file.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        public static void updateTownCategoriesFromFile(String fileName)
+        {
+            List<TrainStation> stations = IOUtil.readTrainStationFromFile(fileName);
+
+            foreach (TrainStation station in stations)
+            {
+                // if station exits in train station cache
+                if (TrainStationCache.getInstance().doesStationExist(station.Name))
+                {
+                    // find station in cache
+                    TrainStation s = TrainStationCache.getInstance()
+                        .getCacheContentOnName(station.Name);
+                    // copy inhabitation
+                    s.Inhabitation = station.Inhabitation;
+                    // update town category according inhabitation
+                    s.updateTownCategory();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the ConnectedLines field for lines according relations define in file.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        public static void updateConnectedLines(String fileName) 
+        {
+            // all train lines
+            //List<TrainLine> lines = TrainLineCache.getInstance().getCacheContent();
+
+
+            // load all pairs in realtion
+            List<String[]> listOfStrings = readFromFile(fileName);
+            // create components
+            List<HashSet<TrainLine>> components = createComponents(listOfStrings);
+
+            // loop over all components
+            foreach(HashSet<TrainLine> component in components)
+            {
+                // loop over all items in components
+                foreach (TrainLine line in component) 
+                {
+                    // create list of items from component
+                    List<TrainLine> itemsOfComponent = new List<TrainLine>(component);
+                    // remove item to which will be this list assign
+                    itemsOfComponent.Remove(line);
+
+                    // assign list of connected lines
+                    line.setConnectedLines(itemsOfComponent);
+                }               
+            }
+
+        }
+
+        /// <summary>
+        /// Creates the components.
+        /// </summary>
+        /// <param name="listOfStrings">The list of strings.</param>
+        /// <returns>The components</returns>
+        private static List<HashSet<TrainLine>> createComponents(List<String[]> listOfStrings)
+        {
+            // create list of components
+            List<HashSet<TrainLine>> components = new List<HashSet<TrainLine>>();
+
+
+            // loop over all pair
+            foreach (String[] strings in listOfStrings)
+            {
+                // if is not pair, continue
+                if (!strings.Length.Equals(2)) continue;
+
+                TrainLine item1 = TrainLineCache.getInstance().getCacheContentOnNumber(Convert.ToInt32(strings[0]));
+                TrainLine item2 = TrainLineCache.getInstance().getCacheContentOnNumber(Convert.ToInt32(strings[1]));
+
+                // both lines must exist
+                if (item1 == null || item2 == null) continue;
+
+                // set single components
+                HashSet<TrainLine> component1 = new HashSet<TrainLine>();
+                component1.Add(item1);
+                HashSet<TrainLine> component2 = new HashSet<TrainLine>();
+                component2.Add(item2);
+
+                int foundBoth = 0;
+                // find components
+                foreach (HashSet<TrainLine> component in components)
+                {
+                    // find first component
+                    if (component.Contains(item1))
+                    {
+                        component1 = component;
+                        foundBoth++;
+                    }
+                    // find second component
+                    if (component.Contains(item2))
+                    {
+                        component2 = component;
+                        foundBoth++;
+
+                    }
+                    if (foundBoth == 2)
+                        break;
+                }
+
+                // no compomenets exist, add first as the only one
+                if (foundBoth == 0)
+                {
+                    components.Add(component1);
+                }
+
+                // if different, mergde them
+                if (component1 != component2)
+                {
+                    // remove 2nd
+                    components.Remove(component2);
+                    component1.UnionWith(component2);
+                }
+            }
+            return components;
+        }
     }
 }
