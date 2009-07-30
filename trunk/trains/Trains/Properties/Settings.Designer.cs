@@ -40,5 +40,14 @@ namespace PeriodicTimetableGeneration.Properties {
                 return ((int)(this["MinimalTransferTime"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"All lines\"")]
+        public string ComboBoxAllLines {
+            get {
+                return ((string)(this["ComboBoxAllLines"]));
+            }
+        }
     }
 }

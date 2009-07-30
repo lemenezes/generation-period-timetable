@@ -1,6 +1,6 @@
 ﻿namespace PeriodicTimetableGeneration
 {
-    partial class FormRPproject
+    partial class FormMain
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControlTG = new System.Windows.Forms.TabControl();
             this.tabPageLoadFiles = new System.Windows.Forms.TabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerLoadFiles = new System.Windows.Forms.SplitContainer();
             this.listViewLoadFiles = new System.Windows.Forms.ListView();
             this.columnHeaderName = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderSize = new System.Windows.Forms.ColumnHeader();
@@ -42,17 +42,18 @@
             this.buttonRemoveFiles = new System.Windows.Forms.Button();
             this.buttonAddFiles = new System.Windows.Forms.Button();
             this.tabPageListOfLines = new System.Windows.Forms.TabPage();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerListOfLines = new System.Windows.Forms.SplitContainer();
             this.listViewListOfLines = new System.Windows.Forms.ListView();
             this.columnHeaderNumber = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderType = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderPeriod = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderStart = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderDestination = new PeriodicTimetableGeneration.ColHeader();
+            this.buttonConnectedLines = new System.Windows.Forms.Button();
             this.buttonListOfLinesNext = new System.Windows.Forms.Button();
             this.buttonDetailsLine = new System.Windows.Forms.Button();
-            this.tabPageListOfStation = new System.Windows.Forms.TabPage();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.tabPageListOfStations = new System.Windows.Forms.TabPage();
+            this.splitContainerListOfStations = new System.Windows.Forms.SplitContainer();
             this.listViewListOfStations = new System.Windows.Forms.ListView();
             this.columnHeaderIdStation = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderNameStation = new PeriodicTimetableGeneration.ColHeader();
@@ -65,7 +66,7 @@
             this.buttonListOfStationNext = new System.Windows.Forms.Button();
             this.buttonDetailsStation = new System.Windows.Forms.Button();
             this.tabPageListOfConncetions = new System.Windows.Forms.TabPage();
-            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.splitContainerListOfConnections = new System.Windows.Forms.SplitContainer();
             this.listViewListOfConnections = new System.Windows.Forms.ListView();
             this.columnHeaderFrom = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderTo = new PeriodicTimetableGeneration.ColHeader();
@@ -77,49 +78,61 @@
             this.buttonListOfConncetionsNext = new System.Windows.Forms.Button();
             this.buttonEditPath = new System.Windows.Forms.Button();
             this.buttonDetailsConnection = new System.Windows.Forms.Button();
-            this.tabPageFinalInput = new System.Windows.Forms.TabPage();
-            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.tabPageListOfPaths = new System.Windows.Forms.TabPage();
+            this.splitContainerListOfPaths = new System.Windows.Forms.SplitContainer();
             this.listViewFinalInput = new System.Windows.Forms.ListView();
             this.columnHeaderFIlistOfLines = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderFIchangingStations = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderFIpassengers = new PeriodicTimetableGeneration.ColHeader();
-            this.buttonGenerationAlgorithmDSA = new System.Windows.Forms.Button();
+            this.groupBoxGenerationAlgorithm = new System.Windows.Forms.GroupBox();
             this.buttonGenerationAlgorithmRandomized = new System.Windows.Forms.Button();
+            this.buttonGenerationAlgorithmDSA = new System.Windows.Forms.Button();
+            this.tabPageListOfTransfers = new System.Windows.Forms.TabPage();
+            this.splitContainerListOfTransfers = new System.Windows.Forms.SplitContainer();
+            this.listViewListOfTransfers = new System.Windows.Forms.ListView();
+            this.columnHeaderFromLine = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderToLine = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderAtStations = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderPassengersOnTransfer = new System.Windows.Forms.ColumnHeader();
             this.openFileDialogTrainLines = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogUpdateTownCategories = new System.Windows.Forms.OpenFileDialog();
-            this.groupBoxGenerationAlgorithm = new System.Windows.Forms.GroupBox();
+            this.openFileDialogUpdateConnectedLines = new System.Windows.Forms.OpenFileDialog();
             this.tabControlTG.SuspendLayout();
             this.tabPageLoadFiles.SuspendLayout();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.splitContainerLoadFiles.Panel1.SuspendLayout();
+            this.splitContainerLoadFiles.Panel2.SuspendLayout();
+            this.splitContainerLoadFiles.SuspendLayout();
             this.tabPageListOfLines.SuspendLayout();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            this.tabPageListOfStation.SuspendLayout();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
+            this.splitContainerListOfLines.Panel1.SuspendLayout();
+            this.splitContainerListOfLines.Panel2.SuspendLayout();
+            this.splitContainerListOfLines.SuspendLayout();
+            this.tabPageListOfStations.SuspendLayout();
+            this.splitContainerListOfStations.Panel1.SuspendLayout();
+            this.splitContainerListOfStations.Panel2.SuspendLayout();
+            this.splitContainerListOfStations.SuspendLayout();
             this.groupBoxSelectLine.SuspendLayout();
             this.tabPageListOfConncetions.SuspendLayout();
-            this.splitContainer4.Panel1.SuspendLayout();
-            this.splitContainer4.Panel2.SuspendLayout();
-            this.splitContainer4.SuspendLayout();
-            this.tabPageFinalInput.SuspendLayout();
-            this.splitContainer5.Panel1.SuspendLayout();
-            this.splitContainer5.Panel2.SuspendLayout();
-            this.splitContainer5.SuspendLayout();
+            this.splitContainerListOfConnections.Panel1.SuspendLayout();
+            this.splitContainerListOfConnections.Panel2.SuspendLayout();
+            this.splitContainerListOfConnections.SuspendLayout();
+            this.tabPageListOfPaths.SuspendLayout();
+            this.splitContainerListOfPaths.Panel1.SuspendLayout();
+            this.splitContainerListOfPaths.Panel2.SuspendLayout();
+            this.splitContainerListOfPaths.SuspendLayout();
             this.groupBoxGenerationAlgorithm.SuspendLayout();
+            this.tabPageListOfTransfers.SuspendLayout();
+            this.splitContainerListOfTransfers.Panel1.SuspendLayout();
+            this.splitContainerListOfTransfers.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlTG
             // 
             this.tabControlTG.Controls.Add(this.tabPageLoadFiles);
             this.tabControlTG.Controls.Add(this.tabPageListOfLines);
-            this.tabControlTG.Controls.Add(this.tabPageListOfStation);
+            this.tabControlTG.Controls.Add(this.tabPageListOfStations);
             this.tabControlTG.Controls.Add(this.tabPageListOfConncetions);
-            this.tabControlTG.Controls.Add(this.tabPageFinalInput);
+            this.tabControlTG.Controls.Add(this.tabPageListOfPaths);
+            this.tabControlTG.Controls.Add(this.tabPageListOfTransfers);
             this.tabControlTG.Location = new System.Drawing.Point(0, 0);
             this.tabControlTG.Name = "tabControlTG";
             this.tabControlTG.SelectedIndex = 0;
@@ -128,7 +141,7 @@
             // 
             // tabPageLoadFiles
             // 
-            this.tabPageLoadFiles.Controls.Add(this.splitContainer1);
+            this.tabPageLoadFiles.Controls.Add(this.splitContainerLoadFiles);
             this.tabPageLoadFiles.Location = new System.Drawing.Point(4, 22);
             this.tabPageLoadFiles.Name = "tabPageLoadFiles";
             this.tabPageLoadFiles.Padding = new System.Windows.Forms.Padding(3);
@@ -137,25 +150,25 @@
             this.tabPageLoadFiles.Text = "Load Files";
             this.tabPageLoadFiles.UseVisualStyleBackColor = true;
             // 
-            // splitContainer1
+            // splitContainerLoadFiles
             // 
-            this.splitContainer1.BackColor = System.Drawing.Color.Transparent;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainerLoadFiles.BackColor = System.Drawing.Color.Transparent;
+            this.splitContainerLoadFiles.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerLoadFiles.Name = "splitContainerLoadFiles";
             // 
-            // splitContainer1.Panel1
+            // splitContainerLoadFiles.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.listViewLoadFiles);
+            this.splitContainerLoadFiles.Panel1.Controls.Add(this.listViewLoadFiles);
             // 
-            // splitContainer1.Panel2
+            // splitContainerLoadFiles.Panel2
             // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer1.Panel2.Controls.Add(this.buttonLoadFileNext);
-            this.splitContainer1.Panel2.Controls.Add(this.buttonRemoveFiles);
-            this.splitContainer1.Panel2.Controls.Add(this.buttonAddFiles);
-            this.splitContainer1.Size = new System.Drawing.Size(970, 532);
-            this.splitContainer1.SplitterDistance = 850;
-            this.splitContainer1.TabIndex = 0;
+            this.splitContainerLoadFiles.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerLoadFiles.Panel2.Controls.Add(this.buttonLoadFileNext);
+            this.splitContainerLoadFiles.Panel2.Controls.Add(this.buttonRemoveFiles);
+            this.splitContainerLoadFiles.Panel2.Controls.Add(this.buttonAddFiles);
+            this.splitContainerLoadFiles.Size = new System.Drawing.Size(970, 532);
+            this.splitContainerLoadFiles.SplitterDistance = 850;
+            this.splitContainerLoadFiles.TabIndex = 0;
             // 
             // listViewLoadFiles
             // 
@@ -234,7 +247,7 @@
             // 
             // tabPageListOfLines
             // 
-            this.tabPageListOfLines.Controls.Add(this.splitContainer2);
+            this.tabPageListOfLines.Controls.Add(this.splitContainerListOfLines);
             this.tabPageListOfLines.Location = new System.Drawing.Point(4, 22);
             this.tabPageListOfLines.Name = "tabPageListOfLines";
             this.tabPageListOfLines.Padding = new System.Windows.Forms.Padding(3);
@@ -243,24 +256,25 @@
             this.tabPageListOfLines.Text = "List of Lines";
             this.tabPageListOfLines.UseVisualStyleBackColor = true;
             // 
-            // splitContainer2
+            // splitContainerListOfLines
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainerListOfLines.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerListOfLines.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerListOfLines.Name = "splitContainerListOfLines";
             // 
-            // splitContainer2.Panel1
+            // splitContainerListOfLines.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.listViewListOfLines);
+            this.splitContainerListOfLines.Panel1.Controls.Add(this.listViewListOfLines);
             // 
-            // splitContainer2.Panel2
+            // splitContainerListOfLines.Panel2
             // 
-            this.splitContainer2.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer2.Panel2.Controls.Add(this.buttonListOfLinesNext);
-            this.splitContainer2.Panel2.Controls.Add(this.buttonDetailsLine);
-            this.splitContainer2.Size = new System.Drawing.Size(970, 532);
-            this.splitContainer2.SplitterDistance = 850;
-            this.splitContainer2.TabIndex = 0;
+            this.splitContainerListOfLines.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerListOfLines.Panel2.Controls.Add(this.buttonConnectedLines);
+            this.splitContainerListOfLines.Panel2.Controls.Add(this.buttonListOfLinesNext);
+            this.splitContainerListOfLines.Panel2.Controls.Add(this.buttonDetailsLine);
+            this.splitContainerListOfLines.Size = new System.Drawing.Size(970, 532);
+            this.splitContainerListOfLines.SplitterDistance = 850;
+            this.splitContainerListOfLines.TabIndex = 0;
             // 
             // listViewListOfLines
             // 
@@ -311,6 +325,16 @@
             this.columnHeaderDestination.Text = "To";
             this.columnHeaderDestination.Width = 200;
             // 
+            // buttonConnectedLines
+            // 
+            this.buttonConnectedLines.Location = new System.Drawing.Point(11, 65);
+            this.buttonConnectedLines.Name = "buttonConnectedLines";
+            this.buttonConnectedLines.Size = new System.Drawing.Size(100, 45);
+            this.buttonConnectedLines.TabIndex = 3;
+            this.buttonConnectedLines.Text = "Update Connected Lines";
+            this.buttonConnectedLines.UseVisualStyleBackColor = true;
+            this.buttonConnectedLines.Click += new System.EventHandler(this.buttonConnectedLines_Click);
+            // 
             // buttonListOfLinesNext
             // 
             this.buttonListOfLinesNext.Location = new System.Drawing.Point(11, 497);
@@ -331,37 +355,37 @@
             this.buttonDetailsLine.UseVisualStyleBackColor = true;
             this.buttonDetailsLine.Click += new System.EventHandler(this.buttonDetailsLine_Click);
             // 
-            // tabPageListOfStation
+            // tabPageListOfStations
             // 
-            this.tabPageListOfStation.Controls.Add(this.splitContainer3);
-            this.tabPageListOfStation.Location = new System.Drawing.Point(4, 22);
-            this.tabPageListOfStation.Name = "tabPageListOfStation";
-            this.tabPageListOfStation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageListOfStation.Size = new System.Drawing.Size(976, 538);
-            this.tabPageListOfStation.TabIndex = 2;
-            this.tabPageListOfStation.Text = "List of Stations";
-            this.tabPageListOfStation.UseVisualStyleBackColor = true;
+            this.tabPageListOfStations.Controls.Add(this.splitContainerListOfStations);
+            this.tabPageListOfStations.Location = new System.Drawing.Point(4, 22);
+            this.tabPageListOfStations.Name = "tabPageListOfStations";
+            this.tabPageListOfStations.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageListOfStations.Size = new System.Drawing.Size(976, 538);
+            this.tabPageListOfStations.TabIndex = 2;
+            this.tabPageListOfStations.Text = "List of Stations";
+            this.tabPageListOfStations.UseVisualStyleBackColor = true;
             // 
-            // splitContainer3
+            // splitContainerListOfStations
             // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainerListOfStations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerListOfStations.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerListOfStations.Name = "splitContainerListOfStations";
             // 
-            // splitContainer3.Panel1
+            // splitContainerListOfStations.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.listViewListOfStations);
+            this.splitContainerListOfStations.Panel1.Controls.Add(this.listViewListOfStations);
             // 
-            // splitContainer3.Panel2
+            // splitContainerListOfStations.Panel2
             // 
-            this.splitContainer3.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer3.Panel2.Controls.Add(this.buttonUpdateCategories);
-            this.splitContainer3.Panel2.Controls.Add(this.groupBoxSelectLine);
-            this.splitContainer3.Panel2.Controls.Add(this.buttonListOfStationNext);
-            this.splitContainer3.Panel2.Controls.Add(this.buttonDetailsStation);
-            this.splitContainer3.Size = new System.Drawing.Size(970, 532);
-            this.splitContainer3.SplitterDistance = 850;
-            this.splitContainer3.TabIndex = 0;
+            this.splitContainerListOfStations.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerListOfStations.Panel2.Controls.Add(this.buttonUpdateCategories);
+            this.splitContainerListOfStations.Panel2.Controls.Add(this.groupBoxSelectLine);
+            this.splitContainerListOfStations.Panel2.Controls.Add(this.buttonListOfStationNext);
+            this.splitContainerListOfStations.Panel2.Controls.Add(this.buttonDetailsStation);
+            this.splitContainerListOfStations.Size = new System.Drawing.Size(970, 532);
+            this.splitContainerListOfStations.SplitterDistance = 850;
+            this.splitContainerListOfStations.TabIndex = 0;
             // 
             // listViewListOfStations
             // 
@@ -468,7 +492,7 @@
             // 
             // tabPageListOfConncetions
             // 
-            this.tabPageListOfConncetions.Controls.Add(this.splitContainer4);
+            this.tabPageListOfConncetions.Controls.Add(this.splitContainerListOfConnections);
             this.tabPageListOfConncetions.Location = new System.Drawing.Point(4, 22);
             this.tabPageListOfConncetions.Name = "tabPageListOfConncetions";
             this.tabPageListOfConncetions.Padding = new System.Windows.Forms.Padding(3);
@@ -477,25 +501,25 @@
             this.tabPageListOfConncetions.Text = "List of Connections";
             this.tabPageListOfConncetions.UseVisualStyleBackColor = true;
             // 
-            // splitContainer4
+            // splitContainerListOfConnections
             // 
-            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer4.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer4.Name = "splitContainer4";
+            this.splitContainerListOfConnections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerListOfConnections.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerListOfConnections.Name = "splitContainerListOfConnections";
             // 
-            // splitContainer4.Panel1
+            // splitContainerListOfConnections.Panel1
             // 
-            this.splitContainer4.Panel1.Controls.Add(this.listViewListOfConnections);
+            this.splitContainerListOfConnections.Panel1.Controls.Add(this.listViewListOfConnections);
             // 
-            // splitContainer4.Panel2
+            // splitContainerListOfConnections.Panel2
             // 
-            this.splitContainer4.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer4.Panel2.Controls.Add(this.buttonListOfConncetionsNext);
-            this.splitContainer4.Panel2.Controls.Add(this.buttonEditPath);
-            this.splitContainer4.Panel2.Controls.Add(this.buttonDetailsConnection);
-            this.splitContainer4.Size = new System.Drawing.Size(970, 532);
-            this.splitContainer4.SplitterDistance = 850;
-            this.splitContainer4.TabIndex = 0;
+            this.splitContainerListOfConnections.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerListOfConnections.Panel2.Controls.Add(this.buttonListOfConncetionsNext);
+            this.splitContainerListOfConnections.Panel2.Controls.Add(this.buttonEditPath);
+            this.splitContainerListOfConnections.Panel2.Controls.Add(this.buttonDetailsConnection);
+            this.splitContainerListOfConnections.Size = new System.Drawing.Size(970, 532);
+            this.splitContainerListOfConnections.SplitterDistance = 850;
+            this.splitContainerListOfConnections.TabIndex = 0;
             // 
             // listViewListOfConnections
             // 
@@ -590,34 +614,34 @@
             this.buttonDetailsConnection.UseVisualStyleBackColor = true;
             this.buttonDetailsConnection.Click += new System.EventHandler(this.buttonDetailsConnection_Click);
             // 
-            // tabPageFinalInput
+            // tabPageListOfPaths
             // 
-            this.tabPageFinalInput.Controls.Add(this.splitContainer5);
-            this.tabPageFinalInput.Location = new System.Drawing.Point(4, 22);
-            this.tabPageFinalInput.Name = "tabPageFinalInput";
-            this.tabPageFinalInput.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFinalInput.Size = new System.Drawing.Size(976, 538);
-            this.tabPageFinalInput.TabIndex = 4;
-            this.tabPageFinalInput.Text = "Final Input";
-            this.tabPageFinalInput.UseVisualStyleBackColor = true;
+            this.tabPageListOfPaths.Controls.Add(this.splitContainerListOfPaths);
+            this.tabPageListOfPaths.Location = new System.Drawing.Point(4, 22);
+            this.tabPageListOfPaths.Name = "tabPageListOfPaths";
+            this.tabPageListOfPaths.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageListOfPaths.Size = new System.Drawing.Size(976, 538);
+            this.tabPageListOfPaths.TabIndex = 4;
+            this.tabPageListOfPaths.Text = "List of Paths";
+            this.tabPageListOfPaths.UseVisualStyleBackColor = true;
             // 
-            // splitContainer5
+            // splitContainerListOfPaths
             // 
-            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer5.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer5.Name = "splitContainer5";
+            this.splitContainerListOfPaths.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerListOfPaths.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerListOfPaths.Name = "splitContainerListOfPaths";
             // 
-            // splitContainer5.Panel1
+            // splitContainerListOfPaths.Panel1
             // 
-            this.splitContainer5.Panel1.Controls.Add(this.listViewFinalInput);
+            this.splitContainerListOfPaths.Panel1.Controls.Add(this.listViewFinalInput);
             // 
-            // splitContainer5.Panel2
+            // splitContainerListOfPaths.Panel2
             // 
-            this.splitContainer5.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainer5.Panel2.Controls.Add(this.groupBoxGenerationAlgorithm);
-            this.splitContainer5.Size = new System.Drawing.Size(970, 532);
-            this.splitContainer5.SplitterDistance = 850;
-            this.splitContainer5.TabIndex = 0;
+            this.splitContainerListOfPaths.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerListOfPaths.Panel2.Controls.Add(this.groupBoxGenerationAlgorithm);
+            this.splitContainerListOfPaths.Size = new System.Drawing.Size(970, 532);
+            this.splitContainerListOfPaths.SplitterDistance = 850;
+            this.splitContainerListOfPaths.TabIndex = 0;
             // 
             // listViewFinalInput
             // 
@@ -656,38 +680,6 @@
             this.columnHeaderFIpassengers.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderFIpassengers.Width = 100;
             // 
-            // buttonGenerationAlgorithmDSA
-            // 
-            this.buttonGenerationAlgorithmDSA.Location = new System.Drawing.Point(6, 79);
-            this.buttonGenerationAlgorithmDSA.Name = "buttonGenerationAlgorithmDSA";
-            this.buttonGenerationAlgorithmDSA.Size = new System.Drawing.Size(100, 40);
-            this.buttonGenerationAlgorithmDSA.TabIndex = 6;
-            this.buttonGenerationAlgorithmDSA.Text = "Discrete Sets";
-            this.buttonGenerationAlgorithmDSA.UseVisualStyleBackColor = true;
-            this.buttonGenerationAlgorithmDSA.Click += new System.EventHandler(this.buttonGenerationAlgorithmDSA_Click);
-            // 
-            // buttonGenerationAlgorithmRandomized
-            // 
-            this.buttonGenerationAlgorithmRandomized.Location = new System.Drawing.Point(6, 33);
-            this.buttonGenerationAlgorithmRandomized.Name = "buttonGenerationAlgorithmRandomized";
-            this.buttonGenerationAlgorithmRandomized.Size = new System.Drawing.Size(100, 40);
-            this.buttonGenerationAlgorithmRandomized.TabIndex = 5;
-            this.buttonGenerationAlgorithmRandomized.Text = "Randomized";
-            this.buttonGenerationAlgorithmRandomized.UseVisualStyleBackColor = true;
-            this.buttonGenerationAlgorithmRandomized.Click += new System.EventHandler(this.buttonGenerateTimetablesRandomized_Click);
-            // 
-            // openFileDialogTrainLines
-            // 
-            this.openFileDialogTrainLines.Filter = "Text files|*.txt|All filles|*.*";
-            this.openFileDialogTrainLines.InitialDirectory = "Application.StartupPath";
-            this.openFileDialogTrainLines.Multiselect = true;
-            this.openFileDialogTrainLines.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
-            // 
-            // openFileDialogUpdateTownCategories
-            // 
-            this.openFileDialogUpdateTownCategories.FileName = "openFileDialogUpdateTownCategories";
-            this.openFileDialogUpdateTownCategories.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogUpdateTownCategories_FileOk);
-            // 
             // groupBoxGenerationAlgorithm
             // 
             this.groupBoxGenerationAlgorithm.Controls.Add(this.buttonGenerationAlgorithmRandomized);
@@ -699,38 +691,145 @@
             this.groupBoxGenerationAlgorithm.TabStop = false;
             this.groupBoxGenerationAlgorithm.Text = "Generation Algorithms";
             // 
-            // FormRPproject
+            // buttonGenerationAlgorithmRandomized
+            // 
+            this.buttonGenerationAlgorithmRandomized.Location = new System.Drawing.Point(6, 33);
+            this.buttonGenerationAlgorithmRandomized.Name = "buttonGenerationAlgorithmRandomized";
+            this.buttonGenerationAlgorithmRandomized.Size = new System.Drawing.Size(100, 40);
+            this.buttonGenerationAlgorithmRandomized.TabIndex = 5;
+            this.buttonGenerationAlgorithmRandomized.Text = "Randomized";
+            this.buttonGenerationAlgorithmRandomized.UseVisualStyleBackColor = true;
+            this.buttonGenerationAlgorithmRandomized.Click += new System.EventHandler(this.buttonGenerateTimetablesRandomized_Click);
+            // 
+            // buttonGenerationAlgorithmDSA
+            // 
+            this.buttonGenerationAlgorithmDSA.Location = new System.Drawing.Point(6, 79);
+            this.buttonGenerationAlgorithmDSA.Name = "buttonGenerationAlgorithmDSA";
+            this.buttonGenerationAlgorithmDSA.Size = new System.Drawing.Size(100, 40);
+            this.buttonGenerationAlgorithmDSA.TabIndex = 6;
+            this.buttonGenerationAlgorithmDSA.Text = "Discrete Sets";
+            this.buttonGenerationAlgorithmDSA.UseVisualStyleBackColor = true;
+            this.buttonGenerationAlgorithmDSA.Click += new System.EventHandler(this.buttonGenerationAlgorithmDSA_Click);
+            // 
+            // tabPageListOfTransfers
+            // 
+            this.tabPageListOfTransfers.Controls.Add(this.splitContainerListOfTransfers);
+            this.tabPageListOfTransfers.Location = new System.Drawing.Point(4, 22);
+            this.tabPageListOfTransfers.Name = "tabPageListOfTransfers";
+            this.tabPageListOfTransfers.Size = new System.Drawing.Size(976, 538);
+            this.tabPageListOfTransfers.TabIndex = 5;
+            this.tabPageListOfTransfers.Text = "List of Transfers";
+            this.tabPageListOfTransfers.UseVisualStyleBackColor = true;
+            // 
+            // splitContainerListOfTransfers
+            // 
+            this.splitContainerListOfTransfers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerListOfTransfers.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerListOfTransfers.Name = "splitContainerListOfTransfers";
+            // 
+            // splitContainerListOfTransfers.Panel1
+            // 
+            this.splitContainerListOfTransfers.Panel1.Controls.Add(this.listViewListOfTransfers);
+            // 
+            // splitContainerListOfTransfers.Panel2
+            // 
+            this.splitContainerListOfTransfers.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerListOfTransfers.Size = new System.Drawing.Size(976, 538);
+            this.splitContainerListOfTransfers.SplitterDistance = 850;
+            this.splitContainerListOfTransfers.TabIndex = 0;
+            // 
+            // listViewListOfTransfers
+            // 
+            this.listViewListOfTransfers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderFromLine,
+            this.columnHeaderToLine,
+            this.columnHeaderAtStations,
+            this.columnHeaderPassengersOnTransfer});
+            this.listViewListOfTransfers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewListOfTransfers.FullRowSelect = true;
+            this.listViewListOfTransfers.GridLines = true;
+            this.listViewListOfTransfers.Location = new System.Drawing.Point(0, 0);
+            this.listViewListOfTransfers.Name = "listViewListOfTransfers";
+            this.listViewListOfTransfers.Size = new System.Drawing.Size(850, 538);
+            this.listViewListOfTransfers.TabIndex = 0;
+            this.listViewListOfTransfers.UseCompatibleStateImageBehavior = false;
+            this.listViewListOfTransfers.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeaderFromLine
+            // 
+            this.columnHeaderFromLine.Text = "From Line";
+            this.columnHeaderFromLine.Width = 120;
+            // 
+            // columnHeaderToLine
+            // 
+            this.columnHeaderToLine.Text = "To Line";
+            this.columnHeaderToLine.Width = 120;
+            // 
+            // columnHeaderAtStations
+            // 
+            this.columnHeaderAtStations.Text = "At Station";
+            this.columnHeaderAtStations.Width = 250;
+            // 
+            // columnHeaderPassengersOnTransfer
+            // 
+            this.columnHeaderPassengersOnTransfer.Text = "Passengers on Transfer";
+            this.columnHeaderPassengersOnTransfer.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderPassengersOnTransfer.Width = 200;
+            // 
+            // openFileDialogTrainLines
+            // 
+            this.openFileDialogTrainLines.Filter = "Text files|*.txt|All filles|*.*";
+            this.openFileDialogTrainLines.InitialDirectory = "Application.StartupPath";
+            this.openFileDialogTrainLines.Multiselect = true;
+            this.openFileDialogTrainLines.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogTrainLines_FileOk);
+            // 
+            // openFileDialogUpdateTownCategories
+            // 
+            this.openFileDialogUpdateTownCategories.FileName = "openFileDialogUpdateTownCategories";
+            this.openFileDialogUpdateTownCategories.Filter = "Text files|*.txt|All filles|*.*";
+            this.openFileDialogUpdateTownCategories.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogUpdateTownCategories_FileOk);
+            // 
+            // openFileDialogUpdateConnectedLines
+            // 
+            this.openFileDialogUpdateConnectedLines.FileName = "openFileDialogUpdateConnecterdLines";
+            this.openFileDialogUpdateConnectedLines.Filter = "Text files|*.txt|All filles|*.*";
+            this.openFileDialogUpdateConnectedLines.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogUpdateConnectedLines_FileOk);
+            // 
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 564);
             this.Controls.Add(this.tabControlTG);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "FormRPproject";
+            this.Name = "FormMain";
             this.Text = "Generating Timetables :: Preparation of Input";
             this.tabControlTG.ResumeLayout(false);
             this.tabPageLoadFiles.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.ResumeLayout(false);
+            this.splitContainerLoadFiles.Panel1.ResumeLayout(false);
+            this.splitContainerLoadFiles.Panel2.ResumeLayout(false);
+            this.splitContainerLoadFiles.ResumeLayout(false);
             this.tabPageListOfLines.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.ResumeLayout(false);
-            this.tabPageListOfStation.ResumeLayout(false);
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            this.splitContainer3.ResumeLayout(false);
+            this.splitContainerListOfLines.Panel1.ResumeLayout(false);
+            this.splitContainerListOfLines.Panel2.ResumeLayout(false);
+            this.splitContainerListOfLines.ResumeLayout(false);
+            this.tabPageListOfStations.ResumeLayout(false);
+            this.splitContainerListOfStations.Panel1.ResumeLayout(false);
+            this.splitContainerListOfStations.Panel2.ResumeLayout(false);
+            this.splitContainerListOfStations.ResumeLayout(false);
             this.groupBoxSelectLine.ResumeLayout(false);
             this.tabPageListOfConncetions.ResumeLayout(false);
-            this.splitContainer4.Panel1.ResumeLayout(false);
-            this.splitContainer4.Panel2.ResumeLayout(false);
-            this.splitContainer4.ResumeLayout(false);
-            this.tabPageFinalInput.ResumeLayout(false);
-            this.splitContainer5.Panel1.ResumeLayout(false);
-            this.splitContainer5.Panel2.ResumeLayout(false);
-            this.splitContainer5.ResumeLayout(false);
+            this.splitContainerListOfConnections.Panel1.ResumeLayout(false);
+            this.splitContainerListOfConnections.Panel2.ResumeLayout(false);
+            this.splitContainerListOfConnections.ResumeLayout(false);
+            this.tabPageListOfPaths.ResumeLayout(false);
+            this.splitContainerListOfPaths.Panel1.ResumeLayout(false);
+            this.splitContainerListOfPaths.Panel2.ResumeLayout(false);
+            this.splitContainerListOfPaths.ResumeLayout(false);
             this.groupBoxGenerationAlgorithm.ResumeLayout(false);
+            this.tabPageListOfTransfers.ResumeLayout(false);
+            this.splitContainerListOfTransfers.Panel1.ResumeLayout(false);
+            this.splitContainerListOfTransfers.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -740,19 +839,19 @@
         private System.Windows.Forms.TabControl tabControlTG;
         private System.Windows.Forms.TabPage tabPageLoadFiles;
         private System.Windows.Forms.TabPage tabPageListOfLines;
-        private System.Windows.Forms.TabPage tabPageListOfStation;
+        private System.Windows.Forms.TabPage tabPageListOfStations;
         private System.Windows.Forms.OpenFileDialog openFileDialogTrainLines;
         private System.Windows.Forms.ImageList imageListBig;
         private System.Windows.Forms.ImageList imageListSmall;
-        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer splitContainerListOfLines;
         private System.Windows.Forms.Button buttonDetailsLine;
         private System.Windows.Forms.Button buttonListOfLinesNext;
         private System.Windows.Forms.ListView listViewListOfLines;
-        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.SplitContainer splitContainerListOfStations;
         private System.Windows.Forms.Button buttonDetailsStation;
         private System.Windows.Forms.Button buttonListOfStationNext;
         private System.Windows.Forms.ListView listViewListOfStations;
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainerLoadFiles;
         private System.Windows.Forms.ListView listViewLoadFiles;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
         private System.Windows.Forms.ColumnHeader columnHeaderSize;
@@ -762,7 +861,7 @@
         private System.Windows.Forms.GroupBox groupBoxSelectLine;
         private System.Windows.Forms.ComboBox comboBoxSelectLine;
         private System.Windows.Forms.TabPage tabPageListOfConncetions;
-        private System.Windows.Forms.SplitContainer splitContainer4;
+        private System.Windows.Forms.SplitContainer splitContainerListOfConnections;
         private System.Windows.Forms.ListView listViewListOfConnections;
         private System.Windows.Forms.Button buttonEditPath;
         private System.Windows.Forms.Button buttonDetailsConnection;
@@ -770,8 +869,8 @@
         private System.Windows.Forms.ColumnHeader columnHeaderFullPath;
         private System.Windows.Forms.Button buttonUpdateCategories;
         private System.Windows.Forms.OpenFileDialog openFileDialogUpdateTownCategories;
-        private System.Windows.Forms.TabPage tabPageFinalInput;
-        private System.Windows.Forms.SplitContainer splitContainer5;
+        private System.Windows.Forms.TabPage tabPageListOfPaths;
+        private System.Windows.Forms.SplitContainer splitContainerListOfPaths;
         private System.Windows.Forms.ListView listViewFinalInput;
         private System.Windows.Forms.Button buttonGenerationAlgorithmRandomized;
         private System.Windows.Forms.ColumnHeader ColumnHeaderTown;
@@ -796,6 +895,15 @@
         private ColHeader columnHeaderDistance;
         private System.Windows.Forms.Button buttonGenerationAlgorithmDSA;
         private System.Windows.Forms.GroupBox groupBoxGenerationAlgorithm;
+        private System.Windows.Forms.Button buttonConnectedLines;
+        private System.Windows.Forms.OpenFileDialog openFileDialogUpdateConnectedLines;
+        private System.Windows.Forms.TabPage tabPageListOfTransfers;
+        private System.Windows.Forms.SplitContainer splitContainerListOfTransfers;
+        private System.Windows.Forms.ListView listViewListOfTransfers;
+        private System.Windows.Forms.ColumnHeader columnHeaderFromLine;
+        private System.Windows.Forms.ColumnHeader columnHeaderToLine;
+        private System.Windows.Forms.ColumnHeader columnHeaderAtStations;
+        private System.Windows.Forms.ColumnHeader columnHeaderPassengersOnTransfer;
         
 /*      
         private ColHeader columnHeaderIdStation;
