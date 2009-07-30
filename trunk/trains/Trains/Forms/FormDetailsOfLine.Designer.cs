@@ -326,6 +326,7 @@
             // 
             // textBoxTimeOfStaying
             // 
+            this.textBoxTimeOfStaying.Enabled = false;
             this.textBoxTimeOfStaying.Location = new System.Drawing.Point(180, 121);
             this.textBoxTimeOfStaying.Name = "textBoxTimeOfStaying";
             this.textBoxTimeOfStaying.Size = new System.Drawing.Size(100, 20);
@@ -342,6 +343,7 @@
             // 
             // textBoxDistanceDifference
             // 
+            this.textBoxDistanceDifference.Enabled = false;
             this.textBoxDistanceDifference.Location = new System.Drawing.Point(180, 95);
             this.textBoxDistanceDifference.Name = "textBoxDistanceDifference";
             this.textBoxDistanceDifference.Size = new System.Drawing.Size(100, 20);
@@ -358,6 +360,7 @@
             // 
             // textBoxTimeDifference
             // 
+            this.textBoxTimeDifference.Enabled = false;
             this.textBoxTimeDifference.Location = new System.Drawing.Point(180, 69);
             this.textBoxTimeDifference.Name = "textBoxTimeDifference";
             this.textBoxTimeDifference.Size = new System.Drawing.Size(100, 20);
@@ -449,6 +452,7 @@
             // columnHeaderLine
             // 
             this.columnHeaderLine.Text = "Number";
+            this.columnHeaderLine.Width = 80;
             // 
             // columnHeaderTypeOfTrain
             // 
@@ -458,6 +462,7 @@
             // columnHeaderPeriod
             // 
             this.columnHeaderPeriod.Text = "Period";
+            this.columnHeaderPeriod.Width = 80;
             // 
             // buttonAddConnectedLines
             // 
