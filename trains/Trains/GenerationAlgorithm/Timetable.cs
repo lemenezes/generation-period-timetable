@@ -33,6 +33,10 @@ namespace PeriodicTimetableGeneration
         /// </summary>
         private String note;
         /// <summary>
+        /// Total time of generation this timetable.
+        /// </summary>
+        private TimeSpan generationTime;
+        /// <summary>
         /// Instance of class Random, used for randomizing start time of lines.
         /// </summary>
         public static Random random = new Random();
@@ -81,6 +85,22 @@ namespace PeriodicTimetableGeneration
 
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the generation time.
+        /// </summary>
+        /// <value>The generation time.</value>
+        public TimeSpan GenerationTime 
+        {
+            get
+            {
+                return generationTime;
+            }
+            set
+            {
+                generationTime = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the ID.
