@@ -413,6 +413,8 @@ namespace PeriodicTimetableGeneration
             ratingValue = int.MaxValue;
             progressiveChanges = 0;
             variableLines = new List<TrainLineVariable>();
+            note = "";
+            generationTime = TimeSpan.MinValue;
             //stableLines = new Queue<TrainLineVariable>();
         }
 

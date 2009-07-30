@@ -12,20 +12,42 @@ using PeriodicTimetableGeneration.Interfaces;
 
 namespace PeriodicTimetableGeneration.Forms
 {
+    /// <summary>
+    /// Form to present process of generation, lines' and stations' timetable.
+    /// </summary>
     public partial class FormTimetables : Form
     {
         #region Settings
 
+        /// <summary>
+        /// Number of period showing in line\s timetable.
+        /// </summary>
         private const int NUMBER_OF_PERIOD = 5;
+        /// <summary>
+        /// Default number of timetables to generate.
+        /// </summary>
         private const int NUMBER_OF_TIMETABLES = 15;
+        /// <summary>
+        /// Start time of showing line's timetables.
+        /// </summary>
         private static Time START_TIME_OF_LT = new Time(8, 0);
+        /// <summary>
+        /// End time of showing station's timetables.
+        /// </summary>
         private static Time START_TIME_OF_ST = new Time(8, 0);
+        /// <summary>
+        /// End time of showing station's timetables.
+        /// </summary>
         private static Time END_TIME_OF_ST = new Time(11, 0);
 
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormTimetables"/> class.
+        /// </summary>
+        /// <param name="generationAlgorithm">The generation algorithm.</param>
         public FormTimetables(IGenerationAlgorithm generationAlgorithm)
         {
             InitializeComponent();
@@ -570,6 +592,8 @@ namespace PeriodicTimetableGeneration.Forms
                 [listViewGeneratingTimetables.Items.Count - 1];
             lvi.SubItems[1].Text = tt.ProgressiveChanges.ToString();
             lvi.SubItems[2].Text = tt.RatingValue.ToString();
+            lvi.SubItems[3].Text = tt.GenerationTime.TotalMilliseconds.ToString();
+            lvi.SubItems[4].Text = tt.Note;
 
             listViewGeneratingTimetables.EndUpdate();
         }
