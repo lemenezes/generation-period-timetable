@@ -15,7 +15,7 @@ namespace PeriodicTimetableGeneration
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormRPproject());
+            Application.Run(new FormMain());
         }
     }
 }

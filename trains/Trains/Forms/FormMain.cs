@@ -11,17 +11,43 @@ using PeriodicTimetableGeneration.Forms;
 using System.Collections;
 using PeriodicTimetableGeneration;
 using PeriodicTimetableGeneration.Util;
+using PeriodicTimetableGeneration.Properties;
 
 namespace PeriodicTimetableGeneration
 {
-    public partial class FormRPproject : Form
+    public partial class FormMain : Form
     {
-        const String COMBOBOX_ALLLINES = "All lines";
-        
-        public FormRPproject()
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FormRPproject"/> class.
+        /// </summary>
+        public FormMain()
         {
             InitializeComponent();
         }
+        		 
+	    #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the string for option ComboBox AllLines.
+        /// </summary>
+        /// <value>The COMBOBO x_ ALLLINES.</value>
+		String COMBOBOX_ALLLINES
+        {
+            get 
+            {
+                return Settings.Default.ComboBoxAllLines;
+            } 
+        }
+	    #endregion
+
+
+
+        #region Load Files TabPage
 
         //--------------------------------------------
         // button ADD files
@@ -32,7 +58,7 @@ namespace PeriodicTimetableGeneration
             openFileDialogTrainLines.ShowDialog();
         }
 
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        private void openFileDialogTrainLines_FileOk(object sender, CancelEventArgs e)
         {
             addItemsToLVLoadFiles();
         }
@@ -121,17 +147,57 @@ namespace PeriodicTimetableGeneration
 */
 
             listViewLoadFiles.EndUpdate();
-        }   
+        }
 
         //--------------------------------------------
-        // button NEXT list of variableLines
+        // button NEXT load file
         //--------------------------------------------
 
+        private void buttonLoadFileNext_Click(object sender, EventArgs e)
+        {
+            createTrainLinesFromFiles();
+            prepareListViewListOfLines();
+            tabControlTG.SelectTab(tabPageListOfLines);
+        }
+
+        #endregion
+
+
+        #region List of Lines TabPage
+
+        //--------------------------------------------
+        // create TrainLines
+        //--------------------------------------------
+
+        private void createTrainLinesFromFiles()
+        {
+            // clearStableLines variableLines off previous run
+            TrainLineCache.getInstance().clearContent();
+            // clearStableLines station off previous run
+            TrainStationCache.getInstance().clearContent();
+
+            TrainLineCache lineCache = TrainLineCache.getInstance();
+
+            foreach (ListViewItem lvi in listViewLoadFiles.Items)
+            {
+                TrainLine line = IOUtil.readTrainLineFromFile(lvi.Tag.ToString());
+                // test if already exists
+                if (TrainLineCache.getInstance().doesLineExist(line.LineNumber)) { }
+                else
+                {
+                    lineCache.addTrainLine(line);
+                }
+            }
+        }
+
+        //--------------------------------------------
+        // button NEXT list of train lines
+        //--------------------------------------------
 
         private void buttonListOfLinesNext_Click(object sender, EventArgs e)
         {
             prepareListViewListOfStations();
-            tabControlTG.SelectTab(tabPageListOfStation);
+            tabControlTG.SelectTab(tabPageListOfStations);
             prepareComboBoxListOfLines(listViewListOfLines);
         }
 
@@ -155,7 +221,7 @@ namespace PeriodicTimetableGeneration
         }
 
         //--------------------------------------------
-        // button DETAILS line_
+        // button DETAILS of line
         //--------------------------------------------
 
         private void buttonDetailsLine_Click(object sender, EventArgs e)
@@ -195,101 +261,16 @@ namespace PeriodicTimetableGeneration
                     FormUtil.listView_SelecdAndFocus(listViewListOfLines, selectedIndex);
                 }
             }
-        }
+        }             
 
         //--------------------------------------------
-        // button NEXT load file
+        // list of LINES
         //--------------------------------------------
 
-        private void buttonLoadFileNext_Click(object sender, EventArgs e)
+        private void listViewListOfLines_ItemActivate(object sender, EventArgs e)
         {
-            createTrainLinesFromFiles();
-            prepareListViewListOfLines();
-            tabControlTG.SelectTab(tabPageListOfLines);
-        }
-
-        private void prepareListViewListOfStations() 
-        {
-            // load throughStation's cache
-            List<TrainStation> listStations = TrainStationCache.getInstance().getCacheContent();
-            // starting update list, protected before method Draw
-            listViewListOfStations.BeginUpdate();
-            // clearStableLines previous list's items
-            listViewListOfStations.Items.Clear();
-            // and prepare new list view accordind throughStation's cache
-            foreach (TrainStation station in listStations) 
-            {
-                ListViewItem lvi = new ListViewItem();
-                // fill item with throughStation's information 
-                lvi.Text = station.Id.ToString();
-                lvi.Tag = station.Id.ToString();
-
-                lvi.SubItems.Add(station.Name);
-                lvi.SubItems.Add(station.TownCategory.ToString());
-                lvi.SubItems.Add(station.Inhabitation.ToString());
-                lvi.SubItems.Add(station.Town);
-                // addConstraint item into the list
-                listViewListOfStations.Items.Add(lvi);
-            }
-            // release list view
-            listViewListOfStations.EndUpdate();
-        }
-
-        private void prepareListViewListOfStations(int lineNumber)
-        {         
-
-            // get trainLine1 on lineNumber
-            TrainLine trainLine = TrainLineCache.getInstance().getCacheContentOnNumber(lineNumber);
-            // get trainStop of line_
-            List<TrainStop> stops = trainLine.getTrainStops();
-
-            // starting update list, protected before method Draw
-            listViewListOfStations.BeginUpdate();
-            // clearStableLines previous list's items
-            listViewListOfStations.Items.Clear();
-            // and prepare new list view accordind trainStops of line_
-            foreach (TrainStop stop in stops)
-            {
-                // get station of stop
-                TrainStation station = stop.TrainStation;
-
-                    ListViewItem lvi = new ListViewItem();
-                    // fill item with throughStation's information 
-                    lvi.Text = station.Id.ToString();
-                    lvi.Tag = station.Id.ToString();
-
-                    lvi.SubItems.Add(station.Name);
-                    lvi.SubItems.Add(station.TownCategory.ToString());
-                    lvi.SubItems.Add(station.Inhabitation.ToString());
-                    lvi.SubItems.Add(station.Town);
-                
-                    // addConstraint item into the list
-                    listViewListOfStations.Items.Add(lvi);
-            }
-            // release list view
-            listViewListOfStations.EndUpdate();
-        }
-        
-
-        private void createTrainLinesFromFiles()
-        {
-            // clearStableLines variableLines off previous run
-            TrainLineCache.getInstance().clearContent();
-            // clearStableLines station off previous run
-            TrainStationCache.getInstance().clearContent();
-
-            TrainLineCache lineCache = TrainLineCache.getInstance();
-
-            foreach (ListViewItem lvi in listViewLoadFiles.Items)
-            {
-                TrainLine line = IOUtil.readTrainLineFromFile(lvi.Tag.ToString());
-                // test if already exists
-                if (TrainLineCache.getInstance().doesLineExist(line.LineNumber)) { }
-                else
-                { 
-                    lineCache.addTrainLine(line);
-                }
-            }
+            detailsLineOpen();
+            //prepareListViewListOfLines();
         }
 
         private void prepareListViewListOfLines()
@@ -302,7 +283,7 @@ namespace PeriodicTimetableGeneration
             listViewListOfLines.BeginUpdate();
             // clearStableLines previous list of items
             listViewListOfLines.Items.Clear();
-            
+
             // and prepare new list view according line_'s cahe
             foreach (TrainLine line in listLines)
             {
@@ -325,6 +306,31 @@ namespace PeriodicTimetableGeneration
 
         }
 
+        //--------------------------------------------
+        // Update CONNECTED Lines
+        //--------------------------------------------
+
+        private void buttonConnectedLines_Click(object sender, EventArgs e)
+        {
+            openFileDialogUpdateConnectedLines.ShowDialog();
+        }
+
+        private void openFileDialogUpdateConnectedLines_FileOk(object sender, CancelEventArgs e)
+        {
+            updateConnectedLinesFromFile(openFileDialogUpdateConnectedLines.FileName);
+        }
+
+        private void updateConnectedLinesFromFile(String fileName) 
+        {
+            IOUtil.updateConnectedLines(fileName);
+        }
+
+
+        #endregion        
+
+
+        #region List of Station TabPage
+        
         //--------------------------------------------
         // button DETAILS station
         //--------------------------------------------
@@ -379,15 +385,71 @@ namespace PeriodicTimetableGeneration
             //prepareListViewListOfStations();
         }
 
-        //--------------------------------------------
-        // list of LINES
-        //--------------------------------------------
-
-        private void listViewListOfLines_ItemActivate(object sender, EventArgs e)
+        private void prepareListViewListOfStations()
         {
-            detailsLineOpen();
-            //prepareListViewListOfLines();
+            // load throughStation's cache
+            List<TrainStation> listStations = TrainStationCache.getInstance().getCacheContent();
+            // starting update list, protected before method Draw
+            listViewListOfStations.BeginUpdate();
+            // clearStableLines previous list's items
+            listViewListOfStations.Items.Clear();
+            // and prepare new list view accordind throughStation's cache
+            foreach (TrainStation station in listStations)
+            {
+                ListViewItem lvi = new ListViewItem();
+                // fill item with throughStation's information 
+                lvi.Text = station.Id.ToString();
+                lvi.Tag = station.Id.ToString();
+
+                lvi.SubItems.Add(station.Name);
+                lvi.SubItems.Add(station.TownCategory.ToString());
+                lvi.SubItems.Add(station.Inhabitation.ToString());
+                lvi.SubItems.Add(station.Town);
+                // addConstraint item into the list
+                listViewListOfStations.Items.Add(lvi);
+            }
+            // release list view
+            listViewListOfStations.EndUpdate();
         }
+
+        private void prepareListViewListOfStations(int lineNumber)
+        {
+
+            // get trainLine1 on lineNumber
+            TrainLine trainLine = TrainLineCache.getInstance().getCacheContentOnNumber(lineNumber);
+            // get trainStop of line_
+            List<TrainStop> stops = trainLine.getTrainStops();
+
+            // starting update list, protected before method Draw
+            listViewListOfStations.BeginUpdate();
+            // clearStableLines previous list's items
+            listViewListOfStations.Items.Clear();
+            // and prepare new list view accordind trainStops of line_
+            foreach (TrainStop stop in stops)
+            {
+                // get station of stop
+                TrainStation station = stop.TrainStation;
+
+                ListViewItem lvi = new ListViewItem();
+                // fill item with throughStation's information 
+                lvi.Text = station.Id.ToString();
+                lvi.Tag = station.Id.ToString();
+
+                lvi.SubItems.Add(station.Name);
+                lvi.SubItems.Add(station.TownCategory.ToString());
+                lvi.SubItems.Add(station.Inhabitation.ToString());
+                lvi.SubItems.Add(station.Town);
+
+                // addConstraint item into the list
+                listViewListOfStations.Items.Add(lvi);
+            }
+            // release list view
+            listViewListOfStations.EndUpdate();
+        }
+
+        //--------------------------------------------
+        // combobox select the LINE
+        //--------------------------------------------
 
         private void comboBoxSelectLine_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -429,38 +491,7 @@ namespace PeriodicTimetableGeneration
             // open particular tab
             tabControlTG.SelectTab(tabPageListOfConncetions);
         }
-
-        private void prepareListViewListOfConnections()
-        {
-            // retreive train connections off cache
-            List<TrainConnection> connections = ShortestPathAlgoritm.getInstance().getTrainConnections();
-
-            // prevent off method draw called on this listView
-            listViewListOfConnections.BeginUpdate();
-            // clearStableLines previous content
-            listViewListOfConnections.Items.Clear();
-            // loop over trainConnections
-            foreach (TrainConnection connection in connections) 
-            {
-                ListViewItem lvi = new ListViewItem();
-                // fill the information about train connection;
-                lvi.Text = connection.FromStation.Name;
-                lvi.Tag = connection.FromStation.Name + " -> " + connection.ToStation.Name; 
-
-                // fill other information about connection
-                lvi.SubItems.Add(connection.ToStation.Name);
-                lvi.SubItems.Add(connection.Time.ToString());
-                lvi.SubItems.Add(connection.Distance.ToString());
-                lvi.SubItems.Add(connection.Passengers.ToString());
-                lvi.SubItems.Add(connection.LinesOfConnection);
-                lvi.SubItems.Add(connection.ChangingStation);
-
-                listViewListOfConnections.Items.Add(lvi);
-            }
-            // release list of items
-            listViewListOfConnections.EndUpdate();
-        }
-
+      
         //--------------------------------------------
         // button UPDATE_CATEGORIES
         //--------------------------------------------
@@ -473,22 +504,7 @@ namespace PeriodicTimetableGeneration
 
         private void updateTownCategoriesFromFile(String fileName)
         {
-            List<TrainStation> stations = IOUtil.readTrainStationFromFile(fileName);
-
-            foreach (TrainStation station in stations) 
-            {
-                // if station exits in train station cache
-                if(TrainStationCache.getInstance().doesStationExist(station.Name))
-                {
-                    // find station in cache
-                    TrainStation s = TrainStationCache.getInstance()
-                        .getCacheContentOnName(station.Name);
-                    // copy inhabitation
-                    s.Inhabitation = station.Inhabitation;
-                    // update town category according inhabitation
-                    s.updateTownCategory();
-                }
-            }
+            IOUtil.updateTownCategoriesFromFile(fileName);
 
         }
 
@@ -496,6 +512,11 @@ namespace PeriodicTimetableGeneration
         {
             openFileDialogUpdateTownCategories.ShowDialog();
         }
+
+        #endregion
+
+
+        #region List of Connection Tab Page
 
         //--------------------------------------------
         // button DETAILS of connection
@@ -544,6 +565,37 @@ namespace PeriodicTimetableGeneration
         // list of connection
         //--------------------------------------------
 
+        private void prepareListViewListOfConnections()
+        {
+            // retreive train connections off cache
+            List<TrainConnection> connections = ShortestPathAlgoritm.getInstance().getTrainConnections();
+
+            // prevent off method draw called on this listView
+            listViewListOfConnections.BeginUpdate();
+            // clearStableLines previous content
+            listViewListOfConnections.Items.Clear();
+            // loop over trainConnections
+            foreach (TrainConnection connection in connections)
+            {
+                ListViewItem lvi = new ListViewItem();
+                // fill the information about train connection;
+                lvi.Text = connection.FromStation.Name;
+                lvi.Tag = connection.FromStation.Name + " -> " + connection.ToStation.Name;
+
+                // fill other information about connection
+                lvi.SubItems.Add(connection.ToStation.Name);
+                lvi.SubItems.Add(connection.Time.ToString());
+                lvi.SubItems.Add(connection.Distance.ToString());
+                lvi.SubItems.Add(connection.Passengers.ToString());
+                lvi.SubItems.Add(connection.LinesOfConnection);
+                lvi.SubItems.Add(connection.ChangingStation);
+
+                listViewListOfConnections.Items.Add(lvi);
+            }
+            // release list of items
+            listViewListOfConnections.EndUpdate();
+        }
+
         private void listViewListOfConnections_ItemActivate(object sender, EventArgs e)
         {
             detailsOfConnectionOpen();
@@ -557,7 +609,7 @@ namespace PeriodicTimetableGeneration
         private void buttonListOfConncetionsNext_Click(object sender, EventArgs e)
         {
             prepareListViewFinalInput();
-            tabControlTG.SelectTab(tabPageFinalInput);
+            tabControlTG.SelectTab(tabPageListOfPaths);
         }
 
         //--------------------------------------------
@@ -610,34 +662,14 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        #endregion
+
+
+        #region Final Input TabPage
+
         //----------------------------------------------
         // Methods for preparing FINAL INPUT
         //----------------------------------------------
-
-        /*
-        private void prepareListViewFinalInput() 
-        {
-            listViewFinalInput.BeginUpdate();
-            listViewFinalInput.Items.Clear();
-            
-            List<TrainConnection> connections = ShortestPathAlgoritm.getInstance().getTrainConnections();
-            List<List<TrainConnection>> groupsOfConnections = groupByListOfLines(connections);
-
-            // loop over all groups
-            foreach (List<TrainConnection> group in groupsOfConnections) 
-            {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = group[0].LinesOfConnection;
-                lvi.Tag = group[0].LinesOfConnection;
-
-                lvi.SubItems.Add(group[0].ChangingStation);
-                lvi.SubItems.Add(calculatePassengersForGroupOfConnections(group).ToString());
-                
-                listViewFinalInput.Items.Add(lvi);
-            }
-
-            listViewFinalInput.EndUpdate();
-        }*/
 
         private void prepareListViewFinalInput()
         {
@@ -663,11 +695,26 @@ namespace PeriodicTimetableGeneration
             listViewFinalInput.EndUpdate();
         }
 
+        //-----------------------------------------------------------
+        // Button GenerationAlgorithm start
+        //-----------------------------------------------------------
+
+        private void buttonGenerationAlgorithmDSA_Click(object sender, EventArgs e)
+        {
+            FormTimetables formTimetablesDSA = new FormTimetables(new GenerationAlgorithmDSA());
+            formTimetablesDSA.Show();
+        }
+
         private void buttonGenerateTimetablesRandomized_Click(object sender, EventArgs e)
         {
             FormTimetables formTimetablesRandomized = new FormTimetables(new GenerationAlgorithmRandomized());
             formTimetablesRandomized.Show();
         }
+
+        #endregion
+
+
+        #region ColumnClick Sorting (All ListViews)
 
         //-----------------------------------------------------------
         // ListViewListOf STATION - ColumnClick - Sorting
@@ -706,16 +753,11 @@ namespace PeriodicTimetableGeneration
             FormUtil.listView_ColumnClick_Sorting(sender, e, this.listViewFinalInput);
         }
 
-        //-----------------------------------------------------------
-        // Button GenerationAlgorithm start
-        //-----------------------------------------------------------
+        #endregion
 
-        private void buttonGenerationAlgorithmDSA_Click(object sender, EventArgs e)
-        {
-            FormTimetables formTimetablesDSA = new FormTimetables(new GenerationAlgorithmDSA());
-            formTimetablesDSA.Show();
-        }
 
+        
+        
 
         /*
         private static int calculatePassengersForGroupOfConnections(List<TrainConnection> group) 

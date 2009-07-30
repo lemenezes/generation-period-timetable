@@ -8,5 +8,8 @@
     <Setting Name="MinimalTransferTime" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">5</Value>
     </Setting>
+    <Setting Name="ComboBoxAllLines" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">"All lines"</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
