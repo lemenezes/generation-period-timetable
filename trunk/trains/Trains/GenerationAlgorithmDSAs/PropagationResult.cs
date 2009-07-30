@@ -7,7 +7,7 @@ namespace PeriodicTimetableGeneration.Interfaces
 {
 
 	/// <summary>
-	/// Result of the initial PESP algorithm phase.
+	/// Result of the propagate phase of algorithm DSA.
 	/// </summary>
 	public struct PropagationResult
 	{

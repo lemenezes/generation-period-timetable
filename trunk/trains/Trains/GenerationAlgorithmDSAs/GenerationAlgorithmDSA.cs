@@ -296,49 +296,79 @@ namespace PeriodicTimetableGeneration
                 }
 
                 // Find the set to be shortened.
-                FactorRangeRecord best;
+                FactorRangeRecord bestRecord;
 
                 // if no best record found ()
-                if (!bestChoiceSearcher.chooseBestRecord(discreteSetMatrix, out best))
+                if (!bestChoiceSearcher.chooseBestRecord(discreteSetMatrix, out bestRecord))
                 {
                     // then solution founded, matrix is single (contains singletons only).
                     solutions.Add(new Solution(discreteSetMatrix));
+
+                    // TODO: here finish recursive call
 
                     // end of recursive calls
                     return;
                 }
 
-                // Current set to be shortened
-                Set currentSet = best.Set;
-
-                // Item of Set which will be fixed.
-                int minute = best.MinItemOfSet;
-
-                // TODO: Use the branch and bound prunning.
-
-                // Copy the matrix.
-                Set[,] newMatrix = GenerationAlgorithmDSAUtil.cloneDiscreteSetMatrix(discreteSetMatrix);
-
-                // Create a singleton set.
-                Set newSet = new Set(currentSet.Modulo);
-                // Add only one item, fixed item.
-                newSet.Add(minute, currentSet.MinimizationFactor[minute]);
-
-                // Remeber to the new matrix.
-                newMatrix[best.Row, best.Col] = newSet;
-                newMatrix[best.Col, best.Row] = new Set(newSet);
-                newMatrix[best.Col, best.Row].Reverse();
+                // fix one potential set with item founded as best
+                Set[,] newMatrix = fixOnePotentialOfSetInMatrix(discreteSetMatrix, bestRecord);
 
                 // matrix was changed, continue in recursive calls
                 search(bestChoiceSearcher, new PropagationResult(newMatrix, propagationResult.TrainLinesMap), solutions);
 
                 // after return from recursive call, remove fixed object and try to
-                discreteSetMatrix[best.Row, best.Col].Remove(minute);
-                discreteSetMatrix[best.Col, best.Row].RemoveReverse(minute);
+                discreteSetMatrix[bestRecord.Row, bestRecord.Col].Remove(bestRecord.MinItemOfSet);
+                discreteSetMatrix[bestRecord.Col, bestRecord.Row].RemoveReverse(bestRecord.MinItemOfSet);
             }
         }
 
         #endregion
+
+
+        /// <summary>
+        /// Fixes the one potential of set in matrix according the founded best record.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <param name="bestRecord">The best record.</param>
+        /// <returns>The changed matrix.</returns>
+        private Set[,] fixOnePotentialOfSetInMatrix(Set[,] matrix, FactorRangeRecord bestRecord) 
+        {
+            // copy the matrix
+            Set[,] newMatrix = GenerationAlgorithmDSAUtil.cloneDiscreteSetMatrix(matrix);
+
+            // create a singleton set. Fix minute which corresponds with minimal factor value
+            Set newSet = new Set(bestRecord.Set.Modulo);
+            // add only one item with facotr, fixed item
+            newSet.Add(bestRecord.MinItemOfSet, bestRecord.Set.MinimizationFactor[bestRecord.MinItemOfSet]);
+
+            // replace changed Set also in matrix
+            newMatrix[bestRecord.Row, bestRecord.Col] = newSet;
+            newMatrix[bestRecord.Col, bestRecord.Row] = new Set(newSet);
+            newMatrix[bestRecord.Col, bestRecord.Row].Reverse();
+
+            return newMatrix;
+
+            //// Current set to be shortened
+            //Set currentSet = best.Set;
+
+            //// Item of Set which will be fixed.
+            //int minute = best.MinItemOfSet;
+
+            //// TODO: Use the branch and bound prunning.
+
+            //// Copy the matrix.
+            //Set[,] newMatrix = GenerationAlgorithmDSAUtil.cloneDiscreteSetMatrix(discreteSetMatrix);
+
+            //// Create a singleton set. Fix minute which corresponds with minimal factor value.
+            //Set newSet = new Set(currentSet.Modulo);
+            //// Add only one item, fixed item.
+            //newSet.Add(minute, currentSet.MinimizationFactor[minute]);
+
+            //// Remeber to the new matrix.
+            //newMatrix[best.Row, best.Col] = newSet;
+            //newMatrix[best.Col, best.Row] = new Set(newSet);
+            //newMatrix[best.Col, best.Row].Reverse();
+        }
 
 
         #region Initialize Algorithm Methods

@@ -6,6 +6,10 @@ using System.Collections;
 
 namespace PeriodicTimetableGeneration
 {
+    /// <summary>
+    /// Class represent Constraint, which model relation between two lines.
+    /// Implements appropriate methods for it.
+    /// </summary>
     public class Constraint
     {
 
