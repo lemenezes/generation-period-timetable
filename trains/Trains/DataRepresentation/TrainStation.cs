@@ -52,6 +52,7 @@ namespace PeriodicTimetableGeneration
         /// The minimum time for transfers from train to train.
         /// </summary>
         private Time minimalTransferTime;
+        private List<Transfer> transfers;
 
         #endregion
 
@@ -109,12 +110,26 @@ namespace PeriodicTimetableGeneration
             townCategory = TownCategory.medium;
             updateInhabitation();
             updateMinimalTransferTime();
+
+            transfers = new List<Transfer>();
         }
 
         #endregion
 
 
         #region Properties
+
+        public List<Transfer> Transfers 
+        {
+            get 
+            {
+                return transfers;
+            }
+            set 
+            {
+                transfers = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the station's id.
