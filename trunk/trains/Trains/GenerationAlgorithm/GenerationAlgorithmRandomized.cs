@@ -225,6 +225,9 @@ namespace PeriodicTimetableGeneration
                     }
                 }
 
+                // if selected line is examine first time, it needs to be initilize the worst best value
+                if (selectedLine.IsDefaultRatingValue) selectedLine.RatingValue = Int32.MaxValue;
+
                 // compare the theBestTimetableRatingValue with new line ratingValue
                 // if the previousRatingValue is worse than current, then change it
                 if (selectedLine.RatingValue > theBestLineRatingValue)
