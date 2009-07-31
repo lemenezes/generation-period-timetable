@@ -44,6 +44,10 @@ namespace PeriodicTimetableGeneration
         /// Time of original departure loaded from input.
         /// </summary>
         private Time originalDepartureFromFirstStation;
+        /// <summary>
+        /// Determine whether line is already fixed.
+        /// </summary>
+        private Boolean isFixed;
 
         #endregion
 
@@ -76,6 +80,32 @@ namespace PeriodicTimetableGeneration
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is fixed in context of setting departure time.
+        /// </summary>
+        /// <value><c>true</c> if this instance is fixed; otherwise, <c>false</c>.</value>
+        public Boolean IsFixed 
+        {
+            get 
+            {
+                return isFixed;
+            }
+            set 
+            {
+                isFixed = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the shift in context of connected line.
+        /// </summary>
+        /// <value>The connected line shift.</value>
+        private Time ConnectedLineShift
+        {
+            get { }
+            set { }
+        }
 
         /// <summary>
         /// Gets or sets the time of original departure.
