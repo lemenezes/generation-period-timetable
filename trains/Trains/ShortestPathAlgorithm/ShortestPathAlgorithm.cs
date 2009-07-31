@@ -106,10 +106,11 @@ namespace PeriodicTimetableGeneration
                                 //Console.Out.WriteLine("before: "+ fictive.LinesOfConnection);
 
                 // town to town optimization, starts end ends in the same town
-                if(!path[0].FromStation.Town.Length.Equals(0)
-                    && !path[path.Count-1].ToStation.Town.Length.Equals(0)
-                    && path[0].FromStation.Town.Equals(path[path.Count-1].ToStation.Town))
+                if (!path[0].FromStation.Town.Length.Equals(0)
+                    && !path[path.Count - 1].ToStation.Town.Length.Equals(0)
+                    && path[0].FromStation.Town.Equals(path[path.Count - 1].ToStation.Town))
                     // dont consider this connection
+                    continue;
 
 
                 // optimse path
