@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6E37814B-4879-4169-8198-9EA2B88D1EE5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -70,22 +70,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenerationAlgorithmDSAs\Utils\BestSearchUtil.cs" />
     <Compile Include="DataRepresentation\MinimalTransferTime.cs" />
-    <Compile Include="GenerationAlgorithmPESP\FactorRangeRecord.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Utils\ConstraintUtil.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Utils\CreateConstraintSetsUtil.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\FactorRangeRecord.cs" />
     <Compile Include="Forms\FormGenerationPESP.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FormGenerationPESP.Designer.cs">
       <DependentUpon>FormGenerationPESP.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenerationAlgorithmPESP\BisectionUtils.cs" />
-    <Compile Include="GenerationAlgorithmPESP\GenerationAlgorithmPESPUtil.cs" />
-    <Compile Include="GenerationAlgorithmPESP\Constraint.cs" />
-    <Compile Include="GenerationAlgorithmPESP\ConstraintCache.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Utils\BisectionUtil.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Utils\GenerationAlgorithmDSAUtil.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Constraint.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\ConstraintCache.cs" />
     <Compile Include="Enums\DayInWeek.cs" />
     <Compile Include="Enums\Direction.cs" />
-    <Compile Include="GenerationAlgorithmPESP\LogUtils.cs" />
-    <Compile Include="GenerationAlgorithmPESP\PropagationUtils.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Utils\LogUtil.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Utils\PropagationUtil.cs" />
     <Compile Include="GenerationAlgorithm\FinalInput.cs" />
     <Compile Include="Forms\FormAddStageDialog.cs">
       <SubType>Form</SubType>
@@ -117,20 +120,24 @@
     <Compile Include="Forms\FormTimetables.Designer.cs">
       <DependentUpon>FormTimetables.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenerationAlgorithm\GenerationAlgorithm.cs" />
+    <Compile Include="GenerationAlgorithm\GenerationAlgorithmRandomized.cs" />
     <Compile Include="GenerationAlgorithm\GroupOfConnections.cs" />
     <Compile Include="DataRepresentation\Stage.cs" />
     <Compile Include="DataRepresentation\StageUtil.cs" />
     <Compile Include="GenerationAlgorithm\Timetable.cs" />
+    <Compile Include="GenerationAlgorithm\TimetableUtil.cs" />
     <Compile Include="GenerationAlgorithm\TrainLineVariable.cs" />
-    <Compile Include="GenerationAlgorithmPESP\GenerationAlgorithmPESP.cs" />
-    <Compile Include="GenerationAlgorithmPESP\Matrix.cs" />
-    <Compile Include="GenerationAlgorithmPESP\Set.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\GenerationAlgorithmDSA.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Utils\MatrixUtil.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Set.cs" />
     <Compile Include="GenerationAlgorithm\Transfer.cs" />
+    <Compile Include="GenerationAlgorithm\TransferUtil.cs" />
     <Compile Include="Interfaces\IConstraintPropagator.cs" />
     <Compile Include="Interfaces\IConstraintSetsCreator.cs" />
     <Compile Include="Interfaces\IBestChoiceSearcher.cs" />
-    <Compile Include="Interfaces\PropagationResult.cs" />
+    <Compile Include="Interfaces\IGenerationAlgorithm.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\PropagationResult.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Solution.cs" />
     <Compile Include="Util\FormUtil.cs" />
     <Compile Include="Util\MergeSort.cs" />
     <Compile Include="Util\NewtonFormula.cs" />

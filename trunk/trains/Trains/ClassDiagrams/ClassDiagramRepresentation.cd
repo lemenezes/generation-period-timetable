@@ -133,7 +133,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.TrainConnectionCache">
-    <Position X="2.25" Y="14.75" Width="1.5" />
+    <Position X="2.25" Y="14.75" Width="2.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
