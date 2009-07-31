@@ -5,15 +5,28 @@ using System.ComponentModel;
 using PeriodicTimetableGeneration.Interfaces;
 using PeriodicTimetableGeneration.Properties;
 using PeriodicTimetableGeneration.GenerationAlgorithm;
+using System.Diagnostics;
 
 namespace PeriodicTimetableGeneration
 {
+    /// <summary>
+    /// Generation Algorithm, which construct randomize timetable first and then trying to imprve it.
+    /// </summary>
     public class GenerationAlgorithmRandomized : IGenerationAlgorithm
     {
         #region Private Fields
 
+        /// <summary>
+        /// Timetables.
+        /// </summary>
         private List<Timetable> timetables;
+        /// <summary>
+        /// All train lines.
+        /// </summary>
         private List<TrainLine> trainLines;
+        /// <summary>
+        /// All train station.
+        /// </summary>
         private List<TrainStation> trainStations;
 
         #endregion
@@ -21,6 +34,9 @@ namespace PeriodicTimetableGeneration
 
         #region Constructor
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GenerationAlgorithmRandomized"/> class.
+        /// </summary>
         public GenerationAlgorithmRandomized()
         {
             setDefaultValues();
@@ -85,6 +101,10 @@ namespace PeriodicTimetableGeneration
 
         #region IGenerationAlgorithm Members
 
+        /// <summary>
+        /// Generates the timetables.
+        /// </summary>
+        /// <param name="numberOfTimetables">The number of timetables.</param>
         public void generateTimetables(int numberOfTimetables)
         {
             // clear previous timetables
@@ -97,8 +117,20 @@ namespace PeriodicTimetableGeneration
                     return;
                 }
 
+                // start time
+                Stopwatch watch = new Stopwatch();
+                watch.Start();
+
                 Timetable tt = generateTimetable();
+
+                // stop measuring time
+                watch.Stop();
+                tt.GenerationTime = watch.Elapsed;
+
+                // add timetable
                 timetables.Add(tt);
+
+
 
                 int percentageComplete = (int)((float)i / (float)numberOfTimetables * 100);
                 reportProgress(percentageComplete);
