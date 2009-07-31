@@ -33,6 +33,7 @@
             this.tabPageGenerating = new System.Windows.Forms.TabPage();
             this.splitContainerTimetables = new System.Windows.Forms.SplitContainer();
             this.listViewGeneratingTimetables = new System.Windows.Forms.ListView();
+            this.columnHeaderGenerationTime = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderNote = new System.Windows.Forms.ColumnHeader();
             this.imageListBig = new System.Windows.Forms.ImageList(this.components);
             this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
@@ -92,7 +93,6 @@
             this.columnHeaderLineNumber = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderArrival = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderDeparture = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderGenerationTime = new System.Windows.Forms.ColumnHeader();
             this.tabControlGeneratingTimetables.SuspendLayout();
             this.tabPageGenerating.SuspendLayout();
             this.splitContainerTimetables.Panel1.SuspendLayout();
@@ -167,8 +167,8 @@
             this.columnHeaderAttempt,
             this.columnHeaderProgressiveChanges,
             this.columnHeaderRatingValue,
-            this.columnHeaderNote,
-            this.columnHeaderGenerationTime});
+            this.columnHeaderGenerationTime,
+            this.columnHeaderNote});
             this.listViewGeneratingTimetables.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewGeneratingTimetables.FullRowSelect = true;
             this.listViewGeneratingTimetables.GridLines = true;
@@ -182,9 +182,14 @@
             this.listViewGeneratingTimetables.View = System.Windows.Forms.View.Details;
             this.listViewGeneratingTimetables.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewGeneratingTimetables_ColumnClick);
             // 
+            // columnHeaderGenerationTime
+            // 
+            this.columnHeaderGenerationTime.Text = "Generation Time";
+            this.columnHeaderGenerationTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderGenerationTime.Width = 100;
+            // 
             // columnHeaderNote
             // 
-            this.columnHeaderNote.DisplayIndex = 4;
             this.columnHeaderNote.Text = "Note";
             this.columnHeaderNote.Width = 400;
             // 
@@ -746,13 +751,6 @@
             this.columnHeaderDeparture.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderDeparture.Width = 100;
             // 
-            // columnHeaderGenerationTime
-            // 
-            this.columnHeaderGenerationTime.DisplayIndex = 3;
-            this.columnHeaderGenerationTime.Text = "Generation Time";
-            this.columnHeaderGenerationTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderGenerationTime.Width = 100;
-            // 
             // FormTimetables
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -761,7 +759,7 @@
             this.Controls.Add(this.tabControlGeneratingTimetables);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormTimetables";
-            this.Text = "Generating Timetables :: Generation & Output";
+            this.Text = "Timetables";
             this.Load += new System.EventHandler(this.FormTimetables_Load);
             this.tabControlGeneratingTimetables.ResumeLayout(false);
             this.tabPageGenerating.ResumeLayout(false);

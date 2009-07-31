@@ -29,7 +29,18 @@ namespace PeriodicTimetableGeneration
         /// List of constructed algorithm.
         /// </summary>
         private List<Timetable> timetables;
-
+        /// <summary>
+        /// Report progress after that number of steps.
+        /// </summary>
+        private const int REPORT_COUNT = 7;
+        /// <summary>
+        /// Percetage complete field.
+        /// </summary>
+        protected double percentageComplete = 0;
+        /// <summary>
+        /// Step count field.
+        /// </summary>
+        protected int stepCount = 0;
 
         #endregion
 
@@ -48,83 +59,63 @@ namespace PeriodicTimetableGeneration
 
         #region IGenerationAlgorithm Members
 
-        protected double percentageComplete = 0;
 
-        protected int stepCount = 0;
 
         /// <summary>
         /// Generates the timetables.
         /// </summary>
         public void generateTimetables(int numberOftimetables)
         {
-            // Initialize the algorithm.
+            // initialize the algorithm
             List<Constraint> constraints;
             runInitializeAlgorithm(out constraints);
 
+            // propagator with set creator will be choosen in this sequence
+            IConstraintPropagator[] propagators = new IConstraintPropagator[] 
+            { 
+                new BisectionPropagator(new SameTransferTime()),
+                new BisectionPropagator(new AlfaTTransferTime()),
+                new SimplePropagator(new FullDiscreteSet()),
+                new SimplePropagator(new FullDiscreteSet()),
+            };
 
+            // best searcher will be choosen in this sequence
+            IBestChoiceSearcher[] creators = new IBestChoiceSearcher[]
+            {
+                new DeterministicSearcher(),
+                new DeterministicSearcher(),
+                new DeterministicSearcher(),
+                new ProbableSearcher()
+            };
+
+            // new timetables
             List<Timetable> newTimetables = new List<Timetable>();
 
-            percentageComplete = 0.0;
-            stepCount = 0;
-            runSpecializedGenerationAlgorithm(constraints,
-                new BisectionPropagator(new SameTransferTime()),
-                new DeterministicSearcher(), newTimetables);
+            // shift for percentage complete
+            double shift = 1 / (double)creators.Length;
 
-            percentageComplete = 0.25;
-            stepCount = 0;
-            reportProgress();
-            runSpecializedGenerationAlgorithm(constraints,
-                new BisectionPropagator(new AlfaTTransferTime()),
-                new DeterministicSearcher(), newTimetables);
+            // 
+            percentageComplete = 0;
 
-            percentageComplete = 0.5;
-            stepCount = 0;
-            reportProgress();
-            runSpecializedGenerationAlgorithm(constraints,
-                new SimplePropagator(new FullDiscreteSet()),
-                new DeterministicSearcher(), newTimetables);
-
-            percentageComplete = 0.75;
-            stepCount = 0;
-            reportProgress();
-            runSpecializedGenerationAlgorithm(constraints,
-                new SimplePropagator(new FullDiscreteSet()),
-                new ProbableSearcher(), newTimetables);
-
-
+            // each predefined combination do
+            for (int i = 0, c = creators.Length; i < c; ++i)
+            {
+                // step count 
+                stepCount = 0;
+                // generation for this combination
+                runSpecializedGenerationAlgorithm(
+                    constraints,
+                    propagators[i],
+                    creators[i], 
+                    newTimetables
+                );
+                // percentage is completed so far
+                percentageComplete += shift;
+                // if cancellation
+                if (IsCancelled) return;
+            }
+            // set new timetables
             this.timetables = newTimetables;
-
-
-
-            ////-----Run-Algorithm-Case-1:-Bisection-with-Same-Transfer-Time-&-Deterministic-Searcher------------------------------
-            //// Run the propagation phase.
-            //propagator = new BisectionPropagator(new SameTransferTime());
-            //propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmDSAUtil.MODULO_DEFAULT);
-            //// Search for the result with deterministic searcher.
-            //runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
-
-            ////-----Run-Algorithm-Case-2:-Bisection-with-AlfaT-Transfer-Time-&-Deterministic-Searcher------------------------------
-            //// Run the propagation phase.
-            //propagator = new BisectionPropagator(new AlfaTTransferTime());
-            //propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
-            //// Search for the result with deterministic searcher.
-            //runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
-
-            ////-----Run-Algorithm-Case-3:-Simple-with-Full-Discrete-Set-&-Deterministic-Searcher------------------------------
-            //// Run the propagation phase.
-            //propagator = new SimplePropagator(new FullDiscreteSet());
-            //propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
-            //// Search for the result with deterministic searcher.
-            //runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
-
-            ////-----Run-Algorithm-Case-4:-Simple-with-Full-Discrete-Set-&-Probable-Searcher------------------------------
-            //// Run the propagation phase.
-            //propagator = new SimplePropagator(new FullDiscreteSet());
-            //propagationResult = propagator.runPropagationAlgorithm(constraints, GenerationAlgorithmPESPUtil.MODULO_DEFAULT);
-            //// Search for the result with deterministic searcher.
-            //runSearchAlgorithm(new DeterministicSearcher(), propagationResult);
-
-
         }
 
         /// <summary>
@@ -139,9 +130,15 @@ namespace PeriodicTimetableGeneration
         protected void reportProgress()
         {
             ++ stepCount;
-            if (this.OnProgressChanged != null)
+            if (this.OnProgressChanged != null && stepCount % REPORT_COUNT == 1)
             {
-                this.OnProgressChanged(this, new ProgressChangedEventArgs((int)(100 * (percentageComplete + 0.25 * (1 - 1 / (double) stepCount))), this));
+                this.OnProgressChanged(
+                    this, 
+                    new ProgressChangedEventArgs(
+                        (int)(100 * (percentageComplete + 0.25 * Math.Pow(1 - 1 / (double) stepCount, 2))),
+                        this
+                   )
+                );
             }
         }
 
@@ -307,7 +304,8 @@ namespace PeriodicTimetableGeneration
         /// <returns>True if solution found, terminate recursive calls. Otherwise continue in backtracking.</returns>
         private Boolean search(IBestChoiceSearcher bestChoiceSearcher, PropagationResult propagationResult, List<Solution> solutions)
         {
-            reportProgress();
+
+            //reportProgress();
 
             // retreive discrete set matrix after propagation from propagation result
             Set[,] discreteSetMatrix = propagationResult.DiscreteSetMatrix;
@@ -338,6 +336,8 @@ namespace PeriodicTimetableGeneration
                     return true;
                 }
 
+                reportProgress();
+
                 // fix one potential set with item founded as best
                 Set[,] newMatrix = fixOnePotentialOfSetInMatrix(discreteSetMatrix, bestRecord);
 
@@ -355,9 +355,6 @@ namespace PeriodicTimetableGeneration
                 discreteSetMatrix[bestRecord.Col, bestRecord.Row].RemoveReverse(bestRecord.MinItemOfSet);
             }
         }
-
-        #endregion
-
 
         /// <summary>
         /// Fixes the one potential of set in matrix according the founded best record.
@@ -404,6 +401,7 @@ namespace PeriodicTimetableGeneration
             //newMatrix[best.Col, best.Row].Reverse();
         }
 
+        #endregion
 
         #region Initialize Algorithm Methods
 
@@ -454,6 +452,7 @@ namespace PeriodicTimetableGeneration
             }
             set
             {
+                timetables = value;
             }
         }
 
