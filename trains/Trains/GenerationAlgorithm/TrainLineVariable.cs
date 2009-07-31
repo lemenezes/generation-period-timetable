@@ -29,6 +29,10 @@ namespace PeriodicTimetableGeneration
         /// The number represents number of progressive changes, which has been made.
         /// </summary>
         private int progressiveChanges;
+        /// <summary>
+        /// Determine whether rating value changed.
+        /// </summary>
+        private Boolean isDefalutRatingVlaue;
 
         ///// <summary>
         ///// Flag indicates fixation (not implemented).
@@ -108,12 +112,13 @@ namespace PeriodicTimetableGeneration
         public int RatingValue
         {
             get
-            {
-                return ratingValue;
+            {               
+                return ratingValue;             
             }
             set
             {
                 ratingValue = value;
+                isDefalutRatingVlaue = false;
             }
         }
 
@@ -230,6 +235,24 @@ namespace PeriodicTimetableGeneration
             return time;
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance has default rating value.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance has default rating value; otherwise, <c>false</c>.
+        /// </value>
+        public Boolean IsDefaultRatingValue
+        {
+            get 
+            {
+                return isDefalutRatingVlaue;
+            }
+            set 
+            {
+                isDefalutRatingVlaue = value;
+            }
+        }
+
         //public Boolean isFixed()
         //{
         //    return fixedFlag;
@@ -248,8 +271,9 @@ namespace PeriodicTimetableGeneration
         {
             trainLine = null;
             startTime = Time.MinValue;
-            ratingValue = int.MaxValue;
+            ratingValue = 0;
             progressiveChanges = 0;
+            isDefalutRatingVlaue = true;
             //fixedFlag = false;
         }
 
