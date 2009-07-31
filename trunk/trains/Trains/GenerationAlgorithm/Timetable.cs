@@ -77,7 +77,39 @@ namespace PeriodicTimetableGeneration
                 varLines.Add(new TrainLineVariable(line));
             }
 
+            // update ConnectedTrainLineVariables for each line of equivalent group
+            updateConnectedTrainLineVariables(varLines);
+
+
             variableLines = varLines;
+        }
+
+        /// <summary>
+        /// Updates the connected train line variables.
+        /// </summary>
+        /// <param name="varLines">The variable lines.</param>
+        private void updateConnectedTrainLineVariables(List<TrainLineVariable> varLines)
+        {
+            // loop over all varLines
+            foreach (TrainLineVariable varLine in varLines)
+            {
+                // create list of connected train line variables
+                // List<TrainLineVariable> connectedVarLines = new List<TrainLineVariable>();
+
+                // loop over all connected line for line related with varLine
+                foreach (TrainLine line in varLine.Line.getConnectedLines()) 
+                {
+                    if (line.LineNumber < varLine.LineNumber)
+                    {
+                        // find appropriate varLine
+                        TrainLineVariable connectedVariableLine = findVariableLine(varLines, line.LineNumber);
+                        // add this var line into list of related var line
+                        connectedVariableLine.ConnectedLinesVariable.Add(varLine);
+                        varLine.ConnectedLinesVariable.Add(connectedVariableLine);
+                    }
+                }
+                // update list for all of them. 
+            }
         }
 
         #endregion

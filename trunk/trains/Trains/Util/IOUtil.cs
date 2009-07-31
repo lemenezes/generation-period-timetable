@@ -347,7 +347,7 @@ namespace PeriodicTimetableGeneration
         public static void updateConnectedLines(String fileName) 
         {
             // all train lines
-            //List<TrainLine> lines = TrainLineCache.getInstance().getCacheContent();
+            //List<TrainLine> lines = TrainLineCache.getInstance().getGroupOfConnections();
 
 
             // load all pairs in realtion

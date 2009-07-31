@@ -19,6 +19,8 @@ namespace PeriodicTimetableGeneration
         /// The line's number, where transfers on.
         /// </summary>
         private int on;
+
+
         /// <summary>
         /// The train line, where transfers off.
         /// </summary>
@@ -39,6 +41,11 @@ namespace PeriodicTimetableGeneration
         /// The train staiton, where transfers at.
         /// </summary>
         private TrainStation station;
+
+        private int trainStopIndexOffLine;
+
+        private int trainStopIndexOnLine;
+
 
         #endregion
 
@@ -73,6 +80,9 @@ namespace PeriodicTimetableGeneration
             on = on_.LineNumber;
             stationID = station_.Id;
             station = station_;
+            // indices
+            trainStopIndexOffLine = off_.getTrainStopOnStation(station).OrderInTrainLine;
+            trainStopIndexOnLine = on_.getTrainStopOnStation(station).OrderInTrainLine;
         }
 
         #endregion
@@ -97,6 +107,30 @@ namespace PeriodicTimetableGeneration
 
 
         #region Properties
+
+        public int TrainStopIndexOffLine
+        {
+            get
+            {
+                return trainStopIndexOffLine;
+            }
+            set
+            {
+                trainStopIndexOffLine = value;
+            }
+        }
+
+        public int TrainStopIndexOnLine
+        {
+            get
+            {
+                return trainStopIndexOnLine;
+            }
+            set
+            {
+                trainStopIndexOnLine = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the passengers.

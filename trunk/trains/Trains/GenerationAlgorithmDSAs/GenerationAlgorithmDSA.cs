@@ -414,7 +414,7 @@ namespace PeriodicTimetableGeneration
             //------initialization-constraints-----------------------------------
 
             // createConstraintSet transfers
-            List<Transfer> transfers = ConstraintUtil.createTransfers();
+            List<Transfer> transfers = ConstraintUtil.retrieveTransfers();
             // createConstraintSet constraints
             constraints = ConstraintUtil.createConstraints(transfers);
         }

@@ -608,7 +608,7 @@ namespace PeriodicTimetableGeneration
 
         private void buttonListOfConncetionsNext_Click(object sender, EventArgs e)
         {
-            prepareListViewFinalInput();
+            prepareListViewListOfGroupsOfConnections();
             tabControlTG.SelectTab(tabPageListOfPaths);
         }
 
@@ -671,7 +671,7 @@ namespace PeriodicTimetableGeneration
         // Methods for preparing FINAL INPUT
         //----------------------------------------------
 
-        private void prepareListViewFinalInput()
+        private void prepareListViewListOfGroupsOfConnections()
         {
             listViewFinalInput.BeginUpdate();
             listViewFinalInput.Items.Clear();
@@ -680,7 +680,7 @@ namespace PeriodicTimetableGeneration
             FinalInput.getInstance().createGroupsOfConnection();
 
             // loop over all groups
-            foreach (GroupOfConnections group in FinalInput.getInstance().getCacheContent()) 
+            foreach (GroupOfConnections group in FinalInput.getInstance().getGroupsOfConnections()) 
             {
                 ListViewItem lvi = new ListViewItem();
                 lvi.Text = group.LinesOfConnectionString;
@@ -754,6 +754,40 @@ namespace PeriodicTimetableGeneration
         }
 
         #endregion
+
+        private void buttonListOfGroupsOfConnections_Click(object sender, EventArgs e)
+        {
+            FinalInput.getInstance().createTransfers();
+            prepareListViewListOfTransfers();
+
+            tabControlTG.SelectTab(tabPageListOfTransfers);
+        }
+
+        private void prepareListViewListOfTransfers()
+        {
+            // retrieve transfers
+            List<Transfer> tranfers = FinalInput.getInstance().getCacheContent();
+
+            listViewListOfTransfers.BeginUpdate();
+
+            listViewListOfTransfers.Items.Clear();
+
+            foreach (Transfer tranfer in tranfers) 
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = tranfer.OffLine.LineNumber.ToString();
+                lvi.Tag = tranfer.OffLine.LineNumber.ToString() + "->" + tranfer.OnLine.LineNumber.ToString();
+                
+                lvi.SubItems.Add(tranfer.OnLine.LineNumber.ToString());
+                lvi.SubItems.Add(tranfer.Station.Name);
+                lvi.SubItems.Add(tranfer.Passengers.ToString());
+
+                listViewListOfTransfers.Items.Add(lvi);
+            }
+
+            listViewListOfTransfers.EndUpdate();
+
+        }
 
 
         

@@ -7,6 +7,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
 {
     public static class TransferUtil
     {
+
         #region Public Static Methods        
 
         public static Boolean doesTransferExist(List<Transfer> transfers, int off, int on, int stationID)
@@ -23,15 +24,28 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             return exist;
         }
 
-        public static List<Transfer> createTransfers(int line)
+        public static List<Transfer> createTransfersForAllLines()
         {
+            // new transfers
             List<Transfer> transfers = new List<Transfer>();
-            List<GroupOfConnections> connections = FinalInput.getInstance().getCacheContent();
+            // retreive all lines
+            List<TrainLine> allLines = TrainLineCache.getInstance().getCacheContent();
 
-            transfers.AddRange(findOnTransfers(connections, line));
-            transfers.AddRange(findOffTransfers(connections, line));
+            // loop over all lines
+            foreach (TrainLine line in allLines)
+            {
+                // find all transfers except of existed ones
+                createTransfers(line, transfers);
+            }
 
             return transfers;
+        }
+
+        public static void createTransfers(TrainLine line, List<Transfer> transfers)
+        {
+            // List<Transfer> transfers = new List<Transfer>();
+            List<GroupOfConnections> connections = FinalInput.getInstance().getGroupsOfConnections();
+            findOnOffTransfers(connections, line, transfers);
         }
 
         public static Transfer findTransfer(List<Transfer> transfers, int off, int on, int stationID)
@@ -53,12 +67,11 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
 
         #endregion
 
-
         #region Private Static Methods
 
-        private static List<Transfer> findOnTransfers(List<GroupOfConnections> connections, int lineNumber)
+        private static List<Transfer> findOnTransfers(List<GroupOfConnections> connections, TrainLine selectedLine, List<Transfer> transfers)
         {
-            List<Transfer> transfers = new List<Transfer>();
+            int lineNumber = selectedLine.LineNumber;
 
             // loop over all group of connection
             foreach (GroupOfConnections connection in connections)
@@ -68,47 +81,59 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
                 foreach (TrainLine line in connection.LinesOfConnection)
                 {
                     // if we indicate the wanted line
-                    if (line.LineNumber.Equals(lineNumber))
+                    // and if previous line exists, we indicate Transfer ON LINE
+                    if (previousLine != null && line.LineNumber == lineNumber)
                     {
-                        // and if previous line exists, we indicate Transfer ON LINE
-                        if (previousLine != null)
-                        {
-                            // determine changing station
-                            TrainStation station = connection.getConnections()[0].findChangingStation(previousLine.LineNumber, lineNumber);
-
-                            // if transfers already exists
-                            if (doesTransferExist(transfers, previousLine.LineNumber, lineNumber, station.Id))
-                            {
-                                // find the transfers and update details
-                                Transfer tranUpd = findTransfer(transfers, previousLine.LineNumber, lineNumber, station.Id);
-                                tranUpd.Passengers += connection.Passengers;
-                            }
-                            // otherwise
-                            else
-                            {
-                                // createConstraintSet a new Transfer, and fill the details
-                                Transfer tran = new Transfer(previousLine, line, station);
-                                tran.Passengers = connection.Passengers;
-                                // addConstraint into transfers
-                                transfers.Add(tran);
-                            }
-                        }
+                        updateTransfer(previousLine, selectedLine, connection, transfers);
                     }
-
 
                     // set line as prevous for next loop
                     previousLine = line;
                 }
-
-
             }
 
             return transfers;
         }
 
-        private static List<Transfer> findOffTransfers(List<GroupOfConnections> connections, int lineNumber)
+        private static List<Transfer> findOnOffTransfers(List<GroupOfConnections> connections, TrainLine selectedLine, List<Transfer> transfers)
         {
-            List<Transfer> transfers = new List<Transfer>();
+            int lineNumber = selectedLine.LineNumber;
+
+            // loop over all group of connection
+            foreach (GroupOfConnections connection in connections)
+            {
+                // previous line - determines if we are handling the off or on transfer
+                TrainLine previousLine = null;
+
+                // loop over all lines in that group
+                foreach (TrainLine line in connection.LinesOfConnection)
+                {
+                    if (previousLine != null)
+                    {
+                        // off: if the previous line is wanted line
+                        if (previousLine.LineNumber == lineNumber)
+                        {
+                            updateTransfer(selectedLine, line, connection, transfers);
+                        }
+
+                        // on: if the current line is wanted line
+                        if (line.LineNumber == lineNumber)
+                        {
+                            updateTransfer(previousLine, selectedLine, connection, transfers);
+                        }
+                    }
+
+                    // set line as prevous for next loop
+                    previousLine = line;
+                }
+            }
+
+            return transfers;
+        }
+
+        private static List<Transfer> findOffTransfers(List<GroupOfConnections> connections, TrainLine selectedLine, List<Transfer> transfers)
+        {
+            int lineNumber = selectedLine.LineNumber;
 
             // loop over all group of connection
             foreach (GroupOfConnections connection in connections)
@@ -118,29 +143,10 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
                 foreach (TrainLine line in connection.LinesOfConnection)
                 {
                     // if the previous line is wanted line
-                    if (previousLine != null && previousLine.Equals(lineNumber))
+                    if (previousLine != null && previousLine.LineNumber == lineNumber)
                     {
-                        // determine changing station
-                        TrainStation station = connection.getConnections()[0].findChangingStation(previousLine.LineNumber, line.LineNumber);
-
-                        // if transfers already exists
-                        if (doesTransferExist(transfers, previousLine.LineNumber, line.LineNumber, station.Id))
-                        {
-                            // find the transfers and update details
-                            Transfer tranUpd = findTransfer(transfers, previousLine.LineNumber, lineNumber, station.Id);
-                            tranUpd.Passengers += connection.Passengers;
-                        }
-                        // otherwise
-                        else
-                        {
-                            // createConstraintSet a new Transfer, and fill the details
-                            Transfer tran = new Transfer(previousLine, line, station);
-                            tran.Passengers = connection.Passengers;
-                            // addConstraint into transfers
-                            transfers.Add(tran);
-                        }
+                        updateTransfer(selectedLine, line, connection, transfers);
                     }
-
 
                     // set line as prevous for next loop
                     previousLine = line;
@@ -150,6 +156,39 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             return transfers;
         }
 
+        private static void updateTransfer(TrainLine offLine, TrainLine onLine, GroupOfConnections connection, List<Transfer> transfers)
+        {
+            // determine changing station
+            TrainStation station = connection.getConnections()[0].findChangingStation(offLine.LineNumber, onLine.LineNumber);
+
+            // try to find transfer
+            Transfer existedTransfer = findTransfer(transfers, offLine.LineNumber, onLine.LineNumber, station.Id);
+
+            // if transfers already exists
+            if (existedTransfer == null)
+            {
+                // create a new Transfer, and fill the details
+                existedTransfer = new Transfer(offLine, onLine, station);
+
+                // add transfer into transfers
+                transfers.Add(existedTransfer);
+
+                // add into line1 and line2
+                updateTransferLinks(existedTransfer);
+            }
+
+            existedTransfer.Passengers += connection.Passengers;
+        }
+
+        private static void updateTransferLinks(Transfer transfer)
+        {
+            // update station's link
+            transfer.Station.Transfers.Add(transfer);
+            // upadte line's on lnik
+            transfer.OnLine.TransfersOn.Add(transfer);
+            // update line's off link
+            transfer.OffLine.TransfersOff.Add(transfer);
+        }
 
         #endregion
 

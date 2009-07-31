@@ -84,19 +84,20 @@
             this.columnHeaderFIlistOfLines = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderFIchangingStations = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderFIpassengers = new PeriodicTimetableGeneration.ColHeader();
-            this.groupBoxGenerationAlgorithm = new System.Windows.Forms.GroupBox();
-            this.buttonGenerationAlgorithmRandomized = new System.Windows.Forms.Button();
-            this.buttonGenerationAlgorithmDSA = new System.Windows.Forms.Button();
             this.tabPageListOfTransfers = new System.Windows.Forms.TabPage();
             this.splitContainerListOfTransfers = new System.Windows.Forms.SplitContainer();
             this.listViewListOfTransfers = new System.Windows.Forms.ListView();
-            this.columnHeaderFromLine = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderToLine = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderAtStations = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderPassengersOnTransfer = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderFromLine = new ColHeader();
+            this.columnHeaderToLine = new ColHeader();
+            this.columnHeaderAtStations = new ColHeader();
+            this.columnHeaderPassengersOnTransfer = new ColHeader();
             this.openFileDialogTrainLines = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogUpdateTownCategories = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogUpdateConnectedLines = new System.Windows.Forms.OpenFileDialog();
+            this.groupBoxGenerationAlgorithm = new System.Windows.Forms.GroupBox();
+            this.buttonGenerationAlgorithmRandomized = new System.Windows.Forms.Button();
+            this.buttonGenerationAlgorithmDSA = new System.Windows.Forms.Button();
+            this.buttonListOfGroupsOfConnections = new System.Windows.Forms.Button();
             this.tabControlTG.SuspendLayout();
             this.tabPageLoadFiles.SuspendLayout();
             this.splitContainerLoadFiles.Panel1.SuspendLayout();
@@ -119,10 +120,11 @@
             this.splitContainerListOfPaths.Panel1.SuspendLayout();
             this.splitContainerListOfPaths.Panel2.SuspendLayout();
             this.splitContainerListOfPaths.SuspendLayout();
-            this.groupBoxGenerationAlgorithm.SuspendLayout();
             this.tabPageListOfTransfers.SuspendLayout();
             this.splitContainerListOfTransfers.Panel1.SuspendLayout();
+            this.splitContainerListOfTransfers.Panel2.SuspendLayout();
             this.splitContainerListOfTransfers.SuspendLayout();
+            this.groupBoxGenerationAlgorithm.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlTG
@@ -638,7 +640,7 @@
             // splitContainerListOfPaths.Panel2
             // 
             this.splitContainerListOfPaths.Panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.splitContainerListOfPaths.Panel2.Controls.Add(this.groupBoxGenerationAlgorithm);
+            this.splitContainerListOfPaths.Panel2.Controls.Add(this.buttonListOfGroupsOfConnections);
             this.splitContainerListOfPaths.Size = new System.Drawing.Size(970, 532);
             this.splitContainerListOfPaths.SplitterDistance = 850;
             this.splitContainerListOfPaths.TabIndex = 0;
@@ -680,37 +682,6 @@
             this.columnHeaderFIpassengers.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderFIpassengers.Width = 100;
             // 
-            // groupBoxGenerationAlgorithm
-            // 
-            this.groupBoxGenerationAlgorithm.Controls.Add(this.buttonGenerationAlgorithmRandomized);
-            this.groupBoxGenerationAlgorithm.Controls.Add(this.buttonGenerationAlgorithmDSA);
-            this.groupBoxGenerationAlgorithm.Location = new System.Drawing.Point(3, 402);
-            this.groupBoxGenerationAlgorithm.Name = "groupBoxGenerationAlgorithm";
-            this.groupBoxGenerationAlgorithm.Size = new System.Drawing.Size(113, 125);
-            this.groupBoxGenerationAlgorithm.TabIndex = 7;
-            this.groupBoxGenerationAlgorithm.TabStop = false;
-            this.groupBoxGenerationAlgorithm.Text = "Generation Algorithms";
-            // 
-            // buttonGenerationAlgorithmRandomized
-            // 
-            this.buttonGenerationAlgorithmRandomized.Location = new System.Drawing.Point(6, 33);
-            this.buttonGenerationAlgorithmRandomized.Name = "buttonGenerationAlgorithmRandomized";
-            this.buttonGenerationAlgorithmRandomized.Size = new System.Drawing.Size(100, 40);
-            this.buttonGenerationAlgorithmRandomized.TabIndex = 5;
-            this.buttonGenerationAlgorithmRandomized.Text = "Randomized";
-            this.buttonGenerationAlgorithmRandomized.UseVisualStyleBackColor = true;
-            this.buttonGenerationAlgorithmRandomized.Click += new System.EventHandler(this.buttonGenerateTimetablesRandomized_Click);
-            // 
-            // buttonGenerationAlgorithmDSA
-            // 
-            this.buttonGenerationAlgorithmDSA.Location = new System.Drawing.Point(6, 79);
-            this.buttonGenerationAlgorithmDSA.Name = "buttonGenerationAlgorithmDSA";
-            this.buttonGenerationAlgorithmDSA.Size = new System.Drawing.Size(100, 40);
-            this.buttonGenerationAlgorithmDSA.TabIndex = 6;
-            this.buttonGenerationAlgorithmDSA.Text = "Discrete Sets";
-            this.buttonGenerationAlgorithmDSA.UseVisualStyleBackColor = true;
-            this.buttonGenerationAlgorithmDSA.Click += new System.EventHandler(this.buttonGenerationAlgorithmDSA_Click);
-            // 
             // tabPageListOfTransfers
             // 
             this.tabPageListOfTransfers.Controls.Add(this.splitContainerListOfTransfers);
@@ -734,6 +705,7 @@
             // splitContainerListOfTransfers.Panel2
             // 
             this.splitContainerListOfTransfers.Panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.splitContainerListOfTransfers.Panel2.Controls.Add(this.groupBoxGenerationAlgorithm);
             this.splitContainerListOfTransfers.Size = new System.Drawing.Size(976, 538);
             this.splitContainerListOfTransfers.SplitterDistance = 850;
             this.splitContainerListOfTransfers.TabIndex = 0;
@@ -795,6 +767,47 @@
             this.openFileDialogUpdateConnectedLines.Filter = "Text files|*.txt|All filles|*.*";
             this.openFileDialogUpdateConnectedLines.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogUpdateConnectedLines_FileOk);
             // 
+            // groupBoxGenerationAlgorithm
+            // 
+            this.groupBoxGenerationAlgorithm.Controls.Add(this.buttonGenerationAlgorithmRandomized);
+            this.groupBoxGenerationAlgorithm.Controls.Add(this.buttonGenerationAlgorithmDSA);
+            this.groupBoxGenerationAlgorithm.Location = new System.Drawing.Point(3, 405);
+            this.groupBoxGenerationAlgorithm.Name = "groupBoxGenerationAlgorithm";
+            this.groupBoxGenerationAlgorithm.Size = new System.Drawing.Size(113, 125);
+            this.groupBoxGenerationAlgorithm.TabIndex = 8;
+            this.groupBoxGenerationAlgorithm.TabStop = false;
+            this.groupBoxGenerationAlgorithm.Text = "Generation Algorithms";
+            // 
+            // buttonGenerationAlgorithmRandomized
+            // 
+            this.buttonGenerationAlgorithmRandomized.Location = new System.Drawing.Point(6, 33);
+            this.buttonGenerationAlgorithmRandomized.Name = "buttonGenerationAlgorithmRandomized";
+            this.buttonGenerationAlgorithmRandomized.Size = new System.Drawing.Size(100, 40);
+            this.buttonGenerationAlgorithmRandomized.TabIndex = 5;
+            this.buttonGenerationAlgorithmRandomized.Text = "Randomized";
+            this.buttonGenerationAlgorithmRandomized.UseVisualStyleBackColor = true;
+            this.buttonGenerationAlgorithmRandomized.Click += new System.EventHandler(this.buttonGenerationAlgorithmDSA_Click);
+            // 
+            // buttonGenerationAlgorithmDSA
+            // 
+            this.buttonGenerationAlgorithmDSA.Location = new System.Drawing.Point(6, 79);
+            this.buttonGenerationAlgorithmDSA.Name = "buttonGenerationAlgorithmDSA";
+            this.buttonGenerationAlgorithmDSA.Size = new System.Drawing.Size(100, 40);
+            this.buttonGenerationAlgorithmDSA.TabIndex = 6;
+            this.buttonGenerationAlgorithmDSA.Text = "Discrete Sets";
+            this.buttonGenerationAlgorithmDSA.UseVisualStyleBackColor = true;
+            this.buttonGenerationAlgorithmDSA.Click += new System.EventHandler(this.buttonGenerationAlgorithmDSA_Click);
+            // 
+            // buttonListOfGroupsOfConnections
+            // 
+            this.buttonListOfGroupsOfConnections.Location = new System.Drawing.Point(11, 497);
+            this.buttonListOfGroupsOfConnections.Name = "buttonListOfGroupsOfConnections";
+            this.buttonListOfGroupsOfConnections.Size = new System.Drawing.Size(100, 30);
+            this.buttonListOfGroupsOfConnections.TabIndex = 6;
+            this.buttonListOfGroupsOfConnections.Text = "Next";
+            this.buttonListOfGroupsOfConnections.UseVisualStyleBackColor = true;
+            this.buttonListOfGroupsOfConnections.Click += new System.EventHandler(this.buttonListOfGroupsOfConnections_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -826,10 +839,11 @@
             this.splitContainerListOfPaths.Panel1.ResumeLayout(false);
             this.splitContainerListOfPaths.Panel2.ResumeLayout(false);
             this.splitContainerListOfPaths.ResumeLayout(false);
-            this.groupBoxGenerationAlgorithm.ResumeLayout(false);
             this.tabPageListOfTransfers.ResumeLayout(false);
             this.splitContainerListOfTransfers.Panel1.ResumeLayout(false);
+            this.splitContainerListOfTransfers.Panel2.ResumeLayout(false);
             this.splitContainerListOfTransfers.ResumeLayout(false);
+            this.groupBoxGenerationAlgorithm.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -872,7 +886,6 @@
         private System.Windows.Forms.TabPage tabPageListOfPaths;
         private System.Windows.Forms.SplitContainer splitContainerListOfPaths;
         private System.Windows.Forms.ListView listViewFinalInput;
-        private System.Windows.Forms.Button buttonGenerationAlgorithmRandomized;
         private System.Windows.Forms.ColumnHeader ColumnHeaderTown;
         private ColHeader columnHeaderNumber;
         private ColHeader columnHeaderType;
@@ -893,17 +906,19 @@
         private ColHeader columnHeaderChangingStations;
         private ColHeader columnHeaderTime;
         private ColHeader columnHeaderDistance;
-        private System.Windows.Forms.Button buttonGenerationAlgorithmDSA;
-        private System.Windows.Forms.GroupBox groupBoxGenerationAlgorithm;
         private System.Windows.Forms.Button buttonConnectedLines;
         private System.Windows.Forms.OpenFileDialog openFileDialogUpdateConnectedLines;
         private System.Windows.Forms.TabPage tabPageListOfTransfers;
         private System.Windows.Forms.SplitContainer splitContainerListOfTransfers;
         private System.Windows.Forms.ListView listViewListOfTransfers;
-        private System.Windows.Forms.ColumnHeader columnHeaderFromLine;
-        private System.Windows.Forms.ColumnHeader columnHeaderToLine;
-        private System.Windows.Forms.ColumnHeader columnHeaderAtStations;
-        private System.Windows.Forms.ColumnHeader columnHeaderPassengersOnTransfer;
+        private ColHeader columnHeaderFromLine;
+        private ColHeader columnHeaderToLine;
+        private ColHeader columnHeaderAtStations;
+        private ColHeader columnHeaderPassengersOnTransfer;
+        private System.Windows.Forms.GroupBox groupBoxGenerationAlgorithm;
+        private System.Windows.Forms.Button buttonGenerationAlgorithmRandomized;
+        private System.Windows.Forms.Button buttonGenerationAlgorithmDSA;
+        private System.Windows.Forms.Button buttonListOfGroupsOfConnections;
         
 /*      
         private ColHeader columnHeaderIdStation;
