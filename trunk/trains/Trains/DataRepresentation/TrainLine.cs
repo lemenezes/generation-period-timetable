@@ -49,6 +49,9 @@ namespace PeriodicTimetableGeneration
         /// </summary>
         private Boolean isFixed;
 
+        private List<Transfer> transfersOffThisLine;
+        private List<Transfer> transfersOnThisLine;
+ 
         #endregion
 
         #region Constructors
@@ -80,6 +83,30 @@ namespace PeriodicTimetableGeneration
         #endregion
 
         #region Properties
+
+        public List<Transfer> TransfersOff 
+        {
+            get 
+            {
+                return transfersOffThisLine;
+            }
+            set 
+            {
+                transfersOffThisLine = value;
+            }
+        }
+
+        public List<Transfer> TransfersOn 
+        {
+            get 
+            {
+                return transfersOnThisLine;
+            }
+            set 
+            {
+                transfersOnThisLine = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is fixed in context of setting departure time.
@@ -355,12 +382,34 @@ namespace PeriodicTimetableGeneration
 
             // not initialized
             if (trainStops == null) return null;
-            // if empty
-            if (trainStops.Count.Equals(0)) return null;
 
             foreach (TrainStop stop in trainStops)
             {
                 if (stop.TrainStation.Name.Equals(stationName))
+                {
+                    newStop = stop;
+                    break;
+                }
+            }
+
+            return newStop;
+        }
+
+        /// <summary>
+        /// Gets the train stop on station.
+        /// </summary>
+        /// <param name="stationName">Name of the station.</param>
+        /// <returns>The train stop.</returns>
+        public TrainStop getTrainStopOnStation(TrainStation station)
+        {
+            TrainStop newStop = null;
+
+            // not initialized
+            if (trainStops == null) return null;
+
+            foreach (TrainStop stop in trainStops)
+            {
+                if (stop.TrainStation == station)
                 {
                     newStop = stop;
                     break;
@@ -388,6 +437,10 @@ namespace PeriodicTimetableGeneration
             period = Period.interval60;
             connectedTrainLInes = new List<TrainLine>();
             originalDepartureFromFirstStation = Time.MinValue;
+
+
+            transfersOnThisLine = new List<Transfer>();
+            transfersOffThisLine = new List<Transfer>();
         }
 
 
