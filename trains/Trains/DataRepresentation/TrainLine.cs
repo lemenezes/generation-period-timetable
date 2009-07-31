@@ -103,7 +103,7 @@ namespace PeriodicTimetableGeneration
         /// <value>The connected line shift.</value>
         private Time ConnectedLineShift
         {
-            get { }
+            get { return Time.MinValue; }
             set { }
         }
 

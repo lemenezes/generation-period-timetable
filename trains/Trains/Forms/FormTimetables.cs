@@ -113,7 +113,9 @@ namespace PeriodicTimetableGeneration.Forms
 
                 lvi.SubItems.Add(timetable.ProgressiveChanges.ToString());
                 lvi.SubItems.Add(timetable.RatingValue.ToString());
-
+                lvi.SubItems.Add(timetable.GenerationTime.TotalMilliseconds.ToString());
+                lvi.SubItems.Add(timetable.Note);
+                
                 listViewGeneratingTimetables.Items.Add(lvi);
             }
 
@@ -558,6 +560,7 @@ namespace PeriodicTimetableGeneration.Forms
             }
             else
             {
+                this.progressBarGT.Value = this.progressBarGT.Maximum;
                 prepareListViewGeneratingTimetable();
             }
             // enable buttons
