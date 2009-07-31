@@ -160,9 +160,6 @@ namespace PeriodicTimetableGeneration
             {
                 return variableLines;
             }
-            set
-            {
-            }
         }
 
         /// <summary>
@@ -414,7 +411,7 @@ namespace PeriodicTimetableGeneration
             progressiveChanges = 0;
             variableLines = new List<TrainLineVariable>();
             note = "";
-            generationTime = TimeSpan.MinValue;
+            generationTime = TimeSpan.Zero;
             //stableLines = new Queue<TrainLineVariable>();
         }
 
