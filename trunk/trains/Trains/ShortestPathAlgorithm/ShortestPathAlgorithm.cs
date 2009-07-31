@@ -5,17 +5,31 @@ using System.IO;
 
 namespace PeriodicTimetableGeneration
 {
+    /// <summary>
+    /// Algortihm to find shortest path.
+    /// Using Floyd Warshal algorithm from all nodes to all nodes.
+    /// </summary>
     public class ShortestPathAlgoritm
     {
         #region Private Fields
 
+
+        /// <summary>
+        /// Generated connections.
+        /// </summary>
         private List<TrainConnection> trainConnections;
+        /// <summary>
+        /// Instance of FW alogorithm.
+        /// </summary>
         private FloydWarshall floydWarshalAlgorithm;
 
         #endregion
 
         #region Nested Static Class
 
+        /// <summary>
+        /// Nested class used as a singleton holder of Shortest Path Algorithm class.
+        /// </summary>
         private static class SingletonHolder 
         {
             static SingletonHolder() {}
@@ -38,11 +52,19 @@ namespace PeriodicTimetableGeneration
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ShortestPathAlgoritm"/> class.
+        /// </summary>
         public ShortestPathAlgoritm()
         {
             setDefaultValue();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ShortestPathAlgoritm"/> class.
+        /// </summary>
+        /// <param name="lines">The lines.</param>
+        /// <param name="stations">The stations.</param>
         public ShortestPathAlgoritm(List<TrainLine> lines, List<TrainStation> stations) 
         {
             setDefaultValue();
@@ -53,12 +75,18 @@ namespace PeriodicTimetableGeneration
 
         #region Public Methods
 
+        /// <summary>
+        /// Calculates the shortest paths.
+        /// </summary>
         public void calculateShortestPath()
         {
             floydWarshalAlgorithm.resetInstanceValues();
             floydWarshalAlgorithm.calculateShortestPaths();
         }
 
+        /// <summary>
+        /// Generates all train connections.
+        /// </summary>
         public void generateAllTrainConnections()
         {
             // clearStableLines train connection off previous run
@@ -70,24 +98,37 @@ namespace PeriodicTimetableGeneration
 
             List<Edge> otpimizedPath;
 
+            // loop over all path
             foreach (List<Edge> path in allPaths)
             {
-                //TrainConnection fictive = new TrainConnection(path);
-                //Console.Out.WriteLine("---------------------------------");
-                //Console.Out.WriteLine("before: "+ fictive.LinesOfConnection);
+                                //TrainConnection fictive = new TrainConnection(path);
+                                //Console.Out.WriteLine("---------------------------------");
+                                //Console.Out.WriteLine("before: "+ fictive.LinesOfConnection);
+
+                // town to town optimization, starts end ends in the same town
+                if(!path[0].FromStation.Town.Length.Equals(0)
+                    && !path[path.Count-1].ToStation.Town.Length.Equals(0)
+                    && path[0].FromStation.Town.Equals(path[path.Count-1].ToStation.Town))
+                    // dont consider this connection
+
 
                 // optimse path
                 otpimizedPath = optimisePath(path, floydWarshalAlgorithm.getEdgesCache());
                 // createConstraintSet train connection
                 TrainConnection connection = new TrainConnection(otpimizedPath);
 
-                //Console.Out.WriteLine("after: " +connection.LinesOfConnection);
-
+                                //Console.Out.WriteLine("after: " +connection.LinesOfConnection);
+        
                 trainConnections.Add(connection);
             }
             
         }
 
+        /// <summary>
+        /// Prints paths to the file.
+        /// </summary>
+        /// <param name="paths">The paths.</param>
+        /// <param name="fileName">Name of the file.</param>
         public void printToFile(List<List<Edge>> paths, String fileName) 
         {
             FileStream fs = new FileStream(fileName, FileMode.Create);
@@ -102,11 +143,21 @@ namespace PeriodicTimetableGeneration
             fs.Close();
         }
 
+        #endregion
+
+
+        #region Optimization Connection Path' Methods
+
         /****************************************/
         // Optimization path' related methods
         /****************************************/
 
-
+        /// <summary>
+        /// Optimises the path. Inludes more optimization heuristics.
+        /// </summary>
+        /// <param name="edges">The edges.</param>
+        /// <param name="edgesCache">The edges cache.</param>
+        /// <returns></returns>
         public static List<Edge> optimisePath(List<Edge> edges, List<Edge> edgesCache) 
         {
             List<Edge> optimizedPath;
@@ -123,6 +174,12 @@ namespace PeriodicTimetableGeneration
             return optimizedPath;
         }
 
+        /// <summary>
+        /// Optimizations by function with respect to same line.
+        /// </summary>
+        /// <param name="edges">The edges.</param>
+        /// <param name="edgeCache">The edge cache.</param>
+        /// <returns></returns>
         private static List<Edge> optimizationFunctionSameLine(List<Edge> edges, List<Edge> edgeCache) 
         {
             // retreive all lines
@@ -143,6 +200,12 @@ namespace PeriodicTimetableGeneration
             return newPath;
         }
 
+        /// <summary>
+        /// Optimizations by function - zig zag by stages.
+        /// </summary>
+        /// <param name="edges">The edges.</param>
+        /// <param name="edgesCache">The edges cache.</param>
+        /// <returns></returns>
         private static List<Edge> optimizationFunctionZigZagByStages(List<Edge> edges, List<Edge> edgesCache) 
         {
             List<Edge> newEdges = new List<Edge>();
@@ -183,6 +246,12 @@ namespace PeriodicTimetableGeneration
             return newEdges;
         }
 
+        /// <summary>
+        /// Optimizations by function - zig zag by edges.
+        /// </summary>
+        /// <param name="edges">The edges.</param>
+        /// <param name="edgesCache">The edges cache.</param>
+        /// <returns></returns>
         private static List<Edge> optimizationFunctionZigZagByEdges(List<Edge> edges, List<Edge> edgesCache)
         {            
             //List<TrainLine> optimizedPathOfLines;
@@ -243,6 +312,15 @@ namespace PeriodicTimetableGeneration
             return optimizedPath;   
         }
 
+        /// <summary>
+        /// Determines whether [the specified line] [contains train stations].
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <param name="from">From.</param>
+        /// <param name="to">To.</param>
+        /// <returns>
+        /// 	<c>true</c> if [the specified line] [contains train stations]; otherwise, <c>false</c>.
+        /// </returns>
         private static Boolean containsTrainStations(TrainLine line, int from, int to) 
         {
             Boolean first = false;
@@ -265,6 +343,10 @@ namespace PeriodicTimetableGeneration
             return first && last;
         }
 
+        #endregion
+
+
+        #region Train Connection's Method
 
         /****************************************/
         // TrainConnections' related methods
