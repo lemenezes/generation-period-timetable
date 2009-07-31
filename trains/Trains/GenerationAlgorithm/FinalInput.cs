@@ -1,18 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PeriodicTimetableGeneration.GenerationAlgorithm;
 
 namespace PeriodicTimetableGeneration
 {
     public class FinalInput
     {
-        List<GroupOfConnections> cacheContent;
+        /// <summary>
+        /// List of Transfers.
+        /// </summary>
+        List<Transfer> cacheContent;
+        /// <summary>
+        /// Groups of Connections.
+        /// </summary>
+        private List<GroupOfConnections> groupsOfConnections;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FinalInput"/> class.
+        /// </summary>
         public FinalInput() 
         {
-
-            //groupsOfConnections = new List<GroupOfConnections>();
             createGroupsOfConnection();
+            cacheContent = new List<Transfer>();
         }
 
         /*
@@ -45,9 +55,9 @@ namespace PeriodicTimetableGeneration
 	     *
          * @return the cache.
          */
-        public List<GroupOfConnections> getCacheContent()
+        public List<GroupOfConnections> getGroupsOfConnections()
         {
-            return cacheContent;
+            return groupsOfConnections;
         }
 
 
@@ -68,7 +78,7 @@ namespace PeriodicTimetableGeneration
             }
 
             // initialize variable of cache
-            cacheContent = groupsList;
+            groupsOfConnections = groupsList;
         }
 
         private static List<List<TrainConnection>> groupByListOfLines(List<TrainConnection> connections)
@@ -166,11 +176,21 @@ namespace PeriodicTimetableGeneration
             return wantedGroup;
         }
 
-        public GroupOfConnections getContentOnSelect(String contentKey)
+        public GroupOfConnections getGroupsOfConnectionsOnSelect(String contentKey)
         {
-            return findGroup(cacheContent, contentKey);
+            return findGroup(groupsOfConnections, contentKey);
+        }
+
+        public List<Transfer> getCacheContent()
+        {
+            return cacheContent;
         }
 
 
+
+        public void createTransfers()
+        {
+            cacheContent = TransferUtil.createTransfersForAllLines();
+        }
     }
 }

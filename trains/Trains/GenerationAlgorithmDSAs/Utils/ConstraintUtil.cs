@@ -44,11 +44,16 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
         /// Creates the transfers on each line train line respectively.
         /// </summary>
         /// <returns>List of transfers.</returns>
-        public static List<Transfer> createTransfers()
+        public static List<Transfer> retrieveTransfers()
         {
+            // TODO: Retrieve from FinalInput.
+
             List<Transfer> transfers = new List<Transfer>();
             foreach (TrainLine line in TrainLineCache.getInstance().getCacheContent())
-                transfers.AddRange(TransferUtil.createTransfers(line.LineNumber));
+            {
+                TransferUtil.createTransfers(line, transfers);
+            }
+
             return transfers;
         }
 
