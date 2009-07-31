@@ -8,8 +8,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmRandomized">
-    <Position X="4.25" Y="0.5" Width="1.75" />
+    <Position X="4.25" Y="0.5" Width="4.25" />
     <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <TypeIdentifier>
@@ -33,7 +34,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.FinalInput">
-    <Position X="6.25" Y="0.5" Width="2.5" />
+    <Position X="8.5" Y="1" Width="2.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -45,14 +46,14 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAAAAAAAABAAAAAAAAAAgQhQAAAAAQAAAA=</HashCode>
+      <HashCode>AAAAAAAAgAAAAQAAAABAAAAAgAAAAgQhAAAAAAQACBA=</HashCode>
       <FileName>GenerationAlgorithm\FinalInput.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.Transfer">
-    <Position X="12.75" Y="0.5" Width="1.5" />
+    <Position X="12.75" Y="0.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAhIAAAISQAAAAEAgAEABIABAAAAAAAAAAAAAAgIA=</HashCode>
+      <HashCode>AAIAhIAgAISQAAAAEAgAEABIABAAAAAAAAAAAAAAgIA=</HashCode>
       <FileName>GenerationAlgorithm\Transfer.cs</FileName>
     </TypeIdentifier>
   </Class>

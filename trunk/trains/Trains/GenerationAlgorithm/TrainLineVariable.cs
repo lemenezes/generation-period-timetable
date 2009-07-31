@@ -33,6 +33,10 @@ namespace PeriodicTimetableGeneration
         /// Determine whether rating value changed.
         /// </summary>
         private Boolean isDefalutRatingVlaue;
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<TrainLineVariable> connectedLinesVariable;
 
         ///// <summary>
         ///// Flag indicates fixation (not implemented).
@@ -42,14 +46,6 @@ namespace PeriodicTimetableGeneration
         #endregion
 
         #region Constructors
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TrainLineVariable"/> class.
-        /// </summary>
-        private TrainLineVariable()
-        {
-            throw new System.NotImplementedException();
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TrainLineVariable"/> class.
@@ -64,6 +60,14 @@ namespace PeriodicTimetableGeneration
         #endregion
 
         #region Properties
+
+        public List<TrainLineVariable> ConnectedLinesVariable 
+        {
+            get 
+            {
+                return connectedLinesVariable;
+            }         
+        }
 
         /// <summary>
         /// Gets or sets the start time.
@@ -235,6 +239,18 @@ namespace PeriodicTimetableGeneration
             return time;
         }
 
+        // TODO: document this
+        public Time departureFromStopAtIndex(int index) 
+        {
+            return trainLine.getTrainStops()[index].TimeDepartureChecked;
+        }
+
+        // TODO: document this
+        public Time arrivalToStopAtIndex(int index) 
+        {
+            return trainLine.getTrainStops()[index].TimeArrivalChecked;
+        }
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance has default rating value.
         /// </summary>
@@ -274,6 +290,8 @@ namespace PeriodicTimetableGeneration
             ratingValue = 0;
             progressiveChanges = 0;
             isDefalutRatingVlaue = true;
+
+            connectedLinesVariable = new List<TrainLineVariable>();
             //fixedFlag = false;
         }
 

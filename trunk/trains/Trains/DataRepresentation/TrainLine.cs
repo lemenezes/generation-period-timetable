@@ -9,7 +9,7 @@ namespace PeriodicTimetableGeneration
     /// </summary>
     public class TrainLine
     {
-        #region Private Fields
+        #region Private Fields               
         
         /// <summary>
         /// The number of train line.
@@ -128,7 +128,7 @@ namespace PeriodicTimetableGeneration
         /// Gets or sets the shift in context of connected line.
         /// </summary>
         /// <value>The connected line shift.</value>
-        private Time ConnectedLineShift
+        public Time ConnectedLineShift
         {
             get { return Time.MinValue; }
             set { }
