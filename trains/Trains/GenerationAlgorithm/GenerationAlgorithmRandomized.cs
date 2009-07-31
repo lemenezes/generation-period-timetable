@@ -6,6 +6,7 @@ using PeriodicTimetableGeneration.Interfaces;
 using PeriodicTimetableGeneration.Properties;
 using PeriodicTimetableGeneration.GenerationAlgorithm;
 using System.Diagnostics;
+using System.Linq;
 
 namespace PeriodicTimetableGeneration
 {
@@ -88,13 +89,13 @@ namespace PeriodicTimetableGeneration
             set;
         }
 
-        public Time MinimalTransferTime 
-        {
-            get 
-            {
-                return Time.ToTime(Settings.Default.MinimalTransferTime);
-            }
-        }
+        //public Time MinimalTransferTime 
+        //{
+        //    get 
+        //    {
+        //        return Time.ToTime(Settings.Default.MinimalTransferTime);
+        //    }
+        //}
 
         #endregion
 
@@ -288,44 +289,133 @@ namespace PeriodicTimetableGeneration
             return cloneLines;
         }
 
-        private int calculateTransfers(Timetable timetable, TrainLineVariable line, Time startTime)
+        private CurrentState calculateTransfers(Timetable timetable, TrainLineVariable line, Time startTime)
         {
-            // define all possibleTransfers
-            List<Transfer> transfers = TransferUtil.createTransfers(line.LineNumber);
+            // Changes, in case we need to revert the state (it is worse than the current one).
+            List<Change> changes = new List<Change>();
 
-            // set global globalRatingValue
-            int globalRatingValue = 0;
-
-            // loop over all posibleTransfers
-            foreach (Transfer transfer in transfers)
-            {
-                // calculate difference gap between       // increment globalRatingValue
-                globalRatingValue += calculateTransfer(timetable, transfer, line, startTime);
-            }
-
-            // return global ratingValue
-            return globalRatingValue;
-        }
-
-        private int calculateTransfer(Timetable timetable, Transfer transfer, TrainLineVariable line, Time startTime)
-        {
-            // minimal transfers time set
-            Time minimalTransferTime = MinimalTransferTime;
-            // result rating value
-            int ratingValue;
-            // saveTime
-            Time savedTime = line.StartTime;
-            // prepare new for calcualtion
+            // Set the start time for the given line.
             line.StartTime = startTime;
 
-            // gain transer train line variables
-            TrainLineVariable lineOff = timetable.getVariableLineOnSelect(transfer.Off);
-            TrainLineVariable lineOn = timetable.getVariableLineOnSelect(transfer.On);
+            // Set the appropriate start time for each connected variable.
+            foreach (TrainLineVariable connectedVariable in line.ConnectedLinesVariable)
+            {
+                // Set the start for variable.
+                connectedVariable.StartTime = startTime;
+                //
 
-            // determine arrival of LineOFF and departure of LineON
-            Time timeArrival = lineOff.arrivalOnStation(transfer.Station) + lineOff.StartTime;
-            Time timeDeparture = lineOn.departureFromStation(transfer.Station) + lineOn.StartTime;
+            }
 
+            // Compute the factor.
+            int factor = 0;
+            foreach (Transfer transfer in FinalInput.getInstance().getCacheContent())
+            {
+                factor += calculateTransfer(timetable, transfer);
+            }
+
+            // Current state returned.
+            return new CurrentState(line, changes, factor);
+        }
+
+        private struct CurrentState
+        {
+
+            private int factor;
+
+            private List<Change> changes;
+
+            private TrainLineVariable line;
+
+            public CurrentState(TrainLineVariable line, List<Change> changes, int factor)
+                : this()
+            {
+
+                this.line = line;
+                this.changes = changes;
+                this.factor = factor;
+            }
+
+            public int Factor
+            {
+                get
+                {
+                    return this.factor;
+                }
+            }
+
+            public List<Change> Changes
+            {
+                get
+                {
+                    return changes;
+                }
+            }
+
+            public TrainLineVariable TrainLineVariable
+            {
+                get
+                {
+                    return line;
+                }
+            }
+
+            public void Revert()
+            {
+            }
+
+        }
+
+        private struct Change
+        {
+            private TrainLineVariable changedVariable;
+
+            private int oldStartTime;
+
+            public TrainLineVariable ChangedVariable
+            {
+                get
+                {
+                    return changedVariable;
+                }
+                set
+                {
+                    changedVariable = value;
+                }
+            }
+
+            public int OldStartTime
+            {
+                get
+                {
+                    return oldStartTime;
+                }
+                set
+                {
+                    oldStartTime = value;
+                }
+            }
+
+        }
+
+        private int calculateTransfer(Timetable timetable, Transfer transfer)
+        {
+            // result rating value
+            int ratingValue;
+
+            TrainLineVariable onLine = timetable.getVariableLineOnSelect(transfer.OnLine.LineNumber);
+            TrainLineVariable offLine = timetable.getVariableLineOnSelect(transfer.OffLine.LineNumber);
+
+            // varline startime, departure from start of line, connected line shif of line
+            Time arrivalTime = offLine.StartTime + offLine.departureFromStopAtIndex(transfer.TrainStopIndexOffLine) + offLine.Line.Connected;
+            Time departureTime = onLine.arrivalToStopAtIndex(transfer.TrainStopIndexOnLine) + onLine.StartTime;
+
+            normalizeTransferTime(ref departureTime, ref arrivalTime, transfer.Station.MinimalTransferTime, (int)onLine.Period, (int)offLine.Period);
+            ratingValue = transfer.evaluateTransferFunction(departureTime - arrivalTime);
+            return ratingValue;
+        }
+
+        private void normalizeTransferTime(ref Time timeDeparture, ref Time timeArrival, Time minimalTransferTime, int onPeriod, int offPeriod)
+        {
             // if departure is before arrival, we need to find closest time departure
             // that satisfied the condition(departure>arrival)
             if (timeDeparture < timeArrival + minimalTransferTime)
@@ -333,16 +423,16 @@ namespace PeriodicTimetableGeneration
                 while (timeDeparture < timeArrival + minimalTransferTime)
                 {
                     // addConstraint new period of train
-                    timeDeparture += Time.ToTime((int)lineOn.Period);
+                    timeDeparture += Time.ToTime(onPeriod);
                 }
             }
             else
             {
                 // if arrival is before departure, we need to find closest time arrival
                 // that satisfied the cond(departure>arrival) but not the cond(departure>arrival+nextPeriod)
-                while (timeDeparture > timeArrival + Time.ToTime((int)lineOff.Period) + minimalTransferTime)
+                while (timeDeparture > timeArrival + Time.ToTime(offPeriod) + minimalTransferTime)
                 {
-                    timeArrival += Time.ToTime((int)lineOff.Period);
+                    timeArrival += Time.ToTime(offPeriod);
                 }
             }
 
@@ -362,18 +452,7 @@ namespace PeriodicTimetableGeneration
             //Console.Out.WriteLine("----------------------------------------------------------");
             //Console.Out.WriteLine("Transfer: " + transfers.OffLine.LineNumber + "->" + transfers.OnLine.LineNumber);
             //Console.Out.WriteLine("Passengers: " + transfers.Passengers + " > TransferTime: " + (timeDeparture - timeArrival).ToString());
-
-            ratingValue = transfer.evaluateTransferFunction(timeDeparture - timeArrival);
-
-
-
-
-            // restore saved time
-            line.StartTime = savedTime;
-
-            return ratingValue;
         }
-
 
         #endregion
 
