@@ -93,22 +93,57 @@ namespace PeriodicTimetableGeneration
             // loop over all varLines
             foreach (TrainLineVariable varLine in varLines)
             {
-                // create list of connected train line variables
-                // List<TrainLineVariable> connectedVarLines = new List<TrainLineVariable>();
-
+                // update (set) relative shift within equivalent group
+                updateConnectedLineShift(varLine);
+                
                 // loop over all connected line for line related with varLine
                 foreach (TrainLine line in varLine.Line.getConnectedLines()) 
                 {
+                    // update the connections
                     if (line.LineNumber < varLine.LineNumber)
                     {
                         // find appropriate varLine
                         TrainLineVariable connectedVariableLine = findVariableLine(varLines, line.LineNumber);
+
                         // add this var line into list of related var line
                         connectedVariableLine.ConnectedLinesVariable.Add(varLine);
                         varLine.ConnectedLinesVariable.Add(connectedVariableLine);
                     }
                 }
-                // update list for all of them. 
+            }
+        }
+
+        private void updateConnectedLineShift(TrainLineVariable varLine)
+        {
+            // create choosen time window
+            Time timeWindowLowerBound = new Time(TimeWindowLowerBoundHour, 0);
+
+            // calculate in minutes
+
+            // normalize with respect to the choosen window
+            int shift = varLine.Line.OriginalDeparture.ToMinutes() - timeWindowLowerBound.ToMinutes();
+
+            // move it into that window 
+            while (shift < 0)
+                shift += (int) varLine.Period;
+            while (shift > (int)varLine.Period) 
+                shift -= (int) varLine.Period;
+
+            // store the relative
+            varLine.Line.ConnectedLineShift = Time.ToTime(shift);
+        }
+
+        /// <summary>
+        /// Gets the time window lower bound representing hour.
+        /// </summary>
+        /// <value>The time window lower bound hour.</value>
+        public int TimeWindowLowerBoundHour 
+        {
+
+            // BUNO
+            get 
+            {
+                return 12;
             }
         }
 

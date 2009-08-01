@@ -47,6 +47,10 @@ namespace PeriodicTimetableGeneration
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the train stations.
+        /// </summary>
+        /// <value>The train stations.</value>
         public List<TrainStation> TrainStations
         {
             get
@@ -59,6 +63,10 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Gets or sets the train lines.
+        /// </summary>
+        /// <value>The train lines.</value>
         public List<TrainLine> TrainLines
         {
             get
@@ -71,6 +79,10 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Gets the timetables.
+        /// </summary>
+        /// <value>The timetables.</value>
         public List<Timetable> Timetables
         {
             get
@@ -83,19 +95,17 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this generation is cancelled.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this generation is cancelled; otherwise, <c>false</c>.
+        /// </value>
         public bool IsCancelled
         {
             get;
             set;
         }
-
-        //public Time MinimalTransferTime 
-        //{
-        //    get 
-        //    {
-        //        return Time.ToTime(Settings.Default.MinimalTransferTime);
-        //    }
-        //}
 
         #endregion
 
@@ -138,6 +148,10 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Reports the progress.
+        /// </summary>
+        /// <param name="percentageComplete">The percentage complete.</param>
         protected void reportProgress(int percentageComplete)
         {
             if (this.OnProgressChanged != null)
@@ -146,13 +160,26 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Occurs when [on progress changed].
+        /// </summary>
         public event EventHandler<ProgressChangedEventArgs> OnProgressChanged;
 
+        /// <summary>
+        /// Finds the timetable on select id.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         public Timetable findTimetableOnSelect(int id)
         {
             return TimetableUtil.findTimetableOnSelect(this.timetables, id);
         }
 
+        /// <summary>
+        /// Determine whether the timetable exists.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
         public Boolean doesTimetableExist(int id)
         {
             return TimetableUtil.doesTimetableExist(this.timetables, id);
@@ -163,11 +190,19 @@ namespace PeriodicTimetableGeneration
 
         #region Public Methods
 
+        /// <summary>
+        /// Creates the timetable.
+        /// </summary>
+        /// <returns></returns>
         public Timetable createTimetable()
         {
             return new Timetable(timetables.Count + 1, trainLines);
         }
 
+        /// <summary>
+        /// Generates the randomized timetable.
+        /// </summary>
+        /// <returns></returns>
         public Timetable generateRandomizedTimetable()
         {
             Timetable tt = createTimetable();
@@ -175,12 +210,21 @@ namespace PeriodicTimetableGeneration
             return tt;
         }
 
+        /// <summary>
+        /// Randomizes the timetable.
+        /// </summary>
+        /// <param name="timetable">The timetable.</param>
+        /// <returns></returns>
         public static Timetable randomizeTimetable(Timetable timetable)
         {
             timetable.randomizeTimetable();
             return timetable;
-        }          
+        }
 
+        /// <summary>
+        /// Generates the timetable.
+        /// </summary>
+        /// <returns></returns>
         public Timetable generateTimetable()
         {
             // generate randomizedTimetable
@@ -188,7 +232,7 @@ namespace PeriodicTimetableGeneration
             // createConstraintSet temporary holder for AvailableLines during calculation
             List<TrainLineVariable> availableLines = cloneVariableLines(timetable.getVariableLines());
             // createConstraintSet temporary holder for AvailableLines during calculation
-            Queue<TrainLineVariable> stableLines = new Queue<TrainLineVariable>();
+            List<TrainLineVariable> stableLines = new List<TrainLineVariable>();
 
             // random class for randomizing choice of trainlines
             Random random = new Random();
@@ -197,45 +241,36 @@ namespace PeriodicTimetableGeneration
             //int theBestTimetableRatingValue = int.MaxValue;
             //int progressiveChanges = 0;
 
+            // Find the best new state.
+            CurrentState state = new CurrentState(new List<Change>(), int.MaxValue);
+
             // loop until if availableLines are not empty AND stableLine are not complete
             while (!availableLines.Count.Equals(0) &&
                 !stableLines.Count.Equals(timetable.TrainLines.Count))
             {
-                // saving the theBestTimetableRatingValue
+                Boolean improved = false;
 
                 // choose available line randomly
                 TrainLineVariable selectedLine = availableLines[random.Next(0, availableLines.Count - 1)];
-
-                // startTime with appropriate best rating value of transfers calculation
-                Time theBestLineStartTime = Time.MinValue;
-                int theBestLineRatingValue = int.MaxValue;
 
                 // loop over whole interval of line
                 for (int i = 0; i < (int)selectedLine.Period; i++)
                 {
                     // calculate transfers
-                    int currentRatingValue = calculateTransfers(timetable, selectedLine, Time.ToTime(i));
-
-                    // choose the best settings of interval
-                    // if the last best line's rating value is worse than current
-                    if (theBestLineRatingValue > currentRatingValue)
-                    {
-                        // update the best line's details
-                        theBestLineRatingValue = currentRatingValue;
-                        theBestLineStartTime = Time.ToTime(i);
+                    CurrentState newState = calculateTransfers(timetable, selectedLine, Time.ToTime(i));
+                    if (newState.Factor > state.Factor) {
+                        // If the current one is better forget the computed one.
+                        newState.Revert();
+                    } else if (newState.Factor != state.Factor) {
+                        // The computed one should be preserved.
+                        state = newState;
+                        improved = true;
                     }
                 }
 
-                // if selected line is examine first time, it needs to be initilize the worst best value
-                if (selectedLine.IsDefaultRatingValue) selectedLine.RatingValue = Int32.MaxValue;
-
-                // compare the theBestTimetableRatingValue with new line ratingValue
-                // if the previousRatingValue is worse than current, then change it
-                if (selectedLine.RatingValue > theBestLineRatingValue)
+                // If the state was improved.
+                if (improved)
                 {
-                    // update line's details
-                    selectedLine.RatingValue = theBestLineRatingValue;
-                    selectedLine.StartTime = theBestLineStartTime;
                     selectedLine.ProgressiveChanges += 1;
                     // clear stableLines queue
                     stableLines.Clear();
@@ -243,14 +278,20 @@ namespace PeriodicTimetableGeneration
                     availableLines = cloneVariableLines(timetable.getVariableLines());
                 }
 
-                // addConstraint line into queue of stableLines
-                stableLines.Enqueue(selectedLine);
+                // add selected line into list of stableLines
+                stableLines.Add(selectedLine);
+                // add also all connected lines with selected line
+                stableLines.AddRange(selectedLine.ConnectedLinesVariable);
                 // remove line off availableLines
                 availableLines.Remove(selectedLine);
+                // remove all connected lines with selected line
+                foreach (TrainLineVariable connectedVar in selectedLine.ConnectedLinesVariable)
+                {
+                    availableLines.Remove(connectedVar);
+                }
             }
 
-            // update statistic's values of timetable
-            timetable.calculateRatingValue();
+            timetable.RatingValue = state.Factor;
             timetable.calculateProgressiveChanges();
 
             Console.WriteLine("------------------------");
@@ -270,6 +311,9 @@ namespace PeriodicTimetableGeneration
 
         #region Private Methods
 
+        /// <summary>
+        /// Sets the default values.
+        /// </summary>
         private void setDefaultValues()
         {
             timetables = new List<Timetable>();
@@ -277,6 +321,11 @@ namespace PeriodicTimetableGeneration
             trainStations = TrainStationCache.getInstance().getCacheContent();
         }
 
+        /// <summary>
+        /// Clones the variable lines.
+        /// </summary>
+        /// <param name="lines">The lines.</param>
+        /// <returns></returns>
         private List<TrainLineVariable> cloneVariableLines(List<TrainLineVariable> lines)
         {
             List<TrainLineVariable> cloneLines = new List<TrainLineVariable>();
@@ -289,21 +338,31 @@ namespace PeriodicTimetableGeneration
             return cloneLines;
         }
 
+        /// <summary>
+        /// Calculates the transfers.
+        /// </summary>
+        /// <param name="timetable">The timetable.</param>
+        /// <param name="line">The line.</param>
+        /// <param name="startTime">The start time.</param>
+        /// <returns></returns>
         private CurrentState calculateTransfers(Timetable timetable, TrainLineVariable line, Time startTime)
         {
             // Changes, in case we need to revert the state (it is worse than the current one).
             List<Change> changes = new List<Change>();
 
+            //////SET SELECED LINES
             // Set the start time for the given line.
+            changes.Add(new Change(line, line.StartTime));
             line.StartTime = startTime;
 
+            ///SET ALL CONNECTED LINES
             // Set the appropriate start time for each connected variable.
             foreach (TrainLineVariable connectedVariable in line.ConnectedLinesVariable)
             {
                 // Set the start for variable.
-                connectedVariable.StartTime = startTime;
-                //
-
+                changes.Add(new Change(line, line.StartTime));
+                connectedVariable.StartTime = startTime - connectedVariable.Line.ConnectedLineShift;
+                connectedVariable.StartTime = PeriodUtil.normalizeTime(connectedVariable.StartTime, connectedVariable.Period);
             }
 
             // Compute the factor.
@@ -314,7 +373,7 @@ namespace PeriodicTimetableGeneration
             }
 
             // Current state returned.
-            return new CurrentState(line, changes, factor);
+            return new CurrentState(changes, factor);
         }
 
         private struct CurrentState
@@ -324,13 +383,10 @@ namespace PeriodicTimetableGeneration
 
             private List<Change> changes;
 
-            private TrainLineVariable line;
-
-            public CurrentState(TrainLineVariable line, List<Change> changes, int factor)
+            public CurrentState(List<Change> changes, int factor)
                 : this()
             {
 
-                this.line = line;
                 this.changes = changes;
                 this.factor = factor;
             }
@@ -351,16 +407,12 @@ namespace PeriodicTimetableGeneration
                 }
             }
 
-            public TrainLineVariable TrainLineVariable
-            {
-                get
-                {
-                    return line;
-                }
-            }
-
             public void Revert()
             {
+                foreach (Change change in changes)
+                {
+                    change.Revert();
+                }
             }
 
         }
@@ -369,7 +421,14 @@ namespace PeriodicTimetableGeneration
         {
             private TrainLineVariable changedVariable;
 
-            private int oldStartTime;
+            private Time oldStartTime;
+
+            public Change(TrainLineVariable variable, Time oldTime)
+                : this()
+            {
+                this.changedVariable = variable;
+                this.oldStartTime = oldTime;
+            }
 
             public TrainLineVariable ChangedVariable
             {
@@ -377,26 +436,29 @@ namespace PeriodicTimetableGeneration
                 {
                     return changedVariable;
                 }
-                set
-                {
-                    changedVariable = value;
-                }
             }
 
-            public int OldStartTime
+            public Time OldStartTime
             {
                 get
                 {
                     return oldStartTime;
                 }
-                set
-                {
-                    oldStartTime = value;
-                }
+            }
+
+            public void Revert()
+            {
+                changedVariable.StartTime = OldStartTime;
             }
 
         }
 
+        /// <summary>
+        /// Calculates the transfer.
+        /// </summary>
+        /// <param name="timetable">The timetable.</param>
+        /// <param name="transfer">The transfer.</param>
+        /// <returns></returns>
         private int calculateTransfer(Timetable timetable, Transfer transfer)
         {
             // result rating value
@@ -406,14 +468,22 @@ namespace PeriodicTimetableGeneration
             TrainLineVariable offLine = timetable.getVariableLineOnSelect(transfer.OffLine.LineNumber);
 
             // varline startime, departure from start of line, connected line shif of line
-            Time arrivalTime = offLine.StartTime + offLine.departureFromStopAtIndex(transfer.TrainStopIndexOffLine) + offLine.Line.Connected;
-            Time departureTime = onLine.arrivalToStopAtIndex(transfer.TrainStopIndexOnLine) + onLine.StartTime;
+            Time arrivalTime = offLine.StartTime + offLine.departureFromStopAtIndex(transfer.TrainStopIndexOffLine);
+            Time departureTime = onLine.StartTime + onLine.arrivalToStopAtIndex(transfer.TrainStopIndexOnLine);
 
             normalizeTransferTime(ref departureTime, ref arrivalTime, transfer.Station.MinimalTransferTime, (int)onLine.Period, (int)offLine.Period);
             ratingValue = transfer.evaluateTransferFunction(departureTime - arrivalTime);
             return ratingValue;
         }
 
+        /// <summary>
+        /// Normalizes the transfer time.
+        /// </summary>
+        /// <param name="timeDeparture">The time departure.</param>
+        /// <param name="timeArrival">The time arrival.</param>
+        /// <param name="minimalTransferTime">The minimal transfer time.</param>
+        /// <param name="onPeriod">The on period.</param>
+        /// <param name="offPeriod">The off period.</param>
         private void normalizeTransferTime(ref Time timeDeparture, ref Time timeArrival, Time minimalTransferTime, int onPeriod, int offPeriod)
         {
             // if departure is before arrival, we need to find closest time departure
