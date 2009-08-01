@@ -5,11 +5,22 @@ using System.Text;
 
 namespace PeriodicTimetableGeneration.GenerationAlgorithm
 {
+    /// <summary>
+    /// Utility methods for transfer.
+    /// </summary>
     public static class TransferUtil
     {
 
         #region Public Static Methods        
 
+        /// <summary>
+        /// Doeses the transfer exist.
+        /// </summary>
+        /// <param name="transfers">The transfers.</param>
+        /// <param name="off">The off.</param>
+        /// <param name="on">The on.</param>
+        /// <param name="stationID">The station ID.</param>
+        /// <returns></returns>
         public static Boolean doesTransferExist(List<Transfer> transfers, int off, int on, int stationID)
         {
             Boolean exist = false;
@@ -24,6 +35,10 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             return exist;
         }
 
+        /// <summary>
+        /// Creates the transfers for all lines.
+        /// </summary>
+        /// <returns></returns>
         public static List<Transfer> createTransfersForAllLines()
         {
             // new transfers
@@ -41,6 +56,11 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             return transfers;
         }
 
+        /// <summary>
+        /// Creates the transfers.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <param name="transfers">The transfers.</param>
         public static void createTransfers(TrainLine line, List<Transfer> transfers)
         {
             // List<Transfer> transfers = new List<Transfer>();
@@ -48,6 +68,14 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             findOnOffTransfers(connections, line, transfers);
         }
 
+        /// <summary>
+        /// Finds the transfer.
+        /// </summary>
+        /// <param name="transfers">The transfers.</param>
+        /// <param name="off">The off line.</param>
+        /// <param name="on">The on line.</param>
+        /// <param name="stationID">The station ID.</param>
+        /// <returns></returns>
         public static Transfer findTransfer(List<Transfer> transfers, int off, int on, int stationID)
         {
             Transfer transfer = null;
@@ -67,8 +95,16 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
 
         #endregion
 
+
         #region Private Static Methods
 
+        /// <summary>
+        /// Finds the on transfers.
+        /// </summary>
+        /// <param name="connections">The connections.</param>
+        /// <param name="selectedLine">The selected line.</param>
+        /// <param name="transfers">The transfers.</param>
+        /// <returns></returns>
         private static List<Transfer> findOnTransfers(List<GroupOfConnections> connections, TrainLine selectedLine, List<Transfer> transfers)
         {
             int lineNumber = selectedLine.LineNumber;
@@ -95,6 +131,13 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             return transfers;
         }
 
+        /// <summary>
+        /// Finds the on/off transfers.
+        /// </summary>
+        /// <param name="connections">The connections.</param>
+        /// <param name="selectedLine">The selected line.</param>
+        /// <param name="transfers">The transfers.</param>
+        /// <returns></returns>
         private static List<Transfer> findOnOffTransfers(List<GroupOfConnections> connections, TrainLine selectedLine, List<Transfer> transfers)
         {
             int lineNumber = selectedLine.LineNumber;
@@ -131,6 +174,13 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             return transfers;
         }
 
+        /// <summary>
+        /// Finds the off transfers.
+        /// </summary>
+        /// <param name="connections">The connections.</param>
+        /// <param name="selectedLine">The selected line.</param>
+        /// <param name="transfers">The transfers.</param>
+        /// <returns></returns>
         private static List<Transfer> findOffTransfers(List<GroupOfConnections> connections, TrainLine selectedLine, List<Transfer> transfers)
         {
             int lineNumber = selectedLine.LineNumber;
@@ -156,6 +206,13 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             return transfers;
         }
 
+        /// <summary>
+        /// Updates the transfer's passengers field.
+        /// </summary>
+        /// <param name="offLine">The off line.</param>
+        /// <param name="onLine">The on line.</param>
+        /// <param name="connection">The connection.</param>
+        /// <param name="transfers">The transfers.</param>
         private static void updateTransfer(TrainLine offLine, TrainLine onLine, GroupOfConnections connection, List<Transfer> transfers)
         {
             // determine changing station
@@ -180,6 +237,10 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             existedTransfer.Passengers += connection.Passengers;
         }
 
+        /// <summary>
+        /// Updates the transfer links.
+        /// </summary>
+        /// <param name="transfer">The transfer.</param>
         private static void updateTransferLinks(Transfer transfer)
         {
             // update station's link

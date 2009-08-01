@@ -5,8 +5,15 @@ using PeriodicTimetableGeneration.GenerationAlgorithm;
 
 namespace PeriodicTimetableGeneration
 {
+    /// <summary>
+    /// Final input for generation phase.
+    /// Constructs and contains groups of connections and Transfers.
+    /// </summary>
     public class FinalInput
     {
+
+        #region Private Fields
+
         /// <summary>
         /// List of Transfers.
         /// </summary>
@@ -15,6 +22,11 @@ namespace PeriodicTimetableGeneration
         /// Groups of Connections.
         /// </summary>
         private List<GroupOfConnections> groupsOfConnections;
+
+        #endregion
+
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FinalInput"/> class.
@@ -25,16 +37,15 @@ namespace PeriodicTimetableGeneration
             cacheContent = new List<Transfer>();
         }
 
-        /*
-        public FinalInput(List<TrainConnection> connections) 
-        {
-            createGroupsOfConnection(connections);
-        }*/
+        #endregion
 
-        /**
-         * SingletonHolder is loaded on the first execution of Singleton.getInstance() 
-         * or the first access toStation SingletonHolder.INSTANCE, not before.
-         */
+
+        #region Singleton holder, nested static class.
+
+        /// <summary>
+        /// SingletonHolder is loaded on the first execution of Singleton.getInstance()
+        /// or the first access toStation SingletonHolder.INSTANCE, not before.
+        /// </summary>
         private static class SingletonHolder
         {
             static SingletonHolder() { }
@@ -42,25 +53,35 @@ namespace PeriodicTimetableGeneration
             internal static readonly FinalInput INSTANCE = new FinalInput();
         }
 
-        /**
-         * Static instance method
-         */
+
+        /// <summary>
+        /// Gets the instance. (Static instance method)
+        /// </summary>
+        /// <returns></returns>
         public static FinalInput getInstance()
         {
             return SingletonHolder.INSTANCE;
         }
 
-        /**
-	     * Get the cache which is protected by this singleton class.
-	     *
-         * @return the cache.
-         */
+        #endregion
+
+
+        #region Public Methods
+		 
+
+        /// <summary>
+        /// Gets the groups of connections.
+        /// </summary>
+        /// <returns></returns>
         public List<GroupOfConnections> getGroupsOfConnections()
         {
             return groupsOfConnections;
         }
 
 
+        /// <summary>
+        /// Creates the groups of connection.
+        /// </summary>
         public void createGroupsOfConnection()
         {
             // createConstraintSet new groups
@@ -81,6 +102,45 @@ namespace PeriodicTimetableGeneration
             groupsOfConnections = groupsList;
         }
 
+        /// <summary>
+        /// Gets the groups of connections on select.
+        /// </summary>
+        /// <param name="contentKey">The content key.</param>
+        /// <returns></returns>
+        public GroupOfConnections getGroupsOfConnectionsOnSelect(String contentKey)
+        {
+            return findGroup(groupsOfConnections, contentKey);
+        }
+
+        /// <summary>
+        /// Gets the content of the cache.
+        /// </summary>
+        /// <returns></returns>
+        public List<Transfer> getCacheContent()
+        {
+            return cacheContent;
+        }
+
+
+
+        /// <summary>
+        /// Creates the transfers.
+        /// </summary>
+        public void createTransfers()
+        {
+            cacheContent = TransferUtil.createTransfersForAllLines();
+        }
+
+        #endregion
+        
+        
+        #region Private Methods
+
+        /// <summary>
+        /// Create groups from list of lines.
+        /// </summary>
+        /// <param name="connections">The connections.</param>
+        /// <returns></returns>
         private static List<List<TrainConnection>> groupByListOfLines(List<TrainConnection> connections)
         {
             List<List<TrainConnection>> groupsOfListOfConnections = new List<List<TrainConnection>>();
@@ -110,6 +170,11 @@ namespace PeriodicTimetableGeneration
             return groupsOfListOfConnections;
         }
 
+        /// <summary>
+        /// Removes the single connections.
+        /// </summary>
+        /// <param name="connections">The connections.</param>
+        /// <returns></returns>
         private static List<TrainConnection> removeSingleConnections(List<TrainConnection> connections)
         {
             // or createConstraintSet a new instance only with a valid connections
@@ -126,11 +191,23 @@ namespace PeriodicTimetableGeneration
             return newConnections;
         }
 
+        /// <summary>
+        /// Doeses the group already exist.
+        /// </summary>
+        /// <param name="groups">The groups.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         private static Boolean doesGroupAlreadyExist(List<List<TrainConnection>> groups, String key)
         {
             return findGroup(groups, key) != null ? true : false;
         }
 
+        /// <summary>
+        /// Finds the group.
+        /// </summary>
+        /// <param name="groups">The groups.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         private static List<TrainConnection> findGroup(List<List<TrainConnection>> groups, String key)
         {
             List<TrainConnection> wantedGroup = null;
@@ -156,6 +233,12 @@ namespace PeriodicTimetableGeneration
             return wantedGroup;
         }
 
+        /// <summary>
+        /// Finds the group.
+        /// </summary>
+        /// <param name="groups">The groups.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
         private static GroupOfConnections findGroup(List<GroupOfConnections> groups, String key) 
         {
             GroupOfConnections wantedGroup = null;
@@ -176,21 +259,7 @@ namespace PeriodicTimetableGeneration
             return wantedGroup;
         }
 
-        public GroupOfConnections getGroupsOfConnectionsOnSelect(String contentKey)
-        {
-            return findGroup(groupsOfConnections, contentKey);
-        }
+        #endregion
 
-        public List<Transfer> getCacheContent()
-        {
-            return cacheContent;
-        }
-
-
-
-        public void createTransfers()
-        {
-            cacheContent = TransferUtil.createTransfersForAllLines();
-        }
     }
 }

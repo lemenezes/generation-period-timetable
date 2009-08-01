@@ -34,7 +34,7 @@ namespace PeriodicTimetableGeneration
         /// </summary>
         private Boolean isDefalutRatingVlaue;
         /// <summary>
-        /// 
+        /// Lines variable connected with this TrainLineVariable.
         /// </summary>
         private List<TrainLineVariable> connectedLinesVariable;
 
@@ -61,6 +61,10 @@ namespace PeriodicTimetableGeneration
 
         #region Properties
 
+        /// <summary>
+        /// Gets the connected lines variable.
+        /// </summary>
+        /// <value>The connected lines variable.</value>
         public List<TrainLineVariable> ConnectedLinesVariable 
         {
             get 
@@ -239,13 +243,23 @@ namespace PeriodicTimetableGeneration
             return time;
         }
 
-        // TODO: document this
+
+        /// <summary>
+        /// Departure time from stop at the index.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <returns></returns>
         public Time departureFromStopAtIndex(int index) 
         {
             return trainLine.getTrainStops()[index].TimeDepartureChecked;
         }
 
-        // TODO: document this
+
+        /// <summary>
+        /// Arrival time to stop at the index.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <returns></returns>
         public Time arrivalToStopAtIndex(int index) 
         {
             return trainLine.getTrainStops()[index].TimeArrivalChecked;

@@ -89,7 +89,8 @@ namespace PeriodicTimetableGeneration
             };
 
             // new timetables
-            List<Timetable> newTimetables = new List<Timetable>();
+            this.timetables.Clear();
+            List<Timetable> newTimetables = this.timetables;
 
             // shift for percentage complete
             double shift = 1 / (double)creators.Length;
@@ -114,8 +115,6 @@ namespace PeriodicTimetableGeneration
                 // if cancellation
                 if (IsCancelled) return;
             }
-            // set new timetables
-            this.timetables = newTimetables;
         }
 
         /// <summary>
