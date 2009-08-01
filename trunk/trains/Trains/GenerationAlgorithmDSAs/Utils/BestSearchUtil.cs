@@ -94,7 +94,7 @@ namespace PeriodicTimetableGeneration
             int index = 0;
 
             // current sum is less then random number and index in range
-            while (currentSum < randomNumber && index < bestRecords.Count)
+            while (currentSum <= randomNumber && index < bestRecords.Count)
             {
                 currentSum += bestRecords[index].RangeFactor;
                 selectedRecord = bestRecords[index];

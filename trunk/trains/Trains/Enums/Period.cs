@@ -9,7 +9,6 @@ namespace PeriodicTimetableGeneration
         interval15 = 15,
         interval30 = 30,
         interval60 = 60,
-        interval90 = 90,
         interval120 = 120,
     }
 
@@ -28,8 +27,6 @@ namespace PeriodicTimetableGeneration
                 newPeriod = Period.interval30;
             else if (intInterval.Equals((int)Period.interval60))
                 newPeriod = Period.interval60;
-            else if (intInterval.Equals((int)Period.interval90))
-                newPeriod = Period.interval90;
             else if (intInterval.Equals((int)Period.interval120))
                 newPeriod = Period.interval120;
             else
@@ -48,13 +45,34 @@ namespace PeriodicTimetableGeneration
                 newPeriod = Period.interval30;
             else if (intInterval.Equals((int)Period.interval60))
                 newPeriod = Period.interval60;
-            else if (intInterval.Equals((int)Period.interval90))
-                newPeriod = Period.interval90;
             else if (intInterval.Equals((int)Period.interval120))
                 newPeriod = Period.interval120;
             else
                 newPeriod = Period.interval120;
             return newPeriod;
+        }
+
+        public static Time normalizeTime(Time time, Period period)
+        {
+            int minutes = time.ToMinutes();
+            minutes %= (int)period;
+            if (minutes < 0)
+            {
+                minutes += (int)period;
+            }
+
+            return Time.ToTime(minutes);
+        }
+
+        public static int normalizeTime(int minutes, int period)
+        {            
+            minutes %= period;
+            if (minutes < 0)
+            {
+                minutes += period;
+            }
+
+            return minutes;
         }
 
     }

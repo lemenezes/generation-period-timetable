@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Collections;
+using PeriodicTimetableGeneration.GenerationAlgorithmDSAs;
 
 
 namespace PeriodicTimetableGeneration
@@ -10,7 +11,7 @@ namespace PeriodicTimetableGeneration
     /// Class represent Constraint, which model relation between two lines.
     /// Implements appropriate methods for it.
     /// </summary>
-    public class Constraint
+    public abstract class Constraint
     {
 
         #region Private Fields
@@ -36,10 +37,6 @@ namespace PeriodicTimetableGeneration
         /// </summary>
         private int index2;
         /// <summary>
-        /// Transfer related to this constraint
-        /// </summary>
-        private List<Transfer> transfer;
-        /// <summary>
         /// Constant member related to trainLine1.
         /// </summary>
         private int constantMember1;
@@ -55,28 +52,9 @@ namespace PeriodicTimetableGeneration
         /// <summary>
         /// Initializes a new instance of the <see cref="Constraint"/> class.
         /// </summary>
-        public Constraint()
+        protected Constraint()
         {
             setDefaultValues();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Constraint"/> class.
-        /// </summary>
-        /// <param name="transfer_">The transfer.</param>
-        public Constraint(Transfer transfer_) 
-        {
-            setDefaultValues();
-            // initialize the transfer
-            this.transfer.Add(transfer_);
-            // first is a line, which transfers ON
-            this.trainLine1 = transfer_.OnLine;
-            // second is a line, which transfer OFF
-            this.trainLine2 = transfer_.OffLine;
-            // from train line get trainstop of tranfer, get arrival in minutes
-            this.constantMember1 = this.trainLine1.getTrainStopOnStation(Transfer.Station.Name).TimeDepartureChecked.ToMinutes();
-            this.constantMember2 = this.trainLine2.getTrainStopOnStation(Transfer.Station.Name).TimeArrivalChecked.ToMinutes();
-
         }
 
         /// <summary>
@@ -84,7 +62,7 @@ namespace PeriodicTimetableGeneration
         /// </summary>
         /// <param name="collection">The collection.</param>
         /// <param name="modulo">The modulo.</param>
-        public Constraint(ICollection<int> collection, int modulo)
+        protected Constraint(ICollection<int> collection, int modulo)
         {
             setDefaultValues();
             this.set = new Set(collection, modulo);
@@ -96,7 +74,7 @@ namespace PeriodicTimetableGeneration
         /// Initializes a new instance of the <see cref="Constraint"/> class.
         /// </summary>
         /// <param name="otherConstraint">The other constraint.</param>
-        public Constraint(Constraint otherConstraint) 
+        protected Constraint(Constraint otherConstraint) 
         {
             setDefaultValues(); // not needed, because all fields will be assigned
             this.constantMember1 = otherConstraint.constantMember1;
@@ -105,28 +83,23 @@ namespace PeriodicTimetableGeneration
             this.index2 = otherConstraint.index2;
             this.trainLine1 = otherConstraint.trainLine1;
             this.trainLine2 = otherConstraint.trainLine2;
-            this.transfer.AddRange(otherConstraint.transfer);
             this.set = new Set(otherConstraint.DiscreteSet);
         }
 
         #endregion
-
 
         #region Public Methods
 
         /// <summary>
         /// Normalizes the constraint to the predefined format.
         /// </summary>
-        public void normalizeConstraint()
-        {
-            // include minimal transter time, Set = {0,1,2,3}; MTT = 5 => {5,6,7,8}
-            this.set.Addition(Transfer.Station.MinimalTransferTime.ToMinutes());
-            // reduce constantMembers (x + cm1) - (y + cm2) .. {0..15} => set.additon(-cm1+cm2);
-            this.set.Addition(this.constantMember2-this.constantMember1);
-            // constantMembers are now zero
-            this.constantMember1 = 0;
-            this.constantMember2 = 0;
-        }
+        public abstract void normalizeConstraint();
+
+        public abstract void createConstraintSetSameTransferTime(int size);
+
+        public abstract void createConstraintSetAlfaTTransferTime(int size);
+
+        public abstract void createConstraintSetFullDiscreteSets(int size);
 
         /// <summary>
         /// Merges the constraint with.
@@ -182,11 +155,6 @@ namespace PeriodicTimetableGeneration
             return valid;
         }
 
-        /*public Boolean equals(Constraint otherConstraint)
-        {
-            throw new System.NotImplementedException();
-        }*/
-
         /// <summary>
         /// Determined whether this instance is equivalent the with other.
         /// </summary>
@@ -227,10 +195,7 @@ namespace PeriodicTimetableGeneration
         /// Clones this instance. Deep clone.
         /// </summary>
         /// <returns></returns>
-        public Constraint clone()
-        {
-            return new Constraint(this);
-        }
+        public abstract Constraint clone();
 
         #endregion
 
@@ -341,21 +306,6 @@ namespace PeriodicTimetableGeneration
         }
 
         /// <summary>
-        /// Gets the transfer.
-        /// </summary>
-        /// <value>The transfer.</value>
-        public Transfer Transfer
-        {
-            get
-            {
-                Transfer trans = null;
-                if(!transfer.Count.Equals(0))
-                    trans = this.transfer[0];
-                return trans;
-            }
-        }
-
-        /// <summary>
         /// Gets the modulo.
         /// </summary>
         /// <value>The modulo.</value>
@@ -401,7 +351,6 @@ namespace PeriodicTimetableGeneration
 
         #endregion
 
-
         #region Private Methods
 
         /// <summary>
@@ -416,9 +365,216 @@ namespace PeriodicTimetableGeneration
             this.trainLine2 = null;
             this.constantMember1 = 0;
             this.constantMember2 = 0;
+        }
+
+        #endregion
+
+    }
+
+    public class TransferConstraint : Constraint
+    {
+
+        #region Private fields
+
+        /// <summary>
+        /// Transfer related to this constraint
+        /// </summary>
+        private List<Transfer> transfer;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Constraint"/> class.
+        /// </summary>
+        public TransferConstraint()
+            : base()
+        {
+            setTransferConstraintDefaultValues();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Constraint"/> class.
+        /// </summary>
+        /// <param name="transfer_">The transfer.</param>
+        public TransferConstraint(Transfer transfer_)
+            : base()
+        {
+            setTransferConstraintDefaultValues();
+
+            // initialize the transfer
+            this.transfer.Add(transfer_);
+
+            // first is a line, which transfers ON
+            this.TrainLine1 = transfer_.OnLine;
+            // second is a line, which transfer OFF
+            this.TrainLine2 = transfer_.OffLine;
+
+            // from train line get trainstop of tranfer, get arrival in minutes
+            this.ConstantMember1 = this.TrainLine1.getTrainStopOnStation(Transfer.Station.Name).TimeDepartureChecked.ToMinutes();
+            this.ConstantMember2 = this.TrainLine2.getTrainStopOnStation(Transfer.Station.Name).TimeArrivalChecked.ToMinutes();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Constraint"/> class.
+        /// </summary>
+        /// <param name="collection">The collection.</param>
+        /// <param name="modulo">The modulo.</param>
+        public TransferConstraint(ICollection<int> collection, int modulo)
+            : base(collection, modulo)
+        {
+            setTransferConstraintDefaultValues();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Constraint"/> class.
+        /// </summary>
+        /// <param name="otherConstraint">The other constraint.</param>
+        public TransferConstraint(TransferConstraint otherConstraint)
+            : base(otherConstraint)
+        {
+            setTransferConstraintDefaultValues();
+            this.transfer.AddRange(otherConstraint.transfer);
+        }
+
+        #endregion
+
+        #region Properties 
+        
+        /// <summary>
+        /// Gets the transfer.
+        /// </summary>
+        /// <value>The transfer.</value>
+        public Transfer Transfer
+        {
+            get
+            {
+                Transfer trans = null;
+                if (!transfer.Count.Equals(0))
+                    trans = this.transfer[0];
+                return trans;
+            }
+        }
+
+        #endregion
+
+        public override Constraint clone()
+        {
+            return new TransferConstraint(this);
+        }
+
+        public override void createConstraintSetSameTransferTime(int size)
+        {
+            CreateConstraintSetsUtil.createConstraintSet_SameTransferTime(this, size);
+        }
+
+        public override void createConstraintSetAlfaTTransferTime(int size)
+        {
+            CreateConstraintSetsUtil.createConstraintSet_AlfaTTransferTime(this, size);
+        }
+
+        public override void createConstraintSetFullDiscreteSets(int size)
+        {
+            CreateConstraintSetsUtil.createConstraintSet_FullDiscreteSets(this, size);
+        }
+
+        public override void normalizeConstraint()
+        {
+            // include minimal transter time, Set = {0,1,2,3}; MTT = 5 => {5,6,7,8}
+            this.DiscreteSet.Addition(Transfer.Station.MinimalTransferTime.ToMinutes());
+            // reduce constantMembers (x + cm1) - (y + cm2) .. {0..15} => set.additon(-cm1+cm2);
+            this.DiscreteSet.Addition(this.ConstantMember2 - this.ConstantMember1);
+            // constantMembers are now zero
+            this.ConstantMember1 = 0;
+            this.ConstantMember2 = 0;
+        }
+
+        #region Private methods
+
+        private void setTransferConstraintDefaultValues()
+        {
             this.transfer = new List<Transfer>();
         }
 
         #endregion
+
     }
+
+    public class ConnectedLineConstraint : Constraint
+    {
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Constraint"/> class.
+        /// </summary>
+        public ConnectedLineConstraint()
+            : base()
+        {
+            setConnectedConstraintDefaultValues();
+        }
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Constraint"/> class.
+        /// </summary>
+        /// <param name="collection">The collection.</param>
+        /// <param name="modulo">The modulo.</param>
+        public ConnectedLineConstraint(TrainLine line1, TrainLine line2, int modulo)
+            : base(
+                new int[] { 
+                    PeriodUtil.normalizeTime(line2.ConnectedLineShift.ToMinutes() - line1.ConnectedLineShift.ToMinutes(), modulo)
+                }, 
+                modulo
+            )            
+        {
+            setConnectedConstraintDefaultValues();
+            TrainLine1 = line1;
+            TrainLine2 = line2;
+            ConstantMember1 = line1.ConnectedLineShift.ToMinutes();
+            ConstantMember2 = line2.ConnectedLineShift.ToMinutes();
+            // create min factor for single set
+            DiscreteSet.createMinimizationFactor(0);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Constraint"/> class.
+        /// </summary>
+        /// <param name="otherConstraint">The other constraint.</param>
+        public ConnectedLineConstraint(ConnectedLineConstraint otherConstraint)
+            : base(otherConstraint)
+        {
+            setConnectedConstraintDefaultValues();
+        }
+
+        private void setConnectedConstraintDefaultValues()
+        {
+        }
+
+        #endregion
+
+        public override void normalizeConstraint()
+        {
+        }
+
+        public override void createConstraintSetSameTransferTime(int size)
+        {
+        }
+
+        public override void createConstraintSetAlfaTTransferTime(int size)
+        {
+        }
+
+        public override void createConstraintSetFullDiscreteSets(int size)
+        {
+        }
+
+        public override Constraint clone()
+        {
+            return new ConnectedLineConstraint(this);
+        }
+
+    }
+
 }

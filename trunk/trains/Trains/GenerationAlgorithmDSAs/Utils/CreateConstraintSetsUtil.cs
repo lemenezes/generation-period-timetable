@@ -6,11 +6,13 @@ using PeriodicTimetableGeneration.Properties;
 
 namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
 {
+
     /// <summary>
     /// Class represents and implements utilities for
     /// </summary>
     public static class CreateConstraintSetsUtil
     {
+
         #region Setting Properties
 
         /// <summary>
@@ -38,9 +40,9 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
 		/// <returns>List of constraints.</returns>
 		public static List<Constraint> createConstraintSets_SameTransferTime(List<Constraint> constraints, int size)
 		{
-			foreach (Constraint constraint in constraints)
+            foreach (Constraint constraint in constraints)
 			{
-				createConstraintSet_SameTransferTime(constraint, size);
+                constraint.createConstraintSetSameTransferTime(size);
 			}
 			return constraints;
 		}
@@ -52,7 +54,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
 		/// </summary>
 		/// <param name="constraint">The constraint.</param>
 		/// <param name="size">The size of set.</param>
-		public static void createConstraintSet_SameTransferTime(Constraint constraint, int size)
+		public static void createConstraintSet_SameTransferTime(TransferConstraint constraint, int size)
 		{
             List<Set> newSets = new List<Set>();
             // get minimal period
@@ -63,7 +65,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
             for (int i = 0; i < MODULO_DEFAULT / period; i++)
             {
                 // create discrete set {60*i .. 60*i + size -1}
-                Set newSet = new Set(GenerationAlgorithmDSAUtil.createSequenceOfNumber(i*period, i*period + size - 1), MODULO_DEFAULT);
+                Set newSet = new Set(GenerationAlgorithmDSAUtil.createSequenceOfNumber(i * period, i * period + size - 1), MODULO_DEFAULT);
                 // create minimization solutionFactor for appropriate discrete set
                 // according the amount of passenger on transfer
                 newSet.createMinimizationFactor(constraint.Transfer.Passengers);
@@ -72,26 +74,25 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
             }
 
             Set finalSet = null;
-			Boolean first = true;
-			// union sets
-			foreach (Set set in newSets)
-			{
-				// if first, just set as a final
-				if (first)
-				{
-					finalSet = set;
-					first = false;
-				}
-				// otherwise unions with next one
-				else
-				{
-					finalSet.UnionWith(set);
-				}
-			}
-			// finally initialize Set for Constraint
-			constraint.DiscreteSet = finalSet;
+            Boolean first = true;
+            // union sets
+            foreach (Set set in newSets)
+            {
+                // if first, just set as a final
+                if (first)
+                {
+                    finalSet = set;
+                    first = false;
+                }
+                // otherwise unions with next one
+                else
+                {
+                    finalSet.UnionWith(set);
+                }
+            }
+            // finally initialize Set for Constraint
+            constraint.DiscreteSet = finalSet;
 		}
-
 
         /// <summary>
         /// Creates the Sets for constraints with full discrete sets.
@@ -103,7 +104,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
         {
             foreach (Constraint constraint in constraints) 
             {
-                createConstraintSet_FullDiscreteSets(constraint, size);
+                constraint.createConstraintSetFullDiscreteSets(size);
             }
             return constraints;
         }
@@ -113,7 +114,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
         /// </summary>
         /// <param name="constraint">The constraint.</param>
         /// <param name="size">The size.</param>
-        private static void createConstraintSet_FullDiscreteSets(Constraint constraint, int sizeOfFullDiscreteSet)
+        public static void createConstraintSet_FullDiscreteSets(TransferConstraint constraint, int sizeOfFullDiscreteSet)
         {
             // create Set for constraint with full discrete set
             constraint.DiscreteSet = new Set(GenerationAlgorithmDSAUtil.createSequenceOfNumber(sizeOfFullDiscreteSet), MODULO_DEFAULT);
@@ -132,11 +133,10 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
 		{
 			foreach (Constraint constraint in constraints)
 			{
-				createConstraintSet_AlfaTTransferTime(constraint, size);
+                constraint.createConstraintSetAlfaTTransferTime(size);
 			}
 			return constraints;
 		}
-
 
 		/// <summary>
         /// Creates the Set for constraint with respect to period T of both lines on Constraint.
@@ -145,7 +145,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
 		/// </summary>
 		/// <param name="constraint">The constraint.</param>
 		/// <param name="size">The size of set.</param>
-		public static void createConstraintSet_AlfaTTransferTime(Constraint constraint, int size)
+        public static void createConstraintSet_AlfaTTransferTime(TransferConstraint constraint, int size)
 		{
 			List<Set> newSets = new List<Set>();
 			// get minimal period

@@ -33,8 +33,8 @@
             this.tabPageGenerating = new System.Windows.Forms.TabPage();
             this.splitContainerTimetables = new System.Windows.Forms.SplitContainer();
             this.listViewGeneratingTimetables = new System.Windows.Forms.ListView();
-            this.columnHeaderGenerationTime = new System.Windows.Forms.ColumnHeader();
-            this.columnHeaderNote = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderGenerationTime = new ColHeader();
+            this.columnHeaderNote = new ColHeader();
             this.imageListBig = new System.Windows.Forms.ImageList(this.components);
             this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
             this.groupBoxNumberOfTimetables = new System.Windows.Forms.GroupBox();

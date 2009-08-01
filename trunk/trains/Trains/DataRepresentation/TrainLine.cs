@@ -48,9 +48,18 @@ namespace PeriodicTimetableGeneration
         /// Determine whether line is already fixed.
         /// </summary>
         private Boolean isFixed;
-
+        /// <summary>
+        /// Transfers from this line.
+        /// </summary>
         private List<Transfer> transfersOffThisLine;
+        /// <summary>
+        /// Transfers to this line.
+        /// </summary>
         private List<Transfer> transfersOnThisLine;
+        /// <summary>
+        /// Time shitf valid within equivalent group of connected lines.
+        /// </summary>
+        private Time connectedLineShift;
  
         #endregion
 
@@ -84,6 +93,10 @@ namespace PeriodicTimetableGeneration
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the transfers off this line.
+        /// </summary>
+        /// <value>The transfers off.</value>
         public List<Transfer> TransfersOff 
         {
             get 
@@ -96,6 +109,10 @@ namespace PeriodicTimetableGeneration
             }
         }
 
+        /// <summary>
+        /// Gets or sets the transfers on.
+        /// </summary>
+        /// <value>The transfers on.</value>
         public List<Transfer> TransfersOn 
         {
             get 
@@ -130,8 +147,14 @@ namespace PeriodicTimetableGeneration
         /// <value>The connected line shift.</value>
         public Time ConnectedLineShift
         {
-            get { return Time.MinValue; }
-            set { }
+            get
+            {
+                return connectedLineShift;
+            }
+            set
+            {
+                connectedLineShift = value;
+            }
         }
 
         /// <summary>
@@ -437,7 +460,7 @@ namespace PeriodicTimetableGeneration
             period = Period.interval60;
             connectedTrainLInes = new List<TrainLine>();
             originalDepartureFromFirstStation = Time.MinValue;
-
+            connectedLineShift = Time.MinValue;
 
             transfersOnThisLine = new List<Transfer>();
             transfersOffThisLine = new List<Transfer>();

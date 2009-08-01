@@ -366,15 +366,14 @@ namespace PeriodicTimetableGeneration
             }
 
             // Compute the factor.
-            int factor = 0;
-            foreach (Transfer transfer in FinalInput.getInstance().getCacheContent())
-            {
-                factor += calculateTransfer(timetable, transfer);
-            }
+            int factor = Timetable.calculateTimetableRatingValue(timetable);
+           
 
             // Current state returned.
             return new CurrentState(changes, factor);
         }
+
+        
 
         private struct CurrentState
         {
@@ -451,60 +450,9 @@ namespace PeriodicTimetableGeneration
                 changedVariable.StartTime = OldStartTime;
             }
 
-        }
+        
 
-        /// <summary>
-        /// Calculates the transfer.
-        /// </summary>
-        /// <param name="timetable">The timetable.</param>
-        /// <param name="transfer">The transfer.</param>
-        /// <returns></returns>
-        private int calculateTransfer(Timetable timetable, Transfer transfer)
-        {
-            // result rating value
-            int ratingValue;
-
-            TrainLineVariable onLine = timetable.getVariableLineOnSelect(transfer.OnLine.LineNumber);
-            TrainLineVariable offLine = timetable.getVariableLineOnSelect(transfer.OffLine.LineNumber);
-
-            // varline startime, departure from start of line, connected line shif of line
-            Time arrivalTime = offLine.StartTime + offLine.departureFromStopAtIndex(transfer.TrainStopIndexOffLine);
-            Time departureTime = onLine.StartTime + onLine.arrivalToStopAtIndex(transfer.TrainStopIndexOnLine);
-
-            normalizeTransferTime(ref departureTime, ref arrivalTime, transfer.Station.MinimalTransferTime, (int)onLine.Period, (int)offLine.Period);
-            ratingValue = transfer.evaluateTransferFunction(departureTime - arrivalTime);
-            return ratingValue;
-        }
-
-        /// <summary>
-        /// Normalizes the transfer time.
-        /// </summary>
-        /// <param name="timeDeparture">The time departure.</param>
-        /// <param name="timeArrival">The time arrival.</param>
-        /// <param name="minimalTransferTime">The minimal transfer time.</param>
-        /// <param name="onPeriod">The on period.</param>
-        /// <param name="offPeriod">The off period.</param>
-        private void normalizeTransferTime(ref Time timeDeparture, ref Time timeArrival, Time minimalTransferTime, int onPeriod, int offPeriod)
-        {
-            // if departure is before arrival, we need to find closest time departure
-            // that satisfied the condition(departure>arrival)
-            if (timeDeparture < timeArrival + minimalTransferTime)
-            {
-                while (timeDeparture < timeArrival + minimalTransferTime)
-                {
-                    // addConstraint new period of train
-                    timeDeparture += Time.ToTime(onPeriod);
-                }
-            }
-            else
-            {
-                // if arrival is before departure, we need to find closest time arrival
-                // that satisfied the cond(departure>arrival) but not the cond(departure>arrival+nextPeriod)
-                while (timeDeparture > timeArrival + Time.ToTime(offPeriod) + minimalTransferTime)
-                {
-                    timeArrival += Time.ToTime(offPeriod);
-                }
-            }
+       
 
             // if the time for tranfer is more than than minimal
             //if (timeDeparture - timeArrival > minimalTransferTime)
