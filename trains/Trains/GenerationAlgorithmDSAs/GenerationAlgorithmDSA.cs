@@ -416,6 +416,7 @@ namespace PeriodicTimetableGeneration
             List<Transfer> transfers = ConstraintUtil.retrieveTransfers();
             // createConstraintSet constraints
             constraints = ConstraintUtil.createConstraints(transfers);
+            constraints.AddRange(ConstraintUtil.createConstraints(TrainLines));
         }
 
         #endregion

@@ -87,7 +87,7 @@
   <Class Name="PeriodicTimetableGeneration.GenerationAlgorithmDSAs.ConstraintUtil">
     <Position X="8.25" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAQABAAAAQAAAAAAAAAAAAAAAAAEABAAAAAAAQg=</HashCode>
+      <HashCode>AAIAAAQBBAAAAAAAAAAAAAAAAAAAAAAEABAAAAAAAQg=</HashCode>
       <FileName>GenerationAlgorithmDSAs\Utils\ConstraintUtil.cs</FileName>
     </TypeIdentifier>
   </Class>

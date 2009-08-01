@@ -11,7 +11,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
     public static class TransferUtil
     {
 
-        #region Public Static Methods        
+        #region Public Static Methods
 
         /// <summary>
         /// Doeses the transfer exist.
@@ -250,6 +250,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             // update line's off link
             transfer.OffLine.TransfersOff.Add(transfer);
         }
+
 
         #endregion
 

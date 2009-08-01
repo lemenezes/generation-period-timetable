@@ -20,7 +20,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
         /// <returns>The constraint.</returns>
         public static Constraint createConstraint(Transfer transfer)
         {
-            return new Constraint(transfer);
+            return new TransferConstraint(transfer);
         }
 
         /// <summary>
@@ -187,5 +187,29 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
 
         #endregion
 
+
+        public static IEnumerable<Constraint> createConstraints(List<TrainLine> trainLines)
+        {
+            List<Constraint> constraints = new List<Constraint>();
+
+            foreach (TrainLine line in trainLines)
+            {
+                createConstraintsForLine(line, constraints);
+            }
+
+            return constraints;
+        }
+
+        private static void createConstraintsForLine(TrainLine line, List<Constraint> constraints)
+        {
+            foreach (TrainLine connectedLine in line.getConnectedLines())
+            {
+                // for every pair just one constraint is constructed
+                if (connectedLine.LineNumber < line.LineNumber)
+                {
+                    constraints.Add(new ConnectedLineConstraint(connectedLine, line, (int)line.Period));
+                }
+            }
+        }
     }
 }

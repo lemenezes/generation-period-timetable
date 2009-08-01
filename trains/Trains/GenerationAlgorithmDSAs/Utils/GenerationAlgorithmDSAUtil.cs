@@ -148,8 +148,7 @@ namespace PeriodicTimetableGeneration
 			foreach (Constraint constraint in constraints)
 			{
 				// add copy
-				newConstraints.Add(new Constraint(constraint));
-
+				newConstraints.Add(constraint.clone());
 			}
 
 			return newConstraints;
@@ -204,7 +203,11 @@ namespace PeriodicTimetableGeneration
                 Timetable tt = constructTimetable(solution, trainLineMap, timetables.Count + 1);
                 tt.Note = note;
                 tt.GenerationTime = runningTime;
-                tt.ProgressiveChanges = progressiveChanges;
+
+
+                tt.ProgressiveChanges =  progressiveChanges;
+                Console.Out.WriteLine("gen: {0}, calc: {1}", tt.RatingValue, Timetable.calculateTimetableRatingValue(tt));
+
                 // add timetable to results
                 timetables.Add(tt);
             }
@@ -225,11 +228,13 @@ namespace PeriodicTimetableGeneration
             Timetable timetable = new Timetable();
             // set id
             timetable.ID = id;
-            timetable.RatingValue = solution.SolutionFactor;
+
             // create train lines dependent on solution
             timetable.TrainLines.AddRange(createTrainLineVariablesDependentOnSolution(solution, trainLineMap));
             // create trian lins independent on solution
             timetable.TrainLines.AddRange(createTrainLineVariablesIndependentOnSolution(solution, trainLineMap));
+
+            timetable.RatingValue = Timetable.calculateTimetableRatingValue(timetable);
 
             return timetable;
         }
@@ -253,7 +258,9 @@ namespace PeriodicTimetableGeneration
                 // create a trainLine
                 TrainLineVariable tlv = new TrainLineVariable(line);
                 //initialize fields
-                tlv.StartTime = Time.ToTime(solution.SolutionVector[index].Minute);
+
+                Time normalizeTime = PeriodUtil.normalizeTime(Time.ToTime(solution.SolutionVector[index].Minute), line.Period);
+                tlv.StartTime = normalizeTime;
                 //tlv.RatingValue = solution.SolutionFactor;
 
                 // add to the list

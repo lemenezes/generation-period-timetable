@@ -695,6 +695,46 @@ namespace PeriodicTimetableGeneration
             listViewFinalInput.EndUpdate();
         }
 
+        private void buttonListOfGroupsOfConnectionsNext_Click(object sender, EventArgs e)
+        {
+            FinalInput.getInstance().createTransfers();
+            prepareListViewListOfTransfers();
+
+            tabControlTG.SelectTab(tabPageListOfTransfers);
+        }
+
+        #endregion
+
+
+
+        #region List of Transfers TabPage
+
+        private void prepareListViewListOfTransfers()
+        {
+            // retrieve transfers
+            List<Transfer> tranfers = FinalInput.getInstance().getCacheContent();
+
+            listViewListOfTransfers.BeginUpdate();
+
+            listViewListOfTransfers.Items.Clear();
+
+            foreach (Transfer tranfer in tranfers)
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = tranfer.OffLine.LineNumber.ToString();
+                lvi.Tag = tranfer.OffLine.LineNumber.ToString() + "->" + tranfer.OnLine.LineNumber.ToString();
+
+                lvi.SubItems.Add(tranfer.OnLine.LineNumber.ToString());
+                lvi.SubItems.Add(tranfer.Station.Name);
+                lvi.SubItems.Add(tranfer.Passengers.ToString());
+
+                listViewListOfTransfers.Items.Add(lvi);
+            }
+
+            listViewListOfTransfers.EndUpdate();
+
+        }
+
         //-----------------------------------------------------------
         // Button GenerationAlgorithm start
         //-----------------------------------------------------------
@@ -712,6 +752,7 @@ namespace PeriodicTimetableGeneration
         }
 
         #endregion
+
 
 
         #region ColumnClick Sorting (All ListViews)
@@ -745,7 +786,7 @@ namespace PeriodicTimetableGeneration
         }
 
         //-----------------------------------------------------------
-        // ListViewListOf FINAL INPUT - ColumnClick - Sorting
+        // ListViewListOf PATH - ColumnClick - Sorting
         //-----------------------------------------------------------
 
         private void listViewFinalInput_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -753,45 +794,28 @@ namespace PeriodicTimetableGeneration
             FormUtil.listView_ColumnClick_Sorting(sender, e, this.listViewFinalInput);
         }
 
+        //-----------------------------------------------------------
+        // ListViewListOf TRANSFERS - ColumnClick - Sorting
+        //-----------------------------------------------------------
+
+        private void listViewLoadFiles_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            FormUtil.listView_ColumnClick_Sorting(sender, e, this.listViewLoadFiles);
+        }
+
+        private void listViewListOfTransfers_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            FormUtil.listView_ColumnClick_Sorting(sender, e, this.listViewListOfTransfers);
+        }   
+
+
         #endregion
 
-        private void buttonListOfGroupsOfConnections_Click(object sender, EventArgs e)
-        {
-            FinalInput.getInstance().createTransfers();
-            prepareListViewListOfTransfers();
-
-            tabControlTG.SelectTab(tabPageListOfTransfers);
-        }
-
-        private void prepareListViewListOfTransfers()
-        {
-            // retrieve transfers
-            List<Transfer> tranfers = FinalInput.getInstance().getCacheContent();
-
-            listViewListOfTransfers.BeginUpdate();
-
-            listViewListOfTransfers.Items.Clear();
-
-            foreach (Transfer tranfer in tranfers) 
-            {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = tranfer.OffLine.LineNumber.ToString();
-                lvi.Tag = tranfer.OffLine.LineNumber.ToString() + "->" + tranfer.OnLine.LineNumber.ToString();
-                
-                lvi.SubItems.Add(tranfer.OnLine.LineNumber.ToString());
-                lvi.SubItems.Add(tranfer.Station.Name);
-                lvi.SubItems.Add(tranfer.Passengers.ToString());
-
-                listViewListOfTransfers.Items.Add(lvi);
-            }
-
-            listViewListOfTransfers.EndUpdate();
-
-        }
 
 
-        
-        
+
+
+
 
         /*
         private static int calculatePassengersForGroupOfConnections(List<TrainConnection> group) 

@@ -36,19 +36,19 @@ namespace PeriodicTimetableGeneration
 
 			//------modification-constraints----------------------------------
 
-			//LogUtil.printToFileConstraints(constraints, "originalConstraints");
+            //LogUtil.printConstraintsToFile(constraints, "originalConstraints");
 
 			// normalize constraints
 			constraints = ConstraintUtil.normalizeConstraints(constraints);
 
-			//LogUtil.printToFileConstraints(constraints, "normalizedConstraints");
+            //LogUtil.printConstraintsToFile(constraints, "normalizedConstraints");
 
 			// find equivalent constraints
 			List<List<Constraint>> groupOfconstraints = ConstraintUtil.findEquivalentConstraints(constraints);
 			// try to merge them
 			constraints = ConstraintUtil.mergeEquivalentConstrains(groupOfconstraints);
 
-			//LogUtil.printToFileConstraints(constraints, "mergedConstraints");
+            //LogUtil.printConstraintsToFile(constraints, "mergedConstraints");
 
 			// createConstraintSet a hashtable only of all trainLines used in constraints
 			List<TrainLine> trainLinesMap = GenerationAlgorithmDSAUtil.createTrainLineMap(constraints);
