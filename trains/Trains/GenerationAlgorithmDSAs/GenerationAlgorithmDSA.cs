@@ -98,22 +98,34 @@ namespace PeriodicTimetableGeneration
             // 
             percentageComplete = 0;
 
+            Exception lastException = null;
+
             // each predefined combination do
             for (int i = 0, c = creators.Length; i < c; ++i)
             {
-                // step count 
-                stepCount = 0;
-                // generation for this combination
-                runSpecializedGenerationAlgorithm(
-                    constraints,
-                    propagators[i],
-                    creators[i], 
-                    newTimetables
-                );
-                // percentage is completed so far
-                percentageComplete += shift;
-                // if cancellation
-                if (IsCancelled) return;
+                try
+                {
+                    // step count 
+                    stepCount = 0;
+                    // generation for this combination
+                    runSpecializedGenerationAlgorithm(
+                        constraints,
+                        propagators[i],
+                        creators[i],
+                        newTimetables
+                    );
+                    // percentage is completed so far
+                    percentageComplete += shift;
+                    // if cancellation
+                    if (IsCancelled) break;
+                } catch (Exception exception) {
+                    lastException = exception;
+                }
+            }
+
+            if (lastException != null)
+            {
+                throw lastException;
             }
         }
 

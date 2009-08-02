@@ -27,8 +27,8 @@ namespace PeriodicTimetableGeneration
         {
             InitializeComponent();
         }
-        		 
-	    #endregion
+
+        #endregion
 
         #region Properties
 
@@ -36,14 +36,14 @@ namespace PeriodicTimetableGeneration
         /// Gets the string for option ComboBox AllLines.
         /// </summary>
         /// <value>The COMBOBO x_ ALLLINES.</value>
-		String COMBOBOX_ALLLINES
+        String COMBOBOX_ALLLINES
         {
-            get 
+            get
             {
                 return Settings.Default.ComboBoxAllLines;
-            } 
+            }
         }
-	    #endregion
+        #endregion
 
 
 
@@ -63,7 +63,7 @@ namespace PeriodicTimetableGeneration
             addItemsToLVLoadFiles();
         }
 
-        private void addItemsToLVLoadFiles() 
+        private void addItemsToLVLoadFiles()
         {
             listViewLoadFiles.BeginUpdate();
 
@@ -131,20 +131,20 @@ namespace PeriodicTimetableGeneration
         private void removeItemsFromLVLoadFiles()
         {
             ListView.SelectedIndexCollection indices = listViewLoadFiles.SelectedIndices;
-//            ListView.SelectedListViewItemCollection items = listViewLoadFiles.Items;
+            //            ListView.SelectedListViewItemCollection items = listViewLoadFiles.Items;
 
             // while is still there any indeces
-            while (indices.Count != 0) 
+            while (indices.Count != 0)
             {
                 // remove item at index which is last in selected indeces array
                 listViewLoadFiles.Items.RemoveAt(indices[indices.Count - 1]);
             }
 
-/*            foreach (int i in indices)
-            {
-                listViewLoadFiles.Items.RemoveAt(i);
-            }
-*/
+            /*            foreach (int i in indices)
+                        {
+                            listViewLoadFiles.Items.RemoveAt(i);
+                        }
+            */
 
             listViewLoadFiles.EndUpdate();
         }
@@ -155,12 +155,44 @@ namespace PeriodicTimetableGeneration
 
         private void buttonLoadFileNext_Click(object sender, EventArgs e)
         {
-            createTrainLinesFromFiles();
-            prepareListViewListOfLines();
-            tabControlTG.SelectTab(tabPageListOfLines);
+            try
+            {
+                createTrainLinesFromFiles();
+                prepareListViewListOfLines();
+                tabControlTG.SelectTab(tabPageListOfLines);
+            }
+            catch (IOException ioException)
+            {
+                ErrorMessageBoxUtil.ShowError(ioException);
+            }
+            catch (ArgumentException)
+            {
+                ErrorMessageBoxUtil.ShowError("Invalid format of input data.");
+            }
+            catch (FormatException)
+            {
+                ErrorMessageBoxUtil.ShowError("Invalid format of input data.");
+            }
+            catch (Exception)
+            {
+                ErrorMessageBoxUtil.ShowError("Could not load data from input files.");
+            }
         }
 
         #endregion
+
+        private void buttonNextStarted()
+        {
+            this.labelWait.Visible = true;
+            this.tabControlTG.Enabled = false;
+            this.Update();
+        }
+
+        private void buttonNextEnded()
+        {
+            this.labelWait.Visible = false;
+            this.tabControlTG.Enabled = true;
+        }
 
 
         #region List of Lines TabPage
@@ -196,9 +228,18 @@ namespace PeriodicTimetableGeneration
 
         private void buttonListOfLinesNext_Click(object sender, EventArgs e)
         {
-            prepareListViewListOfStations();
+            try
+            {
+                prepareListViewListOfStations();
+                prepareComboBoxListOfLines(listViewListOfLines);
+            }
+            catch
+            {
+                ErrorMessageBoxUtil.ShowError("Could not prepare the list of stations.");
+                return;
+            }
+
             tabControlTG.SelectTab(tabPageListOfStations);
-            prepareComboBoxListOfLines(listViewListOfLines);
         }
 
         private void prepareComboBoxListOfLines(ListView listOfLines)
@@ -210,7 +251,7 @@ namespace PeriodicTimetableGeneration
             // addConstraint first option, which is all variableLines, resp. no line_ selected -> all station
             comboBoxSelectLine.Items.Add(COMBOBOX_ALLLINES);
             // for each Line in ListView ListOfLines
-            foreach (ListViewItem lvi in listViewListOfLines.Items) 
+            foreach (ListViewItem lvi in listViewListOfLines.Items)
             {
                 // addConstraint new number of line_ into comboBox.Items
                 comboBoxSelectLine.Items.Add(lvi.Text);
@@ -229,7 +270,7 @@ namespace PeriodicTimetableGeneration
             detailsLineOpen();
         }
 
-        private void detailsLineOpen() 
+        private void detailsLineOpen()
         {
             // if nothing selected 
             if (listViewListOfLines.SelectedItems.Count.Equals(0))
@@ -253,7 +294,7 @@ namespace PeriodicTimetableGeneration
                 int selectedIndex = listViewListOfLines.SelectedIndices[0];
 
                 DialogResult dr = formLineDetails.ShowDialog();
-                if (dr.Equals(DialogResult.OK)) 
+                if (dr.Equals(DialogResult.OK))
                 {
                     // update list view
                     prepareListViewListOfLines();
@@ -261,7 +302,7 @@ namespace PeriodicTimetableGeneration
                     FormUtil.listView_SelecdAndFocus(listViewListOfLines, selectedIndex);
                 }
             }
-        }             
+        }
 
         //--------------------------------------------
         // list of LINES
@@ -320,24 +361,24 @@ namespace PeriodicTimetableGeneration
             updateConnectedLinesFromFile(openFileDialogUpdateConnectedLines.FileName);
         }
 
-        private void updateConnectedLinesFromFile(String fileName) 
+        private void updateConnectedLinesFromFile(String fileName)
         {
             IOUtil.updateConnectedLines(fileName);
         }
 
 
-        #endregion        
+        #endregion
 
 
         #region List of Station TabPage
-        
+
         //--------------------------------------------
         // button DETAILS station
         //--------------------------------------------
 
         private void buttonDetailsStation_Click(object sender, EventArgs e)
         {
-            detailsStationOpen();            
+            detailsStationOpen();
         }
 
         private void detailsStationOpen()
@@ -361,7 +402,7 @@ namespace PeriodicTimetableGeneration
                 );
 
                 // before calling subform - remember listView focus                
-                int selectedIndex = listViewListOfStations.SelectedIndices[0];                
+                int selectedIndex = listViewListOfStations.SelectedIndices[0];
 
                 DialogResult dr = formDetailsOfStation.ShowDialog();
                 // if the subform closed by OK something may changed
@@ -456,7 +497,7 @@ namespace PeriodicTimetableGeneration
             comboBoxSelectLineChanged();
         }
 
-        private void comboBoxSelectLineChanged() 
+        private void comboBoxSelectLineChanged()
         {
             // if something selected
             if (comboBoxSelectLine.SelectedIndex != -1)
@@ -470,7 +511,7 @@ namespace PeriodicTimetableGeneration
                 // otherwise choose only station according
                 else
                 {
-                    prepareListViewListOfStations(Convert.ToInt32( comboBoxSelectLine.SelectedItem));
+                    prepareListViewListOfStations(Convert.ToInt32(comboBoxSelectLine.SelectedItem));
                 }
 
             }
@@ -482,16 +523,49 @@ namespace PeriodicTimetableGeneration
 
         private void buttonListOfStationNext_Click(object sender, EventArgs e)
         {
-            // activate algorithm
-            ShortestPathAlgoritm shortestPathAlgorithm = ShortestPathAlgoritm.getInstance();
-            shortestPathAlgorithm.calculateShortestPath();
-            shortestPathAlgorithm.generateAllTrainConnections();
-            // prepare list view
-            prepareListViewListOfConnections();
+            buttonNextStarted();
+            ShortestPathAlgoritm shortestPathAlgorithm;
+            try
+            {
+                // activate algorithm
+                shortestPathAlgorithm = ShortestPathAlgoritm.getInstance();
+                shortestPathAlgorithm.calculateShortestPath();
+            }
+            catch
+            {
+                ErrorMessageBoxUtil.ShowError("Error in the shortest path algorithm processing.");
+                buttonNextEnded();
+                return;
+            }
+
+            try
+            {
+                shortestPathAlgorithm.generateAllTrainConnections();
+            }
+            catch
+            {
+                ErrorMessageBoxUtil.ShowError("Could not generate the list of connections.");
+                buttonNextEnded();
+                return;
+            }
+
+            try
+            {
+                // prepare list view
+                prepareListViewListOfConnections();
+            }
+            catch
+            {
+                ErrorMessageBoxUtil.ShowError("Could not prepare the list of connections.");
+                buttonNextEnded();
+                return;
+            }
+
             // open particular tab
             tabControlTG.SelectTab(tabPageListOfConncetions);
+            buttonNextEnded();
         }
-      
+
         //--------------------------------------------
         // button UPDATE_CATEGORIES
         //--------------------------------------------
@@ -545,10 +619,10 @@ namespace PeriodicTimetableGeneration
 
                 // before calling subform - remember listView focus
                 int selectedIndex = listViewListOfConnections.SelectedIndices[0];
-                
-                
+
+
                 DialogResult dr = formDetailsOfConnection.ShowDialog();
-                if (dr.Equals(DialogResult.OK)) 
+                if (dr.Equals(DialogResult.OK))
                 {
                     // update list view
                     prepareListViewListOfConnections();
@@ -608,7 +682,19 @@ namespace PeriodicTimetableGeneration
 
         private void buttonListOfConncetionsNext_Click(object sender, EventArgs e)
         {
-            prepareListViewListOfGroupsOfConnections();
+            buttonNextStarted();
+            try
+            {
+                prepareListViewListOfGroupsOfConnections();
+            }
+            catch
+            {
+                ErrorMessageBoxUtil.ShowError("Error in groupping connections process.");
+                buttonNextEnded();
+                return;
+            }
+
+            buttonNextEnded();
             tabControlTG.SelectTab(tabPageListOfPaths);
         }
 
@@ -621,7 +707,7 @@ namespace PeriodicTimetableGeneration
             editPathConnectionOpen();
         }
 
-        private void editPathConnectionOpen() 
+        private void editPathConnectionOpen()
         {
             // if nothing selected
             if (listViewListOfConnections.SelectedItems.Count.Equals(0))
@@ -629,7 +715,7 @@ namespace PeriodicTimetableGeneration
                 MessageBox.Show("Please, select the connection", "No connection selected");
             }
             // if selected
-            else 
+            else
             {
                 TrainConnection connection = ShortestPathAlgoritm.getInstance().getTrainConnectionOnFromTo(
                 listViewListOfConnections.SelectedItems[0].Text,
@@ -680,7 +766,7 @@ namespace PeriodicTimetableGeneration
             FinalInput.getInstance().createGroupsOfConnection();
 
             // loop over all groups
-            foreach (GroupOfConnections group in FinalInput.getInstance().getGroupsOfConnections()) 
+            foreach (GroupOfConnections group in FinalInput.getInstance().getGroupsOfConnections())
             {
                 ListViewItem lvi = new ListViewItem();
                 lvi.Text = group.LinesOfConnectionString;
@@ -697,9 +783,20 @@ namespace PeriodicTimetableGeneration
 
         private void buttonListOfGroupsOfConnectionsNext_Click(object sender, EventArgs e)
         {
-            FinalInput.getInstance().createTransfers();
-            prepareListViewListOfTransfers();
+            buttonNextStarted();
+            try
+            {
+                FinalInput.getInstance().createTransfers();
+                prepareListViewListOfTransfers();
+            }
+            catch
+            {
+                ErrorMessageBoxUtil.ShowError("Could not extract transfers from the given list of connections.");
+                buttonNextEnded();
+                return;
+            }
 
+            buttonNextEnded();
             tabControlTG.SelectTab(tabPageListOfTransfers);
         }
 
@@ -806,7 +903,7 @@ namespace PeriodicTimetableGeneration
         private void listViewListOfTransfers_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             FormUtil.listView_ColumnClick_Sorting(sender, e, this.listViewListOfTransfers);
-        }   
+        }
 
 
         #endregion
