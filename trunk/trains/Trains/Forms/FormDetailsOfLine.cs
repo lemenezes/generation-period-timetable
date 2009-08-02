@@ -17,6 +17,8 @@ namespace PeriodicTimetableGeneration
         ListViewItem lviTrainStop;
         private const String CHANGED = "changed";
 
+        private List<TrainLine> connectedLinesLocal;
+
         public FormDetailsOfLine()
         {
             InitializeComponent();
@@ -26,13 +28,13 @@ namespace PeriodicTimetableGeneration
         {
             InitializeComponent();
             trainLine = line;
+            connectedLinesLocal = new List<TrainLine>(line.getConnectedLines());
             //comboBoxDirection.DataSource = Enum.GetNames(typeof(Direction));
             comboBoxDirection.DataSource = Enum.GetValues(typeof(Direction));
             comboBoxDirection.DisplayMember = "Display";
             //comboBoxDirection.Valueember = "Value";
             comboBoxPeriod.DataSource = Enum.GetValues(typeof(Period));
             comboBoxTypeOfTrain.DataSource = Enum.GetValues(typeof(TypeOfTrain));
-            
         }
 
         private void FormDetailsOfLine_Load(object sender, EventArgs e)
@@ -233,45 +235,28 @@ namespace PeriodicTimetableGeneration
 
         private void saveConnectedLinesInformation()
         {
-            List<TrainLine> connectedLines = trainLine.getConnectedLines();
-
-            // ADD NEW CONNECTED LINES
-            // loop over all items of list of connectedLines
-            foreach (ListViewItem lvi in listViewListOfConnectedLines.Items) 
+            // We should remove the connections from the disconnected lines.
+            foreach (TrainLine deletedLine in trainLine.getConnectedLines())
             {
-                // retreive line_ number
-                int lineNmuber = Convert.ToInt32(lvi.Text);
+                // If it is still present it has not been deleted.
+                if (connectedLinesLocal.Contains(deletedLine))
+                {
+                    continue;
+                }
 
-                // if line_ exist do nothing 
-                if (TrainLineCache.doesLineExist(lineNmuber, connectedLines))
-                {
-                }
-                    // if line_ doesn't exist in list of connected variableLines
-                else 
-                {
-                    // retreive train line_ off train line_ cache
-                    TrainLine line = TrainLineCache.getInstance()
-                        .getCacheContentOnNumber(lineNmuber);
-                    // and addConstraint
-                    connectedLines.Add(line);
-                }
+                // The deleted connection should not be maintained.
+                deletedLine.getConnectedLines().Remove(trainLine);
             }
-            // REMOVE OLD CONNECTED LINES
-            // loop over all items in list of connectedLines
-            for (int i = connectedLines.Count - 1; i >= 0; i-- )
-            {
-                TrainLine line = connectedLines[i];
 
-                // if line_ of connectedLine also exist in listView
-                if (isAlreadyInListView(line.LineNumber.ToString(), listViewListOfConnectedLines.Items))
+            trainLine.setConnectedLines(connectedLinesLocal);
+
+            // We should check the connections in the connected lines.
+            foreach (TrainLine connectedLine in connectedLinesLocal)
+            {
+                // Every connected line should have the modified line in its own list.
+                if (!connectedLine.getConnectedLines().Contains(trainLine))
                 {
-                    // do nothing, it is actual
-                }
-                // if line_ of connectedLines is not in listView
-                else
-                {
-                    // it is out-of-date, remove it
-                    connectedLines.RemoveAt(i);
+                    connectedLine.addConnectedLine(trainLine);
                 }
             }
         }
@@ -319,6 +304,13 @@ namespace PeriodicTimetableGeneration
                 // while is still there any indeces
                 while (indices.Count != 0)
                 {
+                    // Fetch the line number that will be deleted from the list of connected lines
+                    int removedLineNo = Convert.ToInt32(listViewListOfConnectedLines.Items[indices[indices.Count - 1]].Tag);
+                    connectedLinesLocal.RemoveAll(delegate (TrainLine line) {
+                        // Remove all lines with the removed line no
+                        return line.LineNumber == removedLineNo;
+                    });
+
                     // remove item at index which is last in selected indeces array
                     listViewListOfConnectedLines.Items.RemoveAt(indices[indices.Count - 1]);
                 }
@@ -355,6 +347,9 @@ namespace PeriodicTimetableGeneration
                     {
                         ListViewItem lviClone = (ListViewItem)lvi.Clone();
                         listViewListOfConnectedLines.Items.Add(lviClone);
+
+                        // The line that is already in the list can not be selected, so we can not store the same line twice.
+                        connectedLinesLocal.Add(TrainLineCache.getInstance().getCacheContentOnNumber(Convert.ToInt32(lviClone.Tag)));
                     }
                 }
                 listViewListOfConnectedLines.EndUpdate();

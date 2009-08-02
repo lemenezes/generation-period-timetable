@@ -33,8 +33,6 @@
             this.tabPageGenerating = new System.Windows.Forms.TabPage();
             this.splitContainerTimetables = new System.Windows.Forms.SplitContainer();
             this.listViewGeneratingTimetables = new System.Windows.Forms.ListView();
-            this.columnHeaderGenerationTime = new ColHeader();
-            this.columnHeaderNote = new ColHeader();
             this.imageListBig = new System.Windows.Forms.ImageList(this.components);
             this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
             this.groupBoxNumberOfTimetables = new System.Windows.Forms.GroupBox();
@@ -90,6 +88,8 @@
             this.columnHeaderAttempt = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderProgressiveChanges = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderRatingValue = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderGenerationTime = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderNote = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderLineNumber = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderArrival = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderDeparture = new PeriodicTimetableGeneration.ColHeader();
@@ -123,10 +123,11 @@
             this.tabControlGeneratingTimetables.Controls.Add(this.tabPageGenerating);
             this.tabControlGeneratingTimetables.Controls.Add(this.tabPageLinesTimetables);
             this.tabControlGeneratingTimetables.Controls.Add(this.tabPageStationsTimetables);
-            this.tabControlGeneratingTimetables.Location = new System.Drawing.Point(12, 12);
+            this.tabControlGeneratingTimetables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlGeneratingTimetables.Location = new System.Drawing.Point(0, 0);
             this.tabControlGeneratingTimetables.Name = "tabControlGeneratingTimetables";
             this.tabControlGeneratingTimetables.SelectedIndex = 0;
-            this.tabControlGeneratingTimetables.Size = new System.Drawing.Size(960, 540);
+            this.tabControlGeneratingTimetables.Size = new System.Drawing.Size(984, 564);
             this.tabControlGeneratingTimetables.TabIndex = 0;
             // 
             // tabPageGenerating
@@ -135,7 +136,7 @@
             this.tabPageGenerating.Location = new System.Drawing.Point(4, 22);
             this.tabPageGenerating.Name = "tabPageGenerating";
             this.tabPageGenerating.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGenerating.Size = new System.Drawing.Size(952, 514);
+            this.tabPageGenerating.Size = new System.Drawing.Size(976, 538);
             this.tabPageGenerating.TabIndex = 0;
             this.tabPageGenerating.Text = "Generating Timetables";
             this.tabPageGenerating.UseVisualStyleBackColor = true;
@@ -143,6 +144,8 @@
             // splitContainerTimetables
             // 
             this.splitContainerTimetables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerTimetables.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerTimetables.IsSplitterFixed = true;
             this.splitContainerTimetables.Location = new System.Drawing.Point(3, 3);
             this.splitContainerTimetables.Name = "splitContainerTimetables";
             // 
@@ -157,8 +160,8 @@
             this.splitContainerTimetables.Panel2.Controls.Add(this.groupBoxProgress);
             this.splitContainerTimetables.Panel2.Controls.Add(this.groupBoxGeneration);
             this.splitContainerTimetables.Panel2.Controls.Add(this.buttonNextGeneratingTimtables);
-            this.splitContainerTimetables.Size = new System.Drawing.Size(946, 508);
-            this.splitContainerTimetables.SplitterDistance = 820;
+            this.splitContainerTimetables.Size = new System.Drawing.Size(970, 532);
+            this.splitContainerTimetables.SplitterDistance = 844;
             this.splitContainerTimetables.TabIndex = 0;
             // 
             // listViewGeneratingTimetables
@@ -175,23 +178,12 @@
             this.listViewGeneratingTimetables.LargeImageList = this.imageListBig;
             this.listViewGeneratingTimetables.Location = new System.Drawing.Point(0, 0);
             this.listViewGeneratingTimetables.Name = "listViewGeneratingTimetables";
-            this.listViewGeneratingTimetables.Size = new System.Drawing.Size(820, 508);
+            this.listViewGeneratingTimetables.Size = new System.Drawing.Size(844, 532);
             this.listViewGeneratingTimetables.SmallImageList = this.imageListSmall;
             this.listViewGeneratingTimetables.TabIndex = 0;
             this.listViewGeneratingTimetables.UseCompatibleStateImageBehavior = false;
             this.listViewGeneratingTimetables.View = System.Windows.Forms.View.Details;
             this.listViewGeneratingTimetables.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewGeneratingTimetables_ColumnClick);
-            // 
-            // columnHeaderGenerationTime
-            // 
-            this.columnHeaderGenerationTime.Text = "Generation Time";
-            this.columnHeaderGenerationTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderGenerationTime.Width = 100;
-            // 
-            // columnHeaderNote
-            // 
-            this.columnHeaderNote.Text = "Note";
-            this.columnHeaderNote.Width = 400;
             // 
             // imageListBig
             // 
@@ -295,8 +287,9 @@
             // 
             // buttonNextGeneratingTimtables
             // 
+            this.buttonNextGeneratingTimtables.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonNextGeneratingTimtables.Enabled = false;
-            this.buttonNextGeneratingTimtables.Location = new System.Drawing.Point(14, 475);
+            this.buttonNextGeneratingTimtables.Location = new System.Drawing.Point(14, 499);
             this.buttonNextGeneratingTimtables.Name = "buttonNextGeneratingTimtables";
             this.buttonNextGeneratingTimtables.Size = new System.Drawing.Size(100, 30);
             this.buttonNextGeneratingTimtables.TabIndex = 2;
@@ -310,7 +303,7 @@
             this.tabPageLinesTimetables.Location = new System.Drawing.Point(4, 22);
             this.tabPageLinesTimetables.Name = "tabPageLinesTimetables";
             this.tabPageLinesTimetables.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLinesTimetables.Size = new System.Drawing.Size(952, 514);
+            this.tabPageLinesTimetables.Size = new System.Drawing.Size(976, 538);
             this.tabPageLinesTimetables.TabIndex = 1;
             this.tabPageLinesTimetables.Text = "Lines\' Timetables";
             this.tabPageLinesTimetables.UseVisualStyleBackColor = true;
@@ -318,6 +311,8 @@
             // splitContainerLinesTimetables
             // 
             this.splitContainerLinesTimetables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerLinesTimetables.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerLinesTimetables.IsSplitterFixed = true;
             this.splitContainerLinesTimetables.Location = new System.Drawing.Point(3, 3);
             this.splitContainerLinesTimetables.Name = "splitContainerLinesTimetables";
             // 
@@ -333,12 +328,14 @@
             this.splitContainerLinesTimetables.Panel2.Controls.Add(this.buttonNextLinesTimetables);
             this.splitContainerLinesTimetables.Panel2.Controls.Add(this.groupBoxSelectLine);
             this.splitContainerLinesTimetables.Panel2.Controls.Add(this.groupBoxSelectTimetableLT);
-            this.splitContainerLinesTimetables.Size = new System.Drawing.Size(946, 508);
-            this.splitContainerLinesTimetables.SplitterDistance = 820;
+            this.splitContainerLinesTimetables.Size = new System.Drawing.Size(970, 532);
+            this.splitContainerLinesTimetables.SplitterDistance = 844;
             this.splitContainerLinesTimetables.TabIndex = 0;
             // 
             // groupBoxLinesDetails
             // 
+            this.groupBoxLinesDetails.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxLinesDetails.Controls.Add(this.textBoxPeriod);
             this.groupBoxLinesDetails.Controls.Add(this.labelPeriod);
             this.groupBoxLinesDetails.Controls.Add(this.textBoxTypeOfTrain);
@@ -347,7 +344,7 @@
             this.groupBoxLinesDetails.Controls.Add(this.labelLineNumber);
             this.groupBoxLinesDetails.Location = new System.Drawing.Point(3, 3);
             this.groupBoxLinesDetails.Name = "groupBoxLinesDetails";
-            this.groupBoxLinesDetails.Size = new System.Drawing.Size(513, 50);
+            this.groupBoxLinesDetails.Size = new System.Drawing.Size(838, 47);
             this.groupBoxLinesDetails.TabIndex = 1;
             this.groupBoxLinesDetails.TabStop = false;
             this.groupBoxLinesDetails.Text = "Line\'s Details";
@@ -405,6 +402,9 @@
             // 
             // listViewLineTimetable
             // 
+            this.listViewLineTimetable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewLineTimetable.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderTrainStation,
             this.columnHeaderOrder,
@@ -417,9 +417,9 @@
             this.listViewLineTimetable.FullRowSelect = true;
             this.listViewLineTimetable.GridLines = true;
             this.listViewLineTimetable.LargeImageList = this.imageListBig;
-            this.listViewLineTimetable.Location = new System.Drawing.Point(0, 59);
+            this.listViewLineTimetable.Location = new System.Drawing.Point(3, 56);
             this.listViewLineTimetable.Name = "listViewLineTimetable";
-            this.listViewLineTimetable.Size = new System.Drawing.Size(820, 446);
+            this.listViewLineTimetable.Size = new System.Drawing.Size(838, 471);
             this.listViewLineTimetable.SmallImageList = this.imageListSmall;
             this.listViewLineTimetable.TabIndex = 0;
             this.listViewLineTimetable.UseCompatibleStateImageBehavior = false;
@@ -472,7 +472,8 @@
             // 
             // buttonNextLinesTimetables
             // 
-            this.buttonNextLinesTimetables.Location = new System.Drawing.Point(14, 475);
+            this.buttonNextLinesTimetables.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonNextLinesTimetables.Location = new System.Drawing.Point(14, 499);
             this.buttonNextLinesTimetables.Name = "buttonNextLinesTimetables";
             this.buttonNextLinesTimetables.Size = new System.Drawing.Size(100, 30);
             this.buttonNextLinesTimetables.TabIndex = 3;
@@ -525,7 +526,7 @@
             this.tabPageStationsTimetables.Location = new System.Drawing.Point(4, 22);
             this.tabPageStationsTimetables.Name = "tabPageStationsTimetables";
             this.tabPageStationsTimetables.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStationsTimetables.Size = new System.Drawing.Size(952, 514);
+            this.tabPageStationsTimetables.Size = new System.Drawing.Size(976, 538);
             this.tabPageStationsTimetables.TabIndex = 2;
             this.tabPageStationsTimetables.Text = "Stations\' Timetables";
             this.tabPageStationsTimetables.UseVisualStyleBackColor = true;
@@ -533,6 +534,8 @@
             // splitContainerStationTimetables
             // 
             this.splitContainerStationTimetables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerStationTimetables.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerStationTimetables.IsSplitterFixed = true;
             this.splitContainerStationTimetables.Location = new System.Drawing.Point(3, 3);
             this.splitContainerStationTimetables.Name = "splitContainerStationTimetables";
             // 
@@ -548,8 +551,8 @@
             this.splitContainerStationTimetables.Panel2.Controls.Add(this.groupBoxSelectedStation);
             this.splitContainerStationTimetables.Panel2.Controls.Add(this.groupBoxSelectTimetableST);
             this.splitContainerStationTimetables.Panel2.Controls.Add(this.buttonExitStationsTimetables);
-            this.splitContainerStationTimetables.Size = new System.Drawing.Size(946, 508);
-            this.splitContainerStationTimetables.SplitterDistance = 820;
+            this.splitContainerStationTimetables.Size = new System.Drawing.Size(970, 532);
+            this.splitContainerStationTimetables.SplitterDistance = 844;
             this.splitContainerStationTimetables.TabIndex = 0;
             // 
             // groupBoxStationsDetails
@@ -696,8 +699,9 @@
             // 
             // buttonExitStationsTimetables
             // 
+            this.buttonExitStationsTimetables.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExitStationsTimetables.DialogResult = System.Windows.Forms.DialogResult.Abort;
-            this.buttonExitStationsTimetables.Location = new System.Drawing.Point(11, 475);
+            this.buttonExitStationsTimetables.Location = new System.Drawing.Point(11, 499);
             this.buttonExitStationsTimetables.Name = "buttonExitStationsTimetables";
             this.buttonExitStationsTimetables.Size = new System.Drawing.Size(100, 30);
             this.buttonExitStationsTimetables.TabIndex = 4;
@@ -732,6 +736,17 @@
             this.columnHeaderRatingValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeaderRatingValue.Width = 120;
             // 
+            // columnHeaderGenerationTime
+            // 
+            this.columnHeaderGenerationTime.Text = "Generation Time";
+            this.columnHeaderGenerationTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderGenerationTime.Width = 100;
+            // 
+            // columnHeaderNote
+            // 
+            this.columnHeaderNote.Text = "Note";
+            this.columnHeaderNote.Width = 400;
+            // 
             // columnHeaderLineNumber
             // 
             this.columnHeaderLineNumber.SortType = PeriodicTimetableGeneration.SortType.Integer;
@@ -757,7 +772,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 564);
             this.Controls.Add(this.tabControlGeneratingTimetables);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormTimetables";
             this.Text = "Timetables";
             this.Load += new System.EventHandler(this.FormTimetables_Load);
@@ -854,7 +868,7 @@
         private ColHeader columnHeaderAttempt;
         private ColHeader columnHeaderProgressiveChanges;
         private ColHeader columnHeaderRatingValue;
-        private System.Windows.Forms.ColumnHeader columnHeaderNote;
-        private System.Windows.Forms.ColumnHeader columnHeaderGenerationTime;
+        private ColHeader columnHeaderNote;
+        private ColHeader columnHeaderGenerationTime;
     }
 }

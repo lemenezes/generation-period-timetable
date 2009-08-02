@@ -73,6 +73,7 @@
             this.openFileDialogTrainLines = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogUpdateTownCategories = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogUpdateConnectedLines = new System.Windows.Forms.OpenFileDialog();
+            this.labelWait = new System.Windows.Forms.Label();
             this.columnHeaderName = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderSize = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderNumber = new PeriodicTimetableGeneration.ColHeader();
@@ -135,6 +136,7 @@
             this.tabControlTG.Controls.Add(this.tabPageListOfConncetions);
             this.tabControlTG.Controls.Add(this.tabPageListOfPaths);
             this.tabControlTG.Controls.Add(this.tabPageListOfTransfers);
+            this.tabControlTG.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlTG.Location = new System.Drawing.Point(0, 0);
             this.tabControlTG.Name = "tabControlTG";
             this.tabControlTG.SelectedIndex = 0;
@@ -155,6 +157,9 @@
             // splitContainerLoadFiles
             // 
             this.splitContainerLoadFiles.BackColor = System.Drawing.Color.Transparent;
+            this.splitContainerLoadFiles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerLoadFiles.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerLoadFiles.IsSplitterFixed = true;
             this.splitContainerLoadFiles.Location = new System.Drawing.Point(3, 3);
             this.splitContainerLoadFiles.Name = "splitContainerLoadFiles";
             // 
@@ -210,6 +215,7 @@
             // 
             // buttonLoadFileNext
             // 
+            this.buttonLoadFileNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLoadFileNext.Location = new System.Drawing.Point(11, 497);
             this.buttonLoadFileNext.Name = "buttonLoadFileNext";
             this.buttonLoadFileNext.Size = new System.Drawing.Size(100, 30);
@@ -252,6 +258,8 @@
             // splitContainerListOfLines
             // 
             this.splitContainerListOfLines.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerListOfLines.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerListOfLines.IsSplitterFixed = true;
             this.splitContainerListOfLines.Location = new System.Drawing.Point(3, 3);
             this.splitContainerListOfLines.Name = "splitContainerListOfLines";
             // 
@@ -304,6 +312,7 @@
             // 
             // buttonListOfLinesNext
             // 
+            this.buttonListOfLinesNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonListOfLinesNext.Location = new System.Drawing.Point(11, 497);
             this.buttonListOfLinesNext.Name = "buttonListOfLinesNext";
             this.buttonListOfLinesNext.Size = new System.Drawing.Size(100, 30);
@@ -336,6 +345,8 @@
             // splitContainerListOfStations
             // 
             this.splitContainerListOfStations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerListOfStations.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerListOfStations.IsSplitterFixed = true;
             this.splitContainerListOfStations.Location = new System.Drawing.Point(3, 3);
             this.splitContainerListOfStations.Name = "splitContainerListOfStations";
             // 
@@ -414,6 +425,7 @@
             // 
             // buttonListOfStationNext
             // 
+            this.buttonListOfStationNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonListOfStationNext.Location = new System.Drawing.Point(11, 497);
             this.buttonListOfStationNext.Name = "buttonListOfStationNext";
             this.buttonListOfStationNext.Size = new System.Drawing.Size(100, 30);
@@ -446,6 +458,8 @@
             // splitContainerListOfConnections
             // 
             this.splitContainerListOfConnections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerListOfConnections.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerListOfConnections.IsSplitterFixed = true;
             this.splitContainerListOfConnections.Location = new System.Drawing.Point(3, 3);
             this.splitContainerListOfConnections.Name = "splitContainerListOfConnections";
             // 
@@ -488,6 +502,7 @@
             // 
             // buttonListOfConncetionsNext
             // 
+            this.buttonListOfConncetionsNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonListOfConncetionsNext.Location = new System.Drawing.Point(11, 497);
             this.buttonListOfConncetionsNext.Name = "buttonListOfConncetionsNext";
             this.buttonListOfConncetionsNext.Size = new System.Drawing.Size(100, 30);
@@ -530,6 +545,8 @@
             // splitContainerListOfPaths
             // 
             this.splitContainerListOfPaths.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerListOfPaths.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerListOfPaths.IsSplitterFixed = true;
             this.splitContainerListOfPaths.Location = new System.Drawing.Point(3, 3);
             this.splitContainerListOfPaths.Name = "splitContainerListOfPaths";
             // 
@@ -567,6 +584,7 @@
             // 
             // buttonListOfGroupsOfConnectionsNext
             // 
+            this.buttonListOfGroupsOfConnectionsNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonListOfGroupsOfConnectionsNext.Location = new System.Drawing.Point(11, 497);
             this.buttonListOfGroupsOfConnectionsNext.Name = "buttonListOfGroupsOfConnectionsNext";
             this.buttonListOfGroupsOfConnectionsNext.Size = new System.Drawing.Size(100, 30);
@@ -588,6 +606,8 @@
             // splitContainerListOfTransfers
             // 
             this.splitContainerListOfTransfers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerListOfTransfers.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerListOfTransfers.IsSplitterFixed = true;
             this.splitContainerListOfTransfers.Location = new System.Drawing.Point(0, 0);
             this.splitContainerListOfTransfers.Name = "splitContainerListOfTransfers";
             // 
@@ -623,9 +643,10 @@
             // 
             // groupBoxGenerationAlgorithm
             // 
+            this.groupBoxGenerationAlgorithm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxGenerationAlgorithm.Controls.Add(this.buttonGenerationAlgorithmRandomized);
             this.groupBoxGenerationAlgorithm.Controls.Add(this.buttonGenerationAlgorithmDSA);
-            this.groupBoxGenerationAlgorithm.Location = new System.Drawing.Point(3, 405);
+            this.groupBoxGenerationAlgorithm.Location = new System.Drawing.Point(6, 405);
             this.groupBoxGenerationAlgorithm.Name = "groupBoxGenerationAlgorithm";
             this.groupBoxGenerationAlgorithm.Size = new System.Drawing.Size(113, 125);
             this.groupBoxGenerationAlgorithm.TabIndex = 8;
@@ -670,6 +691,20 @@
             this.openFileDialogUpdateConnectedLines.FileName = "openFileDialogUpdateConnecterdLines";
             this.openFileDialogUpdateConnectedLines.Filter = "Text files|*.txt|All filles|*.*";
             this.openFileDialogUpdateConnectedLines.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogUpdateConnectedLines_FileOk);
+            // 
+            // labelWait
+            // 
+            this.labelWait.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelWait.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelWait.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelWait.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelWait.Location = new System.Drawing.Point(400, 225);
+            this.labelWait.Name = "labelWait";
+            this.labelWait.Size = new System.Drawing.Size(184, 114);
+            this.labelWait.TabIndex = 2;
+            this.labelWait.Text = "Please wait,\r\nprocessing data...";
+            this.labelWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelWait.Visible = false;
             // 
             // columnHeaderName
             // 
@@ -819,8 +854,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 564);
+            this.Controls.Add(this.labelWait);
             this.Controls.Add(this.tabControlTG);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormMain";
             this.Text = "Generating Timetables :: Preparation of Input";
             this.tabControlTG.ResumeLayout(false);
@@ -925,6 +960,7 @@
         private System.Windows.Forms.Button buttonListOfGroupsOfConnectionsNext;
         private ColHeader columnHeaderName;
         private ColHeader columnHeaderSize;
+        private System.Windows.Forms.Label labelWait;
         
 /*      
         private ColHeader columnHeaderIdStation;

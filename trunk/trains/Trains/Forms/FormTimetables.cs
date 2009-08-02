@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Collections;
 using PeriodicTimetableGeneration.Util;
 using PeriodicTimetableGeneration.Interfaces;
+using PeriodicTimetableGeneration.Exceptions;
 
 namespace PeriodicTimetableGeneration.Forms
 {
@@ -120,6 +121,16 @@ namespace PeriodicTimetableGeneration.Forms
             }
 
             listViewGeneratingTimetables.EndUpdate();
+
+            if (CurrentGenerationAlgorithm.Timetables.Count == 0)
+            {
+                MessageBox.Show(
+                    "None of the algorithms returned a feasible solution. The constraints are too strict.", 
+                    "No results found.", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information
+                );
+            }
         }
 
         //--------------------------------------------------
@@ -139,7 +150,14 @@ namespace PeriodicTimetableGeneration.Forms
 
             // start asynchronous operation            
 
-            this.backgroundWorkerTG.RunWorkerAsync(CurrentGenerationAlgorithm);
+            try
+            {
+                this.backgroundWorkerTG.RunWorkerAsync(CurrentGenerationAlgorithm);
+            }
+            catch
+            {
+                ErrorMessageBoxUtil.ShowError("Unexpected algorithm error.");
+            }
         }
 
         //--------------------------------------------------
@@ -556,6 +574,19 @@ namespace PeriodicTimetableGeneration.Forms
             // First, handle the case where an exception was thrown.
             if (e.Error != null)
             {
+                if (e.Error is PropagationException)
+                {
+                    ErrorMessageBoxUtil.ShowError(e.Error);
+                }
+                else if (e.Error is SearchException)
+                {
+                    ErrorMessageBoxUtil.ShowError(e.Error);
+                }
+                else
+                {
+                    ErrorMessageBoxUtil.ShowError("Unexpected algorithm error.");
+                }
+
                 MessageBox.Show(e.Error.Message);
             }
             else
