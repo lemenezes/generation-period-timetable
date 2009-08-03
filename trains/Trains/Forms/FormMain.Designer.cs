@@ -457,7 +457,7 @@
             // 
             // buttonUpdateCategories
             // 
-            this.buttonUpdateCategories.Location = new System.Drawing.Point(8, 107);
+            this.buttonUpdateCategories.Location = new System.Drawing.Point(7, 120);
             this.buttonUpdateCategories.Name = "buttonUpdateCategories";
             this.buttonUpdateCategories.Size = new System.Drawing.Size(103, 30);
             this.buttonUpdateCategories.TabIndex = 6;
@@ -468,19 +468,20 @@
             // groupBoxSelectLine
             // 
             this.groupBoxSelectLine.Controls.Add(this.comboBoxSelectLine);
-            this.groupBoxSelectLine.Location = new System.Drawing.Point(11, 24);
+            this.groupBoxSelectLine.Location = new System.Drawing.Point(2, 27);
             this.groupBoxSelectLine.Name = "groupBoxSelectLine";
-            this.groupBoxSelectLine.Size = new System.Drawing.Size(100, 41);
+            this.groupBoxSelectLine.Size = new System.Drawing.Size(113, 51);
             this.groupBoxSelectLine.TabIndex = 5;
             this.groupBoxSelectLine.TabStop = false;
             this.groupBoxSelectLine.Text = "Select Line";
             // 
             // comboBoxSelectLine
             // 
+            this.comboBoxSelectLine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectLine.FormattingEnabled = true;
-            this.comboBoxSelectLine.Location = new System.Drawing.Point(0, 14);
+            this.comboBoxSelectLine.Location = new System.Drawing.Point(5, 19);
             this.comboBoxSelectLine.Name = "comboBoxSelectLine";
-            this.comboBoxSelectLine.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxSelectLine.Size = new System.Drawing.Size(103, 21);
             this.comboBoxSelectLine.Sorted = true;
             this.comboBoxSelectLine.TabIndex = 4;
             this.comboBoxSelectLine.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectLine_SelectedIndexChanged);
@@ -498,7 +499,7 @@
             // 
             // buttonDetailsStation
             // 
-            this.buttonDetailsStation.Location = new System.Drawing.Point(8, 71);
+            this.buttonDetailsStation.Location = new System.Drawing.Point(7, 84);
             this.buttonDetailsStation.Name = "buttonDetailsStation";
             this.buttonDetailsStation.Size = new System.Drawing.Size(103, 30);
             this.buttonDetailsStation.TabIndex = 2;
