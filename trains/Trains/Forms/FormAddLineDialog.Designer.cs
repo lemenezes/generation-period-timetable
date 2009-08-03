@@ -45,6 +45,7 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(472, 422);
             this.buttonCancel.Name = "buttonCancel";
@@ -56,6 +57,7 @@
             // 
             // buttonAdd
             // 
+            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonAdd.Location = new System.Drawing.Point(366, 422);
             this.buttonAdd.Name = "buttonAdd";
@@ -67,6 +69,9 @@
             // 
             // groupBoxTrainLines
             // 
+            this.groupBoxTrainLines.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxTrainLines.Controls.Add(this.listViewListOfTrainLines);
             this.groupBoxTrainLines.Location = new System.Drawing.Point(12, 12);
             this.groupBoxTrainLines.Name = "groupBoxTrainLines";
@@ -83,12 +88,13 @@
             this.columnHeaderPeriod,
             this.columnHeaderFrom,
             this.columnHeaderTo});
+            this.listViewListOfTrainLines.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewListOfTrainLines.FullRowSelect = true;
             this.listViewListOfTrainLines.GridLines = true;
             this.listViewListOfTrainLines.LargeImageList = this.imageListBig;
-            this.listViewListOfTrainLines.Location = new System.Drawing.Point(6, 19);
+            this.listViewListOfTrainLines.Location = new System.Drawing.Point(3, 16);
             this.listViewListOfTrainLines.Name = "listViewListOfTrainLines";
-            this.listViewListOfTrainLines.Size = new System.Drawing.Size(548, 379);
+            this.listViewListOfTrainLines.Size = new System.Drawing.Size(554, 385);
             this.listViewListOfTrainLines.SmallImageList = this.imageListSmall;
             this.listViewListOfTrainLines.TabIndex = 0;
             this.listViewListOfTrainLines.UseCompatibleStateImageBehavior = false;
@@ -141,7 +147,6 @@
             this.Controls.Add(this.groupBoxTrainLines);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonCancel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormAddLinesDialog";
             this.Text = "Add Lines";
             this.Shown += new System.EventHandler(this.FormAddLineDialog_Shown);

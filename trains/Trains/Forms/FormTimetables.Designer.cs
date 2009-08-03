@@ -183,6 +183,7 @@
             this.listViewGeneratingTimetables.TabIndex = 0;
             this.listViewGeneratingTimetables.UseCompatibleStateImageBehavior = false;
             this.listViewGeneratingTimetables.View = System.Windows.Forms.View.Details;
+            this.listViewGeneratingTimetables.SelectedIndexChanged += new System.EventHandler(this.listViewGeneratingTimetables_SelectedIndexChanged);
             this.listViewGeneratingTimetables.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewGeneratingTimetables_ColumnClick);
             // 
             // imageListBig
@@ -738,9 +739,9 @@
             // 
             // columnHeaderGenerationTime
             // 
-            this.columnHeaderGenerationTime.Text = "Generation Time";
+            this.columnHeaderGenerationTime.Text = "Generation Time [ms]";
             this.columnHeaderGenerationTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderGenerationTime.Width = 100;
+            this.columnHeaderGenerationTime.Width = 120;
             // 
             // columnHeaderNote
             // 
@@ -773,7 +774,7 @@
             this.ClientSize = new System.Drawing.Size(984, 564);
             this.Controls.Add(this.tabControlGeneratingTimetables);
             this.Name = "FormTimetables";
-            this.Text = "Timetables";
+            this.Text = "PTG :: Timetables";
             this.Load += new System.EventHandler(this.FormTimetables_Load);
             this.tabControlGeneratingTimetables.ResumeLayout(false);
             this.tabPageGenerating.ResumeLayout(false);

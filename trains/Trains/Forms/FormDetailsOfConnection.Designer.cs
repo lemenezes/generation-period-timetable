@@ -57,6 +57,7 @@
             // 
             // buttonBack
             // 
+            this.buttonBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonBack.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonBack.Location = new System.Drawing.Point(12, 422);
             this.buttonBack.Name = "buttonBack";
@@ -68,6 +69,7 @@
             // 
             // buttonSave
             // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonSave.Location = new System.Drawing.Point(872, 422);
             this.buttonSave.Name = "buttonSave";
@@ -183,6 +185,9 @@
             // 
             // groupBoxPathStages
             // 
+            this.groupBoxPathStages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxPathStages.Controls.Add(this.listViewConnectionStages);
             this.groupBoxPathStages.Location = new System.Drawing.Point(342, 12);
             this.groupBoxPathStages.Name = "groupBoxPathStages";
@@ -199,12 +204,13 @@
             this.columnHeaderLineNumber,
             this.columnHeaderTime,
             this.columnHeaderDistance});
+            this.listViewConnectionStages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewConnectionStages.FullRowSelect = true;
             this.listViewConnectionStages.GridLines = true;
             this.listViewConnectionStages.LargeImageList = this.imageListBig;
-            this.listViewConnectionStages.Location = new System.Drawing.Point(6, 19);
+            this.listViewConnectionStages.Location = new System.Drawing.Point(3, 16);
             this.listViewConnectionStages.Name = "listViewConnectionStages";
-            this.listViewConnectionStages.Size = new System.Drawing.Size(618, 379);
+            this.listViewConnectionStages.Size = new System.Drawing.Size(624, 385);
             this.listViewConnectionStages.SmallImageList = this.imageListSmall;
             this.listViewConnectionStages.TabIndex = 0;
             this.listViewConnectionStages.UseCompatibleStateImageBehavior = false;
@@ -258,7 +264,6 @@
             this.Controls.Add(this.groupBoxConnectionInformation);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonBack);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormDetailsOfConnection";
             this.Text = "Details of Connection";
             this.Shown += new System.EventHandler(this.FormDetailsOfConnection_Shown);

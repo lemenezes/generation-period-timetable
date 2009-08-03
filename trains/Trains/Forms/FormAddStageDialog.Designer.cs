@@ -42,6 +42,7 @@
             // 
             // buttonAdd
             // 
+            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonAdd.Location = new System.Drawing.Point(366, 422);
             this.buttonAdd.Name = "buttonAdd";
@@ -53,6 +54,7 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(472, 422);
             this.buttonCancel.Name = "buttonCancel";
@@ -64,6 +66,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.listViewListOfAvailableStages);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
@@ -80,12 +85,13 @@
             this.columnHeaderLineNumber,
             this.columnHeaderTime,
             this.columnHeaderDistance});
+            this.listViewListOfAvailableStages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewListOfAvailableStages.FullRowSelect = true;
             this.listViewListOfAvailableStages.GridLines = true;
-            this.listViewListOfAvailableStages.Location = new System.Drawing.Point(6, 19);
+            this.listViewListOfAvailableStages.Location = new System.Drawing.Point(3, 16);
             this.listViewListOfAvailableStages.MultiSelect = false;
             this.listViewListOfAvailableStages.Name = "listViewListOfAvailableStages";
-            this.listViewListOfAvailableStages.Size = new System.Drawing.Size(548, 379);
+            this.listViewListOfAvailableStages.Size = new System.Drawing.Size(554, 385);
             this.listViewListOfAvailableStages.TabIndex = 0;
             this.listViewListOfAvailableStages.UseCompatibleStateImageBehavior = false;
             this.listViewListOfAvailableStages.View = System.Windows.Forms.View.Details;
@@ -129,7 +135,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAdd);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormAddStageDialog";
             this.Text = "Add Stage";
             this.Shown += new System.EventHandler(this.FormAddStageDialog_Shown);

@@ -181,18 +181,7 @@ namespace PeriodicTimetableGeneration
 
         #endregion
 
-        private void buttonNextStarted()
-        {
-            this.labelWait.Visible = true;
-            this.tabControlTG.Enabled = false;
-            this.Update();
-        }
 
-        private void buttonNextEnded()
-        {
-            this.labelWait.Visible = false;
-            this.tabControlTG.Enabled = true;
-        }
 
 
         #region List of Lines TabPage
@@ -560,6 +549,32 @@ namespace PeriodicTimetableGeneration
                 buttonNextEnded();
                 return;
             }
+             
+            // TODO: added coz one place of processing data
+            try
+            {
+                prepareListViewListOfGroupsOfConnections();
+            }
+            catch
+            {
+                ErrorMessageBoxUtil.ShowError("Error in groupping connections process.");
+                buttonNextEnded();
+                return;
+            }
+
+            // TODO: added coz one place of processing data
+            try
+            {
+                FinalInput.getInstance().createTransfers();
+                prepareListViewListOfTransfers();
+            }
+            catch
+            {
+                ErrorMessageBoxUtil.ShowError("Could not extract transfers from the given list of connections.");
+                buttonNextEnded();
+                return;
+            }
+
 
             // open particular tab
             tabControlTG.SelectTab(tabPageListOfConncetions);
@@ -683,6 +698,7 @@ namespace PeriodicTimetableGeneration
         private void buttonListOfConncetionsNext_Click(object sender, EventArgs e)
         {
             buttonNextStarted();
+            //TODO: check the generation
             try
             {
                 prepareListViewListOfGroupsOfConnections();
@@ -693,9 +709,9 @@ namespace PeriodicTimetableGeneration
                 buttonNextEnded();
                 return;
             }
-
             buttonNextEnded();
-            tabControlTG.SelectTab(tabPageListOfPaths);
+
+            tabControlTG.SelectTab(tabPageListOfRoutes);
         }
 
         //--------------------------------------------
@@ -784,6 +800,7 @@ namespace PeriodicTimetableGeneration
         private void buttonListOfGroupsOfConnectionsNext_Click(object sender, EventArgs e)
         {
             buttonNextStarted();
+            //TODO: check generation
             try
             {
                 FinalInput.getInstance().createTransfers();
@@ -908,7 +925,22 @@ namespace PeriodicTimetableGeneration
 
         #endregion
 
+        #region Private Methods
 
+        private void buttonNextStarted()
+        {
+            this.labelWait.Visible = true;
+            this.tabControlTG.Enabled = false;
+            this.Update();
+        }
+
+        private void buttonNextEnded()
+        {
+            this.labelWait.Visible = false;
+            this.tabControlTG.Enabled = true;
+        }
+
+        #endregion
 
 
 
