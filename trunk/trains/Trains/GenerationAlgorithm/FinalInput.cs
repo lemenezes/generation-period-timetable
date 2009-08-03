@@ -80,7 +80,7 @@ namespace PeriodicTimetableGeneration
 
 
         /// <summary>
-        /// Creates the groups of connection.
+        /// Creates the groups of connection. Forgets previous groups of connections.
         /// </summary>
         public void createGroupsOfConnection()
         {
@@ -124,7 +124,7 @@ namespace PeriodicTimetableGeneration
 
 
         /// <summary>
-        /// Creates the transfers.
+        /// Creates the transfers. Forgets the previous transfers.
         /// </summary>
         public void createTransfers()
         {

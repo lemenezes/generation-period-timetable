@@ -153,13 +153,21 @@ namespace PeriodicTimetableGeneration
         // button NEXT load file
         //--------------------------------------------
 
+        private void selectTab(TabPage tab)
+        {
+            position = tabControlTG.TabPages.IndexOf(tab);
+            tabControlTG.SelectTab(tab);
+        }
+
+        private int position = 0;
+
         private void buttonLoadFileNext_Click(object sender, EventArgs e)
         {
             try
             {
                 createTrainLinesFromFiles();
                 prepareListViewListOfLines();
-                tabControlTG.SelectTab(tabPageListOfLines);
+                selectTab(tabPageListOfLines);
             }
             catch (IOException ioException)
             {
@@ -228,7 +236,7 @@ namespace PeriodicTimetableGeneration
                 return;
             }
 
-            tabControlTG.SelectTab(tabPageListOfStations);
+            selectTab(tabPageListOfStations);
         }
 
         private void prepareComboBoxListOfLines(ListView listOfLines)
@@ -577,7 +585,7 @@ namespace PeriodicTimetableGeneration
 
 
             // open particular tab
-            tabControlTG.SelectTab(tabPageListOfConncetions);
+            selectTab(tabPageListOfConncetions);
             buttonNextEnded();
         }
 
@@ -711,7 +719,7 @@ namespace PeriodicTimetableGeneration
             }
             buttonNextEnded();
 
-            tabControlTG.SelectTab(tabPageListOfRoutes);
+            selectTab(tabPageListOfRoutes);
         }
 
         //--------------------------------------------
@@ -814,7 +822,7 @@ namespace PeriodicTimetableGeneration
             }
 
             buttonNextEnded();
-            tabControlTG.SelectTab(tabPageListOfTransfers);
+            selectTab(tabPageListOfTransfers);
         }
 
         #endregion
@@ -941,6 +949,15 @@ namespace PeriodicTimetableGeneration
         }
 
         #endregion
+
+        private void tabControlTG_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (e.TabPageIndex > position)
+            {
+                MessageBox.Show("Use the NEXT button to move forward.", "Could not proceed.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Cancel = true;
+            }
+        }
 
 
 

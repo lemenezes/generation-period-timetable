@@ -33,6 +33,11 @@
             this.tabPageGenerating = new System.Windows.Forms.TabPage();
             this.splitContainerTimetables = new System.Windows.Forms.SplitContainer();
             this.listViewGeneratingTimetables = new System.Windows.Forms.ListView();
+            this.columnHeaderAttempt = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderProgressiveChanges = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderRatingValue = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderGenerationTime = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderNote = new PeriodicTimetableGeneration.ColHeader();
             this.imageListBig = new System.Windows.Forms.ImageList(this.components);
             this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
             this.groupBoxNumberOfTimetables = new System.Windows.Forms.GroupBox();
@@ -79,20 +84,15 @@
             this.textBoxStationID = new System.Windows.Forms.TextBox();
             this.labelID = new System.Windows.Forms.Label();
             this.listViewStationTimetable = new System.Windows.Forms.ListView();
+            this.columnHeaderLineNumber = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderArrival = new PeriodicTimetableGeneration.ColHeader();
+            this.columnHeaderDeparture = new PeriodicTimetableGeneration.ColHeader();
             this.groupBoxSelectedStation = new System.Windows.Forms.GroupBox();
             this.comboBoxSelectedStation = new System.Windows.Forms.ComboBox();
             this.groupBoxSelectTimetableST = new System.Windows.Forms.GroupBox();
             this.comboBoxSelectedTimetableST = new System.Windows.Forms.ComboBox();
             this.buttonExitStationsTimetables = new System.Windows.Forms.Button();
             this.backgroundWorkerTG = new System.ComponentModel.BackgroundWorker();
-            this.columnHeaderAttempt = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderProgressiveChanges = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderRatingValue = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderGenerationTime = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderNote = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderLineNumber = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderArrival = new PeriodicTimetableGeneration.ColHeader();
-            this.columnHeaderDeparture = new PeriodicTimetableGeneration.ColHeader();
             this.tabControlGeneratingTimetables.SuspendLayout();
             this.tabPageGenerating.SuspendLayout();
             this.splitContainerTimetables.Panel1.SuspendLayout();
@@ -185,6 +185,36 @@
             this.listViewGeneratingTimetables.View = System.Windows.Forms.View.Details;
             this.listViewGeneratingTimetables.SelectedIndexChanged += new System.EventHandler(this.listViewGeneratingTimetables_SelectedIndexChanged);
             this.listViewGeneratingTimetables.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewGeneratingTimetables_ColumnClick);
+            // 
+            // columnHeaderAttempt
+            // 
+            this.columnHeaderAttempt.SortType = PeriodicTimetableGeneration.SortType.Integer;
+            this.columnHeaderAttempt.Text = "Attempt";
+            // 
+            // columnHeaderProgressiveChanges
+            // 
+            this.columnHeaderProgressiveChanges.SortType = PeriodicTimetableGeneration.SortType.Integer;
+            this.columnHeaderProgressiveChanges.Text = "Progressive Changes";
+            this.columnHeaderProgressiveChanges.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderProgressiveChanges.Width = 120;
+            // 
+            // columnHeaderRatingValue
+            // 
+            this.columnHeaderRatingValue.SortType = PeriodicTimetableGeneration.SortType.Integer;
+            this.columnHeaderRatingValue.Text = "Rating Value";
+            this.columnHeaderRatingValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderRatingValue.Width = 120;
+            // 
+            // columnHeaderGenerationTime
+            // 
+            this.columnHeaderGenerationTime.Text = "Generation Time [ms]";
+            this.columnHeaderGenerationTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderGenerationTime.Width = 120;
+            // 
+            // columnHeaderNote
+            // 
+            this.columnHeaderNote.Text = "Note";
+            this.columnHeaderNote.Width = 400;
             // 
             // imageListBig
             // 
@@ -494,6 +524,7 @@
             // 
             // comboBoxSelectedLine
             // 
+            this.comboBoxSelectedLine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectedLine.FormattingEnabled = true;
             this.comboBoxSelectedLine.Location = new System.Drawing.Point(6, 19);
             this.comboBoxSelectedLine.Name = "comboBoxSelectedLine";
@@ -514,6 +545,7 @@
             // 
             // comboBoxSelectedTimetableLT
             // 
+            this.comboBoxSelectedTimetableLT.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectedTimetableLT.FormattingEnabled = true;
             this.comboBoxSelectedTimetableLT.Location = new System.Drawing.Point(6, 19);
             this.comboBoxSelectedTimetableLT.Name = "comboBoxSelectedTimetableLT";
@@ -659,6 +691,25 @@
             this.listViewStationTimetable.View = System.Windows.Forms.View.Details;
             this.listViewStationTimetable.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewStationTimetable_ColumnClick);
             // 
+            // columnHeaderLineNumber
+            // 
+            this.columnHeaderLineNumber.SortType = PeriodicTimetableGeneration.SortType.Integer;
+            this.columnHeaderLineNumber.Text = "Line Number";
+            this.columnHeaderLineNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderLineNumber.Width = 100;
+            // 
+            // columnHeaderArrival
+            // 
+            this.columnHeaderArrival.Text = "Arrival";
+            this.columnHeaderArrival.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderArrival.Width = 100;
+            // 
+            // columnHeaderDeparture
+            // 
+            this.columnHeaderDeparture.Text = "Departure";
+            this.columnHeaderDeparture.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderDeparture.Width = 100;
+            // 
             // groupBoxSelectedStation
             // 
             this.groupBoxSelectedStation.Controls.Add(this.comboBoxSelectedStation);
@@ -671,6 +722,7 @@
             // 
             // comboBoxSelectedStation
             // 
+            this.comboBoxSelectedStation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectedStation.FormattingEnabled = true;
             this.comboBoxSelectedStation.Location = new System.Drawing.Point(6, 19);
             this.comboBoxSelectedStation.Name = "comboBoxSelectedStation";
@@ -691,6 +743,7 @@
             // 
             // comboBoxSelectedTimetableST
             // 
+            this.comboBoxSelectedTimetableST.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSelectedTimetableST.FormattingEnabled = true;
             this.comboBoxSelectedTimetableST.Location = new System.Drawing.Point(6, 19);
             this.comboBoxSelectedTimetableST.Name = "comboBoxSelectedTimetableST";
@@ -717,55 +770,6 @@
             this.backgroundWorkerTG.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerTG_DoWork);
             this.backgroundWorkerTG.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerTG_RunWorkerCompleted);
             this.backgroundWorkerTG.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerTG_ProgressChanged);
-            // 
-            // columnHeaderAttempt
-            // 
-            this.columnHeaderAttempt.SortType = PeriodicTimetableGeneration.SortType.Integer;
-            this.columnHeaderAttempt.Text = "Attempt";
-            // 
-            // columnHeaderProgressiveChanges
-            // 
-            this.columnHeaderProgressiveChanges.SortType = PeriodicTimetableGeneration.SortType.Integer;
-            this.columnHeaderProgressiveChanges.Text = "Progressive Changes";
-            this.columnHeaderProgressiveChanges.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderProgressiveChanges.Width = 120;
-            // 
-            // columnHeaderRatingValue
-            // 
-            this.columnHeaderRatingValue.SortType = PeriodicTimetableGeneration.SortType.Integer;
-            this.columnHeaderRatingValue.Text = "Rating Value";
-            this.columnHeaderRatingValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderRatingValue.Width = 120;
-            // 
-            // columnHeaderGenerationTime
-            // 
-            this.columnHeaderGenerationTime.Text = "Generation Time [ms]";
-            this.columnHeaderGenerationTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderGenerationTime.Width = 120;
-            // 
-            // columnHeaderNote
-            // 
-            this.columnHeaderNote.Text = "Note";
-            this.columnHeaderNote.Width = 400;
-            // 
-            // columnHeaderLineNumber
-            // 
-            this.columnHeaderLineNumber.SortType = PeriodicTimetableGeneration.SortType.Integer;
-            this.columnHeaderLineNumber.Text = "Line Number";
-            this.columnHeaderLineNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderLineNumber.Width = 100;
-            // 
-            // columnHeaderArrival
-            // 
-            this.columnHeaderArrival.Text = "Arrival";
-            this.columnHeaderArrival.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderArrival.Width = 100;
-            // 
-            // columnHeaderDeparture
-            // 
-            this.columnHeaderDeparture.Text = "Departure";
-            this.columnHeaderDeparture.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.columnHeaderDeparture.Width = 100;
             // 
             // FormTimetables
             // 

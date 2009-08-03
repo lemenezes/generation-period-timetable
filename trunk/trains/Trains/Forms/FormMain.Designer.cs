@@ -142,6 +142,7 @@
             this.tabControlTG.SelectedIndex = 0;
             this.tabControlTG.Size = new System.Drawing.Size(984, 564);
             this.tabControlTG.TabIndex = 0;
+            this.tabControlTG.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControlTG_Selecting);
             // 
             // tabPageLoadFiles
             // 
