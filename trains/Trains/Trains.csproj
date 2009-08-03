@@ -238,6 +238,7 @@
     <Compile Include="Util\Sorting.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Util\TabUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

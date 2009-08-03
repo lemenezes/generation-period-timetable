@@ -26,6 +26,8 @@ namespace PeriodicTimetableGeneration
         public FormMain()
         {
             InitializeComponent();
+
+            tabUtil = new TabUtil(tabControlTG);
         }
 
         #endregion
@@ -36,6 +38,7 @@ namespace PeriodicTimetableGeneration
         /// Gets the string for option ComboBox AllLines.
         /// </summary>
         /// <value>The COMBOBO x_ ALLLINES.</value>
+        // TODO: to settings
         String COMBOBOX_ALLLINES
         {
             get
@@ -43,6 +46,9 @@ namespace PeriodicTimetableGeneration
                 return Settings.Default.ComboBoxAllLines;
             }
         }
+
+        private TabUtil tabUtil;
+
         #endregion
 
 
@@ -155,11 +161,8 @@ namespace PeriodicTimetableGeneration
 
         private void selectTab(TabPage tab)
         {
-            position = tabControlTG.TabPages.IndexOf(tab);
-            tabControlTG.SelectTab(tab);
+            tabUtil.selectTab(tab);
         }
-
-        private int position = 0;
 
         private void buttonLoadFileNext_Click(object sender, EventArgs e)
         {
@@ -952,11 +955,7 @@ namespace PeriodicTimetableGeneration
 
         private void tabControlTG_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (e.TabPageIndex > position)
-            {
-                MessageBox.Show("Use the NEXT button to move forward.", "Could not proceed.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                e.Cancel = true;
-            }
+            tabUtil.onTabSelected(sender, e);
         }
 
 

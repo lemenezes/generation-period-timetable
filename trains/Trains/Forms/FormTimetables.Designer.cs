@@ -129,6 +129,7 @@
             this.tabControlGeneratingTimetables.SelectedIndex = 0;
             this.tabControlGeneratingTimetables.Size = new System.Drawing.Size(984, 564);
             this.tabControlGeneratingTimetables.TabIndex = 0;
+            this.tabControlGeneratingTimetables.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControlGeneratingTimetables_Selecting);
             // 
             // tabPageGenerating
             // 
@@ -183,7 +184,6 @@
             this.listViewGeneratingTimetables.TabIndex = 0;
             this.listViewGeneratingTimetables.UseCompatibleStateImageBehavior = false;
             this.listViewGeneratingTimetables.View = System.Windows.Forms.View.Details;
-            this.listViewGeneratingTimetables.SelectedIndexChanged += new System.EventHandler(this.listViewGeneratingTimetables_SelectedIndexChanged);
             this.listViewGeneratingTimetables.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewGeneratingTimetables_ColumnClick);
             // 
             // columnHeaderAttempt
