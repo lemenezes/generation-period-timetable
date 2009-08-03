@@ -8,9 +8,9 @@ using System.Collections;
 
 namespace PeriodicTimetableGeneration.Util
 {
+
     class FormUtil
     {
-
         /// <summary>
         /// Sorts ListView items using MergeSort.
         /// Invokes after click on column of ListView.

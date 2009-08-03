@@ -18,6 +18,7 @@ namespace PeriodicTimetableGeneration.Forms
     /// </summary>
     public partial class FormTimetables : Form
     {
+        
         #region Settings
 
         /// <summary>
@@ -43,6 +44,7 @@ namespace PeriodicTimetableGeneration.Forms
 
         #endregion
 
+
         #region Constructors
 
         /// <summary>
@@ -55,9 +57,11 @@ namespace PeriodicTimetableGeneration.Forms
 
             // initialize generation algorithm
             this.CurrentGenerationAlgorithm = generationAlgorithm;
+            tabUtil = new TabUtil(tabControlGeneratingTimetables);
         }
 
         #endregion
+
 
         #region Properties
 
@@ -67,7 +71,10 @@ namespace PeriodicTimetableGeneration.Forms
             set;
         }
 
+        TabUtil tabUtil;
+
         #endregion
+
 
         #region Form Members
 
@@ -93,7 +100,7 @@ namespace PeriodicTimetableGeneration.Forms
             // check if the options are selected
             lineTimetable_SelectIndexChanged();
             // open tab
-            tabControlGeneratingTimetables.SelectTab(tabPageLinesTimetables);
+            tabUtil.selectTab(tabPageLinesTimetables);
         }
 
         //--------------------------------------------------
@@ -220,7 +227,7 @@ namespace PeriodicTimetableGeneration.Forms
             // check if the options are selected
             stationTimetable_SelectIndexChanged();
             // open tab
-            tabControlGeneratingTimetables.SelectTab(tabPageStationsTimetables);
+            tabUtil.selectTab(tabPageStationsTimetables);
         }
 
         //--------------------------------------------------
@@ -540,7 +547,6 @@ namespace PeriodicTimetableGeneration.Forms
         #endregion
 
 
-
         #region BackGroundWorker Methods
 
         //--------------------------------------------------
@@ -634,19 +640,10 @@ namespace PeriodicTimetableGeneration.Forms
 
         #endregion
 
-        private void listViewGeneratingTimetables_SelectedIndexChanged(object sender, EventArgs e)
+        private void tabControlGeneratingTimetables_Selecting(object sender, TabControlCancelEventArgs e)
         {
-
+            tabUtil.onTabSelected(sender, e);
         }
-
-
-
-
-
-
-
-
- 
 
     }
 }
