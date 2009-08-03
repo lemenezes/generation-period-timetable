@@ -19,7 +19,7 @@
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>true</SignManifests>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>C:\Users\developer\Documents\SVN repository for VS projects\publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -29,7 +29,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -53,7 +53,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.TeamSystem.Data.UnitTesting, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -70,17 +73,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\PropagationException.cs" />
+    <Compile Include="Exceptions\SearchException.cs" />
     <Compile Include="GenerationAlgorithmDSAs\Utils\BestSearchUtil.cs" />
     <Compile Include="DataRepresentation\MinimalTransferTime.cs" />
     <Compile Include="GenerationAlgorithmDSAs\Utils\ConstraintUtil.cs" />
     <Compile Include="GenerationAlgorithmDSAs\Utils\CreateConstraintSetsUtil.cs" />
     <Compile Include="GenerationAlgorithmDSAs\FactorRangeRecord.cs" />
-    <Compile Include="Forms\FormGenerationPESP.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormGenerationPESP.Designer.cs">
-      <DependentUpon>FormGenerationPESP.cs</DependentUpon>
-    </Compile>
     <Compile Include="GenerationAlgorithmDSAs\Utils\BisectionUtil.cs" />
     <Compile Include="GenerationAlgorithmDSAs\Utils\GenerationAlgorithmDSAUtil.cs" />
     <Compile Include="GenerationAlgorithmDSAs\Constraint.cs" />
@@ -138,6 +137,8 @@
     <Compile Include="Interfaces\IGenerationAlgorithm.cs" />
     <Compile Include="GenerationAlgorithmDSAs\PropagationResult.cs" />
     <Compile Include="GenerationAlgorithmDSAs\Solution.cs" />
+    <Compile Include="Util\ErrorMessageBoxUtil.cs">
+    </Compile>
     <Compile Include="Util\FormUtil.cs" />
     <Compile Include="Util\MergeSort.cs" />
     <Compile Include="Util\NewtonFormula.cs" />
@@ -183,10 +184,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEditPathOfConnection.resx">
       <DependentUpon>FormEditPathOfConnection.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormGenerationPESP.resx">
-      <DependentUpon>FormGenerationPESP.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMain.resx">

@@ -30,6 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBoxStationInformation = new System.Windows.Forms.GroupBox();
+            this.labelMinimalTransferTime = new System.Windows.Forms.Label();
+            this.textBoxMinimalTransferTime = new System.Windows.Forms.TextBox();
+            this.textBoxTown = new System.Windows.Forms.TextBox();
+            this.labelTown = new System.Windows.Forms.Label();
             this.labelInhabitation = new System.Windows.Forms.Label();
             this.textBoxInhabitation = new System.Windows.Forms.TextBox();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
@@ -49,10 +53,6 @@
             this.groupBoxTrainLines = new System.Windows.Forms.GroupBox();
             this.buttonBackDetailsOfStation = new System.Windows.Forms.Button();
             this.buttonSaveDetailsOfStation = new System.Windows.Forms.Button();
-            this.labelTown = new System.Windows.Forms.Label();
-            this.textBoxTown = new System.Windows.Forms.TextBox();
-            this.textBoxMinimalTransferTime = new System.Windows.Forms.TextBox();
-            this.labelMinimalTransferTime = new System.Windows.Forms.Label();
             this.groupBoxStationInformation.SuspendLayout();
             this.groupBoxTrainLines.SuspendLayout();
             this.SuspendLayout();
@@ -71,17 +71,49 @@
             this.groupBoxStationInformation.Controls.Add(this.textBoxName);
             this.groupBoxStationInformation.Controls.Add(this.labelId);
             this.groupBoxStationInformation.Controls.Add(this.textBoxId);
-            this.groupBoxStationInformation.Location = new System.Drawing.Point(12, 29);
+            this.groupBoxStationInformation.Location = new System.Drawing.Point(12, 12);
             this.groupBoxStationInformation.Name = "groupBoxStationInformation";
-            this.groupBoxStationInformation.Size = new System.Drawing.Size(250, 185);
+            this.groupBoxStationInformation.Size = new System.Drawing.Size(291, 179);
             this.groupBoxStationInformation.TabIndex = 0;
             this.groupBoxStationInformation.TabStop = false;
             this.groupBoxStationInformation.Text = "Station\'s Information";
             // 
+            // labelMinimalTransferTime
+            // 
+            this.labelMinimalTransferTime.AutoSize = true;
+            this.labelMinimalTransferTime.Location = new System.Drawing.Point(6, 152);
+            this.labelMinimalTransferTime.Name = "labelMinimalTransferTime";
+            this.labelMinimalTransferTime.Size = new System.Drawing.Size(110, 13);
+            this.labelMinimalTransferTime.TabIndex = 11;
+            this.labelMinimalTransferTime.Text = "Minimal Transfer Time";
+            // 
+            // textBoxMinimalTransferTime
+            // 
+            this.textBoxMinimalTransferTime.Location = new System.Drawing.Point(170, 149);
+            this.textBoxMinimalTransferTime.Name = "textBoxMinimalTransferTime";
+            this.textBoxMinimalTransferTime.Size = new System.Drawing.Size(115, 20);
+            this.textBoxMinimalTransferTime.TabIndex = 10;
+            // 
+            // textBoxTown
+            // 
+            this.textBoxTown.Location = new System.Drawing.Point(74, 123);
+            this.textBoxTown.Name = "textBoxTown";
+            this.textBoxTown.Size = new System.Drawing.Size(211, 20);
+            this.textBoxTown.TabIndex = 9;
+            // 
+            // labelTown
+            // 
+            this.labelTown.AutoSize = true;
+            this.labelTown.Location = new System.Drawing.Point(6, 126);
+            this.labelTown.Name = "labelTown";
+            this.labelTown.Size = new System.Drawing.Size(34, 13);
+            this.labelTown.TabIndex = 8;
+            this.labelTown.Text = "Town";
+            // 
             // labelInhabitation
             // 
             this.labelInhabitation.AutoSize = true;
-            this.labelInhabitation.Location = new System.Drawing.Point(6, 103);
+            this.labelInhabitation.Location = new System.Drawing.Point(6, 100);
             this.labelInhabitation.Name = "labelInhabitation";
             this.labelInhabitation.Size = new System.Drawing.Size(62, 13);
             this.labelInhabitation.TabIndex = 7;
@@ -89,23 +121,23 @@
             // 
             // textBoxInhabitation
             // 
-            this.textBoxInhabitation.Location = new System.Drawing.Point(81, 100);
+            this.textBoxInhabitation.Location = new System.Drawing.Point(74, 97);
             this.textBoxInhabitation.Name = "textBoxInhabitation";
-            this.textBoxInhabitation.Size = new System.Drawing.Size(163, 20);
+            this.textBoxInhabitation.Size = new System.Drawing.Size(211, 20);
             this.textBoxInhabitation.TabIndex = 6;
             // 
             // comboBoxCategory
             // 
             this.comboBoxCategory.FormattingEnabled = true;
-            this.comboBoxCategory.Location = new System.Drawing.Point(81, 73);
+            this.comboBoxCategory.Location = new System.Drawing.Point(74, 70);
             this.comboBoxCategory.Name = "comboBoxCategory";
-            this.comboBoxCategory.Size = new System.Drawing.Size(163, 21);
+            this.comboBoxCategory.Size = new System.Drawing.Size(211, 21);
             this.comboBoxCategory.TabIndex = 5;
             // 
             // labelCategory
             // 
             this.labelCategory.AutoSize = true;
-            this.labelCategory.Location = new System.Drawing.Point(6, 76);
+            this.labelCategory.Location = new System.Drawing.Point(6, 73);
             this.labelCategory.Name = "labelCategory";
             this.labelCategory.Size = new System.Drawing.Size(49, 13);
             this.labelCategory.TabIndex = 4;
@@ -114,7 +146,7 @@
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(6, 49);
+            this.labelName.Location = new System.Drawing.Point(6, 47);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(35, 13);
             this.labelName.TabIndex = 3;
@@ -123,9 +155,9 @@
             // textBoxName
             // 
             this.textBoxName.Enabled = false;
-            this.textBoxName.Location = new System.Drawing.Point(47, 46);
+            this.textBoxName.Location = new System.Drawing.Point(74, 44);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(197, 20);
+            this.textBoxName.Size = new System.Drawing.Size(211, 20);
             this.textBoxName.TabIndex = 2;
             // 
             // labelId
@@ -140,9 +172,9 @@
             // textBoxId
             // 
             this.textBoxId.Enabled = false;
-            this.textBoxId.Location = new System.Drawing.Point(117, 19);
+            this.textBoxId.Location = new System.Drawing.Point(170, 19);
             this.textBoxId.Name = "textBoxId";
-            this.textBoxId.Size = new System.Drawing.Size(127, 20);
+            this.textBoxId.Size = new System.Drawing.Size(115, 20);
             this.textBoxId.TabIndex = 0;
             // 
             // listViewTrainLines
@@ -161,7 +193,7 @@
             this.listViewTrainLines.Location = new System.Drawing.Point(3, 16);
             this.listViewTrainLines.MultiSelect = false;
             this.listViewTrainLines.Name = "listViewTrainLines";
-            this.listViewTrainLines.Size = new System.Drawing.Size(697, 384);
+            this.listViewTrainLines.Size = new System.Drawing.Size(657, 384);
             this.listViewTrainLines.SmallImageList = this.imageListSmall;
             this.listViewTrainLines.TabIndex = 1;
             this.listViewTrainLines.UseCompatibleStateImageBehavior = false;
@@ -206,16 +238,20 @@
             // 
             // groupBoxTrainLines
             // 
+            this.groupBoxTrainLines.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxTrainLines.Controls.Add(this.listViewTrainLines);
-            this.groupBoxTrainLines.Location = new System.Drawing.Point(269, 13);
+            this.groupBoxTrainLines.Location = new System.Drawing.Point(309, 12);
             this.groupBoxTrainLines.Name = "groupBoxTrainLines";
-            this.groupBoxTrainLines.Size = new System.Drawing.Size(703, 403);
+            this.groupBoxTrainLines.Size = new System.Drawing.Size(663, 403);
             this.groupBoxTrainLines.TabIndex = 2;
             this.groupBoxTrainLines.TabStop = false;
             this.groupBoxTrainLines.Text = "Train Lines";
             // 
             // buttonBackDetailsOfStation
             // 
+            this.buttonBackDetailsOfStation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonBackDetailsOfStation.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonBackDetailsOfStation.Location = new System.Drawing.Point(12, 422);
             this.buttonBackDetailsOfStation.Name = "buttonBackDetailsOfStation";
@@ -227,6 +263,7 @@
             // 
             // buttonSaveDetailsOfStation
             // 
+            this.buttonSaveDetailsOfStation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSaveDetailsOfStation.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonSaveDetailsOfStation.Location = new System.Drawing.Point(872, 422);
             this.buttonSaveDetailsOfStation.Name = "buttonSaveDetailsOfStation";
@@ -235,38 +272,6 @@
             this.buttonSaveDetailsOfStation.Text = "Save";
             this.buttonSaveDetailsOfStation.UseVisualStyleBackColor = true;
             this.buttonSaveDetailsOfStation.Click += new System.EventHandler(this.buttonSaveDetailsOfStation_Click);
-            // 
-            // labelTown
-            // 
-            this.labelTown.AutoSize = true;
-            this.labelTown.Location = new System.Drawing.Point(6, 129);
-            this.labelTown.Name = "labelTown";
-            this.labelTown.Size = new System.Drawing.Size(34, 13);
-            this.labelTown.TabIndex = 8;
-            this.labelTown.Text = "Town";
-            // 
-            // textBoxTown
-            // 
-            this.textBoxTown.Location = new System.Drawing.Point(81, 126);
-            this.textBoxTown.Name = "textBoxTown";
-            this.textBoxTown.Size = new System.Drawing.Size(163, 20);
-            this.textBoxTown.TabIndex = 9;
-            // 
-            // textBoxMinimalTransferTime
-            // 
-            this.textBoxMinimalTransferTime.Location = new System.Drawing.Point(144, 152);
-            this.textBoxMinimalTransferTime.Name = "textBoxMinimalTransferTime";
-            this.textBoxMinimalTransferTime.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMinimalTransferTime.TabIndex = 10;
-            // 
-            // labelMinimalTransferTime
-            // 
-            this.labelMinimalTransferTime.AutoSize = true;
-            this.labelMinimalTransferTime.Location = new System.Drawing.Point(6, 155);
-            this.labelMinimalTransferTime.Name = "labelMinimalTransferTime";
-            this.labelMinimalTransferTime.Size = new System.Drawing.Size(110, 13);
-            this.labelMinimalTransferTime.TabIndex = 11;
-            this.labelMinimalTransferTime.Text = "Minimal Transfer Time";
             // 
             // FormDetailsOfStation
             // 
@@ -277,7 +282,6 @@
             this.Controls.Add(this.buttonBackDetailsOfStation);
             this.Controls.Add(this.groupBoxTrainLines);
             this.Controls.Add(this.groupBoxStationInformation);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormDetailsOfStation";
             this.Text = "Details of Station";
             this.Load += new System.EventHandler(this.FormDetailsOfStation_Load);

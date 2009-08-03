@@ -634,6 +634,11 @@ namespace PeriodicTimetableGeneration.Forms
 
         #endregion
 
+        private void listViewGeneratingTimetables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
 
 

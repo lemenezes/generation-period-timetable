@@ -144,20 +144,20 @@ namespace PeriodicTimetableGeneration
 
         private void listViewListOfStops_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            if (!listViewListOfStops.SelectedItems.Count.Equals(0))
-                fillStopDetails(listViewListOfStops.SelectedItems[0]);
+            //if (!listViewListOfStops.SelectedItems.Count.Equals(0))
+            //    fillStopDetails(listViewListOfStops.SelectedItems[0]);
         }
 
-        private void fillStopDetails(ListViewItem lvi)
-        {
-            textBoxTrainStation.Text = lvi.Text;
-            textBoxOrderAtLine.Text = lvi.SubItems[1].Text;
-            textBoxTimeOfStaying.Text = lvi.SubItems[4].Text;
-            textBoxTimeDifference.Text = lvi.SubItems[5].Text;
-            textBoxDistanceDifference.Text = lvi.SubItems[6].Text;
-            
-            lviTrainStop = lvi;
-        }
+        //private void fillStopDetails(ListViewItem lvi)
+        //{
+        //    textBoxTrainStation.Text = lvi.Text;
+        //    textBoxOrderAtLine.Text = lvi.SubItems[1].Text;
+        //    textBoxTimeOfStaying.Text = lvi.SubItems[4].Text;
+        //    textBoxTimeDifference.Text = lvi.SubItems[5].Text;
+        //    textBoxDistanceDifference.Text = lvi.SubItems[6].Text;
+
+        //    lviTrainStop = lvi;
+        //}
 
         //--------------------------------------------
         // button UpdateStopDetails
@@ -165,13 +165,13 @@ namespace PeriodicTimetableGeneration
 
         private void updateStopDetails()
         {
-            if (lviTrainStop != null)
-            {
-                lviTrainStop.SubItems[4].Text = textBoxTimeOfStaying.Text;
-                lviTrainStop.SubItems[5].Text = textBoxTimeDifference.Text;
-                lviTrainStop.SubItems[6].Text = textBoxDistanceDifference.Text;                
-                lviTrainStop.Tag = CHANGED;
-            }
+            //if (lviTrainStop != null)
+            //{
+            //    lviTrainStop.SubItems[4].Text = textBoxTimeOfStaying.Text;
+            //    lviTrainStop.SubItems[5].Text = textBoxTimeDifference.Text;
+            //    lviTrainStop.SubItems[6].Text = textBoxDistanceDifference.Text;                
+            //    lviTrainStop.Tag = CHANGED;
+            //}
         }
 
         private void buttonUpdateStopDetails_Click(object sender, EventArgs e)

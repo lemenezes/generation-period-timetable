@@ -247,14 +247,13 @@ namespace PeriodicTimetableGeneration
         /// <returns></returns>
         private static List<TrainStation> findChangingStationOnTrainLine(TrainLine line)
         {
-            const int QUOTA = 3;
 
             List<TrainStation> changingStation = new List<TrainStation>();
 
             foreach (TrainStop stop in line.getTrainStops()) 
             {
-                // if train station of stop is passed by at least QUOTA number of trainLine1
-                if (stop.TrainStation.getTrainLines().Count >= QUOTA)
+                // if train station of stop is has at least one transfer is a changing station
+                if (stop.TrainStation.Transfers.Count > 0)
                     // is determine as a changing station
                     changingStation.Add(stop.TrainStation);
             }
@@ -307,9 +306,14 @@ namespace PeriodicTimetableGeneration
         {
             List<Stage> availableStages = new List<Stage>();
 
+            // find all stages from start station to all possible changing stations
             availableStages.AddRange(findNextTransferStages(fromStation));
-            availableStages.AddRange(findNextFinalStages(fromStation, toStation)); 
 
+            // if toStation is also transfer station, is already included, if not find for the posibiliy of direct stage 
+            if (toStation.Transfers.Count == 0)
+            {
+                availableStages.AddRange(findNextFinalStages(fromStation, toStation));
+            }
             return availableStages;
         }
 

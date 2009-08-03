@@ -163,10 +163,10 @@ namespace PeriodicTimetableGeneration
         {
             List<Edge> optimizedPath;
             // if the start and end station are the same
-            optimizedPath = optimizationFunctionSameLine(edges, edgesCache);
+            //optimizedPath = optimizationFunctionSameLine(edges, edgesCache);
 
             // make optimization on zig-zag path, step by stages
-            optimizedPath = optimizationFunctionZigZagByStages(optimizedPath, edgesCache);
+            optimizedPath = optimizationFunctionZigZagByStages(edges, edgesCache);
 
             // make optimization on zig-zag path, step by edges  (L1->L2->L1->L2)
             optimizedPath = optimizationFunctionZigZagByEdges(optimizedPath, edgesCache);
@@ -181,14 +181,14 @@ namespace PeriodicTimetableGeneration
         /// <param name="edges">The edges.</param>
         /// <param name="edgeCache">The edge cache.</param>
         /// <returns></returns>
-        private static List<Edge> optimizationFunctionSameLine(List<Edge> edges, List<Edge> edgeCache) 
+        private static List<Edge> optimizationFunctionSameLine(List<Edge> edges, List<Edge> edgeCache)
         {
             // retreive all lines
             List<TrainLine> allLines = TrainLineCache.getInstance().getCacheContent();
             List<Edge> newPath = edges;
 
             // loop over all lines
-            foreach (TrainLine line in allLines) 
+            foreach (TrainLine line in allLines)
             {
                 // find if one line contains first and last stop on path
                 if (containsTrainStations(line, edges[0].From, edges[edges.Count - 1].To))

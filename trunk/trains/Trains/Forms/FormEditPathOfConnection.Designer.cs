@@ -50,6 +50,7 @@
             // 
             // buttonSave
             // 
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonSave.Location = new System.Drawing.Point(472, 422);
             this.buttonSave.Name = "buttonSave";
@@ -61,6 +62,7 @@
             // 
             // buttonBack
             // 
+            this.buttonBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonBack.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonBack.Location = new System.Drawing.Point(12, 422);
             this.buttonBack.Name = "buttonBack";
@@ -72,6 +74,8 @@
             // 
             // groupBoxConnection
             // 
+            this.groupBoxConnection.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxConnection.Controls.Add(this.labelToStation);
             this.groupBoxConnection.Controls.Add(this.labelFromStation);
             this.groupBoxConnection.Controls.Add(this.textBoxFromStation);
@@ -119,6 +123,9 @@
             // 
             // groupBoxPathStages
             // 
+            this.groupBoxPathStages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxPathStages.Controls.Add(this.buttonRemoveAllStages);
             this.groupBoxPathStages.Controls.Add(this.buttonAddStage);
             this.groupBoxPathStages.Controls.Add(this.listViewListOfStages);
@@ -133,7 +140,8 @@
             // 
             // buttonRemoveAllStages
             // 
-            this.buttonRemoveAllStages.Location = new System.Drawing.Point(449, 82);
+            this.buttonRemoveAllStages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRemoveAllStages.Location = new System.Drawing.Point(449, 81);
             this.buttonRemoveAllStages.Name = "buttonRemoveAllStages";
             this.buttonRemoveAllStages.Size = new System.Drawing.Size(105, 30);
             this.buttonRemoveAllStages.TabIndex = 5;
@@ -143,7 +151,8 @@
             // 
             // buttonAddStage
             // 
-            this.buttonAddStage.Location = new System.Drawing.Point(449, 46);
+            this.buttonAddStage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddStage.Location = new System.Drawing.Point(449, 45);
             this.buttonAddStage.Name = "buttonAddStage";
             this.buttonAddStage.Size = new System.Drawing.Size(105, 30);
             this.buttonAddStage.TabIndex = 4;
@@ -153,6 +162,9 @@
             // 
             // listViewListOfStages
             // 
+            this.listViewListOfStages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewListOfStages.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderFrom,
             this.columnHeaderTo,
@@ -183,6 +195,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 325);
             this.label1.Name = "label1";
@@ -192,6 +205,7 @@
             // 
             // textBoxPathValidity
             // 
+            this.textBoxPathValidity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBoxPathValidity.Enabled = false;
             this.textBoxPathValidity.Location = new System.Drawing.Point(84, 322);
             this.textBoxPathValidity.Name = "textBoxPathValidity";
@@ -207,7 +221,6 @@
             this.Controls.Add(this.groupBoxConnection);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonSave);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormEditPathOfConnection";
             this.Text = "Edit Path of Connection";
             this.Shown += new System.EventHandler(this.FormEditPathOfConnection_Shown);
