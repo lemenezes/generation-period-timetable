@@ -126,6 +126,7 @@
             // 
             // comboBoxDirection
             // 
+            this.comboBoxDirection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDirection.FormattingEnabled = true;
             this.comboBoxDirection.Location = new System.Drawing.Point(95, 102);
             this.comboBoxDirection.Name = "comboBoxDirection";
@@ -143,6 +144,7 @@
             // 
             // comboBoxPeriod
             // 
+            this.comboBoxPeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxPeriod.FormattingEnabled = true;
             this.comboBoxPeriod.Location = new System.Drawing.Point(95, 72);
             this.comboBoxPeriod.Name = "comboBoxPeriod";
@@ -160,6 +162,7 @@
             // 
             // comboBoxTypeOfTrain
             // 
+            this.comboBoxTypeOfTrain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTypeOfTrain.FormattingEnabled = true;
             this.comboBoxTypeOfTrain.Location = new System.Drawing.Point(95, 45);
             this.comboBoxTypeOfTrain.Name = "comboBoxTypeOfTrain";
