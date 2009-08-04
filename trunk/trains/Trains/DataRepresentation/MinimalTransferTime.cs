@@ -10,11 +10,31 @@ namespace PeriodicTimetableGeneration.DataRepresentation
         /// <summary>
         /// Minimal trasfer time on village' station.
         /// </summary>
-        small = 4,
+        small = 3,
         /// <summary>
         /// Minimal transfer time on town' station.
         /// </summary>
-        medium = 5,
+        medium = 4,
+        /// <summary>
+        /// Minimal transfer time on city' station.
+        /// </summary>
+        big = 5,
+        /// <summary>
+        /// Minimal transfer time on big city' station.
+        /// </summary>
+        large = 7,
+    }
+
+    public enum CopyOfMinimalTransferTime
+    {
+        /// <summary>
+        /// Minimal trasfer time on village' station.
+        /// </summary>
+        small = 3,
+        /// <summary>
+        /// Minimal transfer time on town' station.
+        /// </summary>
+        medium = 4,
         /// <summary>
         /// Minimal transfer time on city' station.
         /// </summary>

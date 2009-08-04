@@ -3,7 +3,7 @@
   <Class Name="PeriodicTimetableGeneration.FormMain" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>MACKxKCGGDgMAcywAEi0MAI2sHbeMU8tQIHAHpvMzlA=</HashCode>
+      <HashCode>MACOhKCHGDkMAcyQAEm0cAI2sHfeMU89QIHAHpvOzlA=</HashCode>
       <FileName>Forms\FormMain.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -27,9 +27,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.TrainStation">
-    <Position X="4.5" Y="5.75" Width="1.5" />
+    <Position X="4.5" Y="5.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AgACAABAAgAEAAJAAGAEgAVoCAAAIARAQCAEMEAAogA=</HashCode>
+      <HashCode>AgACAABAAgAEAAJAAGAEgQVoCAEAIARAQCAEMEAAogA=</HashCode>
       <FileName>DataRepresentation\TrainStation.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -99,7 +99,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.ShortestPathAlgoritm">
-    <Position X="9.75" Y="14.75" Width="1.5" />
+    <Position X="9.75" Y="14.75" Width="3" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -123,7 +123,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.Time">
-    <Position X="7.75" Y="2.25" Width="1.5" />
+    <Position X="8.5" Y="2" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -157,7 +157,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PeriodicTimetableGeneration.FloydWarshall">
-    <Position X="11.5" Y="14.75" Width="1.5" />
+    <Position X="13.25" Y="17.25" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -183,12 +183,19 @@
   <Class Name="PeriodicTimetableGeneration.TrainLine">
     <Position X="0.5" Y="5.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAACEQACACEKtBAESEKgIIAAAGAAAAAAQQAAwAAAAI=</HashCode>
+      <HashCode>AAAACEQACACEKtBAESEagIIAAAGAAAAAAQQKAwAAAAo=</HashCode>
       <FileName>DataRepresentation\TrainLine.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="PeriodicTimetableGeneration.DataRepresentation.MinimalTransferTimeUtil" Collapsed="true">
+    <Position X="6" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACIAAAAAAAAA=</HashCode>
+      <FileName>DataRepresentation\MinimalTransferTime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="PeriodicTimetableGeneration.TypeOfTrain">
-    <Position X="4.25" Y="0.5" Width="1.5" />
+    <Position X="4.25" Y="0.5" Width="1.25" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAEEAABAAAAAAAgAAAAQAAAAAAAAAAAYA=</HashCode>
       <FileName>Enums\TypeOfTrain.cs</FileName>
@@ -216,10 +223,17 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="PeriodicTimetableGeneration.Period">
-    <Position X="11.25" Y="0.5" Width="1.5" />
+    <Position X="11.25" Y="0.5" Width="1.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAQiAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Enums\Period.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PeriodicTimetableGeneration.DataRepresentation.MinimalTransferTime">
+    <Position X="10.75" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAIAAAAACAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataRepresentation\MinimalTransferTime.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
