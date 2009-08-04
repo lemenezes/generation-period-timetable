@@ -330,8 +330,12 @@ namespace PeriodicTimetableGeneration
 
             // find all next available transfers stages
             availableStages.AddRange(findNextTransferStages(previousStage));
-            availableStages.AddRange(findNextFinalStages(previousStage.ToStation, toStation));
-            
+
+            // if toStation is also transfer station, is already included, if not find for the posibiliy of direct stage 
+            if (toStation.Transfers.Count == 0)
+            {
+                availableStages.AddRange(findNextFinalStages(previousStage.ToStation, toStation));
+            }
 /*            // try to find the final stage
             Stage finalStage = findNextFinalStage(previousStage.ToStation, toStation);
             // if finalStage exits
