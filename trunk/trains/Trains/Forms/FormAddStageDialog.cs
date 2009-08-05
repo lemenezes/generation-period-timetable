@@ -196,5 +196,10 @@ namespace PeriodicTimetableGeneration.Forms
             FormUtil.listView_ColumnClick_Sorting(sender, e, this.listViewListOfAvailableStages);
         }
 
+        private void FormAddStageDialog_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

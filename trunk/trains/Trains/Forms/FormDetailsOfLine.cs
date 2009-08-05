@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using PeriodicTimetableGeneration.Forms;
+using PeriodicTimetableGeneration.GenerationAlgorithmDSAs.Utils;
 
 namespace PeriodicTimetableGeneration
 {
@@ -144,20 +145,20 @@ namespace PeriodicTimetableGeneration
 
         private void listViewListOfStops_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            //if (!listViewListOfStops.SelectedItems.Count.Equals(0))
-            //    fillStopDetails(listViewListOfStops.SelectedItems[0]);
+            if (!listViewListOfStops.SelectedItems.Count.Equals(0))
+                fillStopDetails(listViewListOfStops.SelectedItems[0]);
         }
 
-        //private void fillStopDetails(ListViewItem lvi)
-        //{
-        //    textBoxTrainStation.Text = lvi.Text;
-        //    textBoxOrderAtLine.Text = lvi.SubItems[1].Text;
-        //    textBoxTimeOfStaying.Text = lvi.SubItems[4].Text;
-        //    textBoxTimeDifference.Text = lvi.SubItems[5].Text;
-        //    textBoxDistanceDifference.Text = lvi.SubItems[6].Text;
+        private void fillStopDetails(ListViewItem lvi)
+        {
+            textBoxTrainStation.Text = lvi.Text;
+            textBoxOrderAtLine.Text = lvi.SubItems[1].Text;
+            textBoxTimeOfStaying.Text = lvi.SubItems[4].Text;
+            textBoxTimeDifference.Text = lvi.SubItems[5].Text;
+            textBoxDistanceDifference.Text = lvi.SubItems[6].Text;
 
-        //    lviTrainStop = lvi;
-        //}
+            lviTrainStop = lvi;
+        }
 
         //--------------------------------------------
         // button UpdateStopDetails
@@ -165,18 +166,59 @@ namespace PeriodicTimetableGeneration
 
         private void updateStopDetails()
         {
-            //if (lviTrainStop != null)
-            //{
-            //    lviTrainStop.SubItems[4].Text = textBoxTimeOfStaying.Text;
-            //    lviTrainStop.SubItems[5].Text = textBoxTimeDifference.Text;
-            //    lviTrainStop.SubItems[6].Text = textBoxDistanceDifference.Text;                
-            //    lviTrainStop.Tag = CHANGED;
-            //}
+            if (lviTrainStop != null)
+            {
+                lviTrainStop.SubItems[4].Text = textBoxTimeOfStaying.Text;
+                lviTrainStop.SubItems[5].Text = textBoxTimeDifference.Text;
+                lviTrainStop.SubItems[6].Text = textBoxDistanceDifference.Text;
+                lviTrainStop.Tag = CHANGED;
+            }
         }
 
         private void buttonUpdateStopDetails_Click(object sender, EventArgs e)
         {
+            if (!validateStopDetails())
+            {
+                return;
+            }
             updateStopDetails();
+        }
+
+        private bool validateStopDetails()
+        {
+            bool error = false;
+
+            if (!ValidationUtils.isInteger(textBoxDistanceDifference.Text) || Convert.ToInt32(textBoxDistanceDifference.Text) < 0)
+            {
+                error = true;
+                errorProvider.SetError(textBoxDistanceDifference, "Invalid distance value.");
+            }
+            else
+            {
+                errorProvider.SetError(textBoxDistanceDifference, null);
+            }
+
+            if (!ValidationUtils.isTime(textBoxTimeDifference.Text))
+            {
+                error = true;
+                errorProvider.SetError(textBoxTimeDifference, "Invalid time format for difference value.");
+            }
+            else
+            {
+                errorProvider.SetError(textBoxTimeDifference, null);
+            }
+
+            if (!ValidationUtils.isTime(textBoxTimeOfStaying.Text))
+            {
+                error = true;
+                errorProvider.SetError(textBoxTimeOfStaying, "Invalid time format for staying value.");
+            }
+            else
+            {
+                errorProvider.SetError(textBoxTimeOfStaying, null);
+            }
+
+            return !error;
         }
 
         //--------------------------------------------
@@ -231,6 +273,7 @@ namespace PeriodicTimetableGeneration
                     stop.KmFromPreviousStop = Convert.ToInt32( lvi.SubItems[6].Text);
                 }
             }
+            this.trainLine.updateRelativeTrainStopInformation();
         }
 
         private void saveConnectedLinesInformation()

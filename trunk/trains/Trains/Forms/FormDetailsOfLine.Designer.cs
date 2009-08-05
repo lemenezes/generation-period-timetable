@@ -60,9 +60,24 @@
             this.columnHeaderTypeOfTrain = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderPeriod = new System.Windows.Forms.ColumnHeader();
             this.buttonAddConnectedLines = new System.Windows.Forms.Button();
+            this.groupBoxSelectedStopDetails = new System.Windows.Forms.GroupBox();
+            this.buttonUpdateStopDetails = new System.Windows.Forms.Button();
+            this.textBoxTimeOfStaying = new System.Windows.Forms.TextBox();
+            this.labelTimeOfStayingAtStation = new System.Windows.Forms.Label();
+            this.textBoxDistanceDifference = new System.Windows.Forms.TextBox();
+            this.labelKmDifference = new System.Windows.Forms.Label();
+            this.textBoxTimeDifference = new System.Windows.Forms.TextBox();
+            this.labelTimeDifference = new System.Windows.Forms.Label();
+            this.textBoxOrderAtLine = new System.Windows.Forms.TextBox();
+            this.labelOrderAtLine = new System.Windows.Forms.Label();
+            this.textBoxTrainStation = new System.Windows.Forms.TextBox();
+            this.labelTrainStation = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxLineInformation.SuspendLayout();
             this.groupBoxListOfStops.SuspendLayout();
             this.groupBoxConnectedLines.SuspendLayout();
+            this.groupBoxSelectedStopDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonBackDetailsOfLine
@@ -298,7 +313,7 @@
             this.groupBoxConnectedLines.Controls.Add(this.buttonAddConnectedLines);
             this.groupBoxConnectedLines.Location = new System.Drawing.Point(12, 173);
             this.groupBoxConnectedLines.Name = "groupBoxConnectedLines";
-            this.groupBoxConnectedLines.Size = new System.Drawing.Size(256, 343);
+            this.groupBoxConnectedLines.Size = new System.Drawing.Size(256, 149);
             this.groupBoxConnectedLines.TabIndex = 6;
             this.groupBoxConnectedLines.TabStop = false;
             this.groupBoxConnectedLines.Text = "Connected Lines";
@@ -306,7 +321,7 @@
             // buttonRemoveConnectedLines
             // 
             this.buttonRemoveConnectedLines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemoveConnectedLines.Location = new System.Drawing.Point(150, 304);
+            this.buttonRemoveConnectedLines.Location = new System.Drawing.Point(150, 110);
             this.buttonRemoveConnectedLines.Name = "buttonRemoveConnectedLines";
             this.buttonRemoveConnectedLines.Size = new System.Drawing.Size(100, 30);
             this.buttonRemoveConnectedLines.TabIndex = 9;
@@ -329,7 +344,7 @@
             this.listViewListOfConnectedLines.Location = new System.Drawing.Point(3, 17);
             this.listViewListOfConnectedLines.MultiSelect = false;
             this.listViewListOfConnectedLines.Name = "listViewListOfConnectedLines";
-            this.listViewListOfConnectedLines.Size = new System.Drawing.Size(249, 281);
+            this.listViewListOfConnectedLines.Size = new System.Drawing.Size(249, 87);
             this.listViewListOfConnectedLines.SmallImageList = this.imageListSmall;
             this.listViewListOfConnectedLines.TabIndex = 8;
             this.listViewListOfConnectedLines.UseCompatibleStateImageBehavior = false;
@@ -353,7 +368,7 @@
             // buttonAddConnectedLines
             // 
             this.buttonAddConnectedLines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddConnectedLines.Location = new System.Drawing.Point(44, 304);
+            this.buttonAddConnectedLines.Location = new System.Drawing.Point(44, 110);
             this.buttonAddConnectedLines.Name = "buttonAddConnectedLines";
             this.buttonAddConnectedLines.Size = new System.Drawing.Size(100, 30);
             this.buttonAddConnectedLines.TabIndex = 7;
@@ -361,11 +376,129 @@
             this.buttonAddConnectedLines.UseVisualStyleBackColor = true;
             this.buttonAddConnectedLines.Click += new System.EventHandler(this.buttonAddConnectedLine_Click);
             // 
+            // groupBoxSelectedStopDetails
+            // 
+            this.groupBoxSelectedStopDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxSelectedStopDetails.Controls.Add(this.buttonUpdateStopDetails);
+            this.groupBoxSelectedStopDetails.Controls.Add(this.textBoxTimeOfStaying);
+            this.groupBoxSelectedStopDetails.Controls.Add(this.labelTimeOfStayingAtStation);
+            this.groupBoxSelectedStopDetails.Controls.Add(this.textBoxDistanceDifference);
+            this.groupBoxSelectedStopDetails.Controls.Add(this.labelKmDifference);
+            this.groupBoxSelectedStopDetails.Controls.Add(this.textBoxTimeDifference);
+            this.groupBoxSelectedStopDetails.Controls.Add(this.labelTimeDifference);
+            this.groupBoxSelectedStopDetails.Controls.Add(this.textBoxOrderAtLine);
+            this.groupBoxSelectedStopDetails.Controls.Add(this.labelOrderAtLine);
+            this.groupBoxSelectedStopDetails.Controls.Add(this.textBoxTrainStation);
+            this.groupBoxSelectedStopDetails.Controls.Add(this.labelTrainStation);
+            this.groupBoxSelectedStopDetails.Location = new System.Drawing.Point(12, 328);
+            this.groupBoxSelectedStopDetails.Name = "groupBoxSelectedStopDetails";
+            this.groupBoxSelectedStopDetails.Size = new System.Drawing.Size(256, 185);
+            this.groupBoxSelectedStopDetails.TabIndex = 7;
+            this.groupBoxSelectedStopDetails.TabStop = false;
+            this.groupBoxSelectedStopDetails.Text = "Selected Stop\'s Details";
+            // 
+            // buttonUpdateStopDetails
+            // 
+            this.buttonUpdateStopDetails.Location = new System.Drawing.Point(106, 149);
+            this.buttonUpdateStopDetails.Name = "buttonUpdateStopDetails";
+            this.buttonUpdateStopDetails.Size = new System.Drawing.Size(120, 30);
+            this.buttonUpdateStopDetails.TabIndex = 7;
+            this.buttonUpdateStopDetails.Text = "Update Stop Details";
+            this.buttonUpdateStopDetails.UseVisualStyleBackColor = true;
+            this.buttonUpdateStopDetails.Click += new System.EventHandler(this.buttonUpdateStopDetails_Click);
+            // 
+            // textBoxTimeOfStaying
+            // 
+            this.textBoxTimeOfStaying.Location = new System.Drawing.Point(142, 121);
+            this.textBoxTimeOfStaying.Name = "textBoxTimeOfStaying";
+            this.textBoxTimeOfStaying.Size = new System.Drawing.Size(84, 20);
+            this.textBoxTimeOfStaying.TabIndex = 9;
+            // 
+            // labelTimeOfStayingAtStation
+            // 
+            this.labelTimeOfStayingAtStation.AutoSize = true;
+            this.labelTimeOfStayingAtStation.Location = new System.Drawing.Point(8, 124);
+            this.labelTimeOfStayingAtStation.Name = "labelTimeOfStayingAtStation";
+            this.labelTimeOfStayingAtStation.Size = new System.Drawing.Size(128, 13);
+            this.labelTimeOfStayingAtStation.TabIndex = 8;
+            this.labelTimeOfStayingAtStation.Text = "Time of Staying at Station";
+            // 
+            // textBoxDistanceDifference
+            // 
+            this.textBoxDistanceDifference.Location = new System.Drawing.Point(142, 95);
+            this.textBoxDistanceDifference.Name = "textBoxDistanceDifference";
+            this.textBoxDistanceDifference.Size = new System.Drawing.Size(84, 20);
+            this.textBoxDistanceDifference.TabIndex = 7;
+            // 
+            // labelKmDifference
+            // 
+            this.labelKmDifference.AutoSize = true;
+            this.labelKmDifference.Location = new System.Drawing.Point(7, 98);
+            this.labelKmDifference.Name = "labelKmDifference";
+            this.labelKmDifference.Size = new System.Drawing.Size(101, 13);
+            this.labelKmDifference.TabIndex = 6;
+            this.labelKmDifference.Text = "Distance Difference";
+            // 
+            // textBoxTimeDifference
+            // 
+            this.textBoxTimeDifference.Location = new System.Drawing.Point(142, 69);
+            this.textBoxTimeDifference.Name = "textBoxTimeDifference";
+            this.textBoxTimeDifference.Size = new System.Drawing.Size(84, 20);
+            this.textBoxTimeDifference.TabIndex = 5;
+            // 
+            // labelTimeDifference
+            // 
+            this.labelTimeDifference.AutoSize = true;
+            this.labelTimeDifference.Location = new System.Drawing.Point(6, 72);
+            this.labelTimeDifference.Name = "labelTimeDifference";
+            this.labelTimeDifference.Size = new System.Drawing.Size(82, 13);
+            this.labelTimeDifference.TabIndex = 4;
+            this.labelTimeDifference.Text = "Time Difference";
+            // 
+            // textBoxOrderAtLine
+            // 
+            this.textBoxOrderAtLine.Enabled = false;
+            this.textBoxOrderAtLine.Location = new System.Drawing.Point(142, 43);
+            this.textBoxOrderAtLine.Name = "textBoxOrderAtLine";
+            this.textBoxOrderAtLine.Size = new System.Drawing.Size(84, 20);
+            this.textBoxOrderAtLine.TabIndex = 3;
+            // 
+            // labelOrderAtLine
+            // 
+            this.labelOrderAtLine.AutoSize = true;
+            this.labelOrderAtLine.Location = new System.Drawing.Point(8, 46);
+            this.labelOrderAtLine.Name = "labelOrderAtLine";
+            this.labelOrderAtLine.Size = new System.Drawing.Size(68, 13);
+            this.labelOrderAtLine.TabIndex = 2;
+            this.labelOrderAtLine.Text = "Order at Line";
+            // 
+            // textBoxTrainStation
+            // 
+            this.textBoxTrainStation.Enabled = false;
+            this.textBoxTrainStation.Location = new System.Drawing.Point(80, 17);
+            this.textBoxTrainStation.Name = "textBoxTrainStation";
+            this.textBoxTrainStation.Size = new System.Drawing.Size(146, 20);
+            this.textBoxTrainStation.TabIndex = 1;
+            // 
+            // labelTrainStation
+            // 
+            this.labelTrainStation.AutoSize = true;
+            this.labelTrainStation.Location = new System.Drawing.Point(7, 20);
+            this.labelTrainStation.Name = "labelTrainStation";
+            this.labelTrainStation.Size = new System.Drawing.Size(67, 13);
+            this.labelTrainStation.TabIndex = 0;
+            this.labelTrainStation.Text = "Train Station";
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // FormDetailsOfLine
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 564);
+            this.Controls.Add(this.groupBoxSelectedStopDetails);
             this.Controls.Add(this.groupBoxConnectedLines);
             this.Controls.Add(this.groupBoxListOfStops);
             this.Controls.Add(this.groupBoxLineInformation);
@@ -379,6 +512,9 @@
             this.groupBoxLineInformation.PerformLayout();
             this.groupBoxListOfStops.ResumeLayout(false);
             this.groupBoxConnectedLines.ResumeLayout(false);
+            this.groupBoxSelectedStopDetails.ResumeLayout(false);
+            this.groupBoxSelectedStopDetails.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -416,6 +552,19 @@
         private System.Windows.Forms.ColumnHeader columnHeaderTimeOfStaying;
         private System.Windows.Forms.ColumnHeader columnHeaderTimeFromStart;
         private System.Windows.Forms.ColumnHeader columnHeaderKmFromStart;
+        private System.Windows.Forms.GroupBox groupBoxSelectedStopDetails;
+        private System.Windows.Forms.Button buttonUpdateStopDetails;
+        private System.Windows.Forms.TextBox textBoxTimeOfStaying;
+        private System.Windows.Forms.Label labelTimeOfStayingAtStation;
+        private System.Windows.Forms.TextBox textBoxDistanceDifference;
+        private System.Windows.Forms.Label labelKmDifference;
+        private System.Windows.Forms.TextBox textBoxTimeDifference;
+        private System.Windows.Forms.Label labelTimeDifference;
+        private System.Windows.Forms.TextBox textBoxOrderAtLine;
+        private System.Windows.Forms.Label labelOrderAtLine;
+        private System.Windows.Forms.TextBox textBoxTrainStation;
+        private System.Windows.Forms.Label labelTrainStation;
+        private System.Windows.Forms.ErrorProvider errorProvider;
 
     }
 }

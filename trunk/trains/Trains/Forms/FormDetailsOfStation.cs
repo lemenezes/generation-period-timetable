@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using PeriodicTimetableGeneration.GenerationAlgorithmDSAs.Utils;
 
 namespace PeriodicTimetableGeneration
 {
@@ -85,7 +86,44 @@ namespace PeriodicTimetableGeneration
 
         private void buttonSaveDetailsOfStation_Click(object sender, EventArgs e)
         {
+
+            if (!validate())
+            {
+                return;
+            }
+
+
             saveDetailsOfStation();
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private Boolean validate()
+        {
+            Boolean isValid = true;
+
+            if (!ValidationUtils.isInteger(this.textBoxInhabitation.Text) || Convert.ToInt32(textBoxInhabitation.Text) < 0)
+            {
+                isValid = false;
+                errorProvider.SetError(textBoxInhabitation, "Invalid inhabitation value.");
+            }
+            else
+            {
+                errorProvider.SetError(textBoxInhabitation, null);
+            }
+
+            if (!ValidationUtils.isTime(this.textBoxMinimalTransferTime.Text))
+            {
+                isValid = false;
+                errorProvider.SetError(textBoxMinimalTransferTime, "Invalid time format for Minimal Tranfer Time.");
+            }
+            else
+            {
+                errorProvider.SetError(textBoxMinimalTransferTime, null);
+            }
+
+            return isValid;
         }
 
         private void saveDetailsOfStation()
@@ -110,9 +148,6 @@ namespace PeriodicTimetableGeneration
             // save information about the town
             trainStation.Town = textBoxTown.Text;
             trainStation.MinimalTransferTime = Time.ToTime(textBoxMinimalTransferTime.Text);
-
-            //this.DialogResult = DialogResult.OK;
-            this.Close();
         }
 
         private Boolean townCategoryValueChanged() 

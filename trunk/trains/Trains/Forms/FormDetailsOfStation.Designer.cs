@@ -53,8 +53,10 @@
             this.groupBoxTrainLines = new System.Windows.Forms.GroupBox();
             this.buttonBackDetailsOfStation = new System.Windows.Forms.Button();
             this.buttonSaveDetailsOfStation = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxStationInformation.SuspendLayout();
             this.groupBoxTrainLines.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxStationInformation
@@ -73,7 +75,7 @@
             this.groupBoxStationInformation.Controls.Add(this.textBoxId);
             this.groupBoxStationInformation.Location = new System.Drawing.Point(12, 12);
             this.groupBoxStationInformation.Name = "groupBoxStationInformation";
-            this.groupBoxStationInformation.Size = new System.Drawing.Size(291, 179);
+            this.groupBoxStationInformation.Size = new System.Drawing.Size(303, 179);
             this.groupBoxStationInformation.TabIndex = 0;
             this.groupBoxStationInformation.TabStop = false;
             this.groupBoxStationInformation.Text = "Station\'s Information";
@@ -89,7 +91,7 @@
             // 
             // textBoxMinimalTransferTime
             // 
-            this.textBoxMinimalTransferTime.Location = new System.Drawing.Point(170, 149);
+            this.textBoxMinimalTransferTime.Location = new System.Drawing.Point(161, 149);
             this.textBoxMinimalTransferTime.Name = "textBoxMinimalTransferTime";
             this.textBoxMinimalTransferTime.Size = new System.Drawing.Size(115, 20);
             this.textBoxMinimalTransferTime.TabIndex = 10;
@@ -98,7 +100,7 @@
             // 
             this.textBoxTown.Location = new System.Drawing.Point(74, 123);
             this.textBoxTown.Name = "textBoxTown";
-            this.textBoxTown.Size = new System.Drawing.Size(211, 20);
+            this.textBoxTown.Size = new System.Drawing.Size(202, 20);
             this.textBoxTown.TabIndex = 9;
             // 
             // labelTown
@@ -123,7 +125,7 @@
             // 
             this.textBoxInhabitation.Location = new System.Drawing.Point(74, 97);
             this.textBoxInhabitation.Name = "textBoxInhabitation";
-            this.textBoxInhabitation.Size = new System.Drawing.Size(211, 20);
+            this.textBoxInhabitation.Size = new System.Drawing.Size(202, 20);
             this.textBoxInhabitation.TabIndex = 6;
             // 
             // comboBoxCategory
@@ -132,7 +134,7 @@
             this.comboBoxCategory.FormattingEnabled = true;
             this.comboBoxCategory.Location = new System.Drawing.Point(74, 70);
             this.comboBoxCategory.Name = "comboBoxCategory";
-            this.comboBoxCategory.Size = new System.Drawing.Size(211, 21);
+            this.comboBoxCategory.Size = new System.Drawing.Size(202, 21);
             this.comboBoxCategory.TabIndex = 5;
             // 
             // labelCategory
@@ -158,7 +160,7 @@
             this.textBoxName.Enabled = false;
             this.textBoxName.Location = new System.Drawing.Point(74, 44);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(211, 20);
+            this.textBoxName.Size = new System.Drawing.Size(202, 20);
             this.textBoxName.TabIndex = 2;
             // 
             // labelId
@@ -173,7 +175,7 @@
             // textBoxId
             // 
             this.textBoxId.Enabled = false;
-            this.textBoxId.Location = new System.Drawing.Point(170, 19);
+            this.textBoxId.Location = new System.Drawing.Point(161, 19);
             this.textBoxId.Name = "textBoxId";
             this.textBoxId.Size = new System.Drawing.Size(115, 20);
             this.textBoxId.TabIndex = 0;
@@ -194,7 +196,7 @@
             this.listViewTrainLines.Location = new System.Drawing.Point(3, 16);
             this.listViewTrainLines.MultiSelect = false;
             this.listViewTrainLines.Name = "listViewTrainLines";
-            this.listViewTrainLines.Size = new System.Drawing.Size(657, 384);
+            this.listViewTrainLines.Size = new System.Drawing.Size(645, 384);
             this.listViewTrainLines.SmallImageList = this.imageListSmall;
             this.listViewTrainLines.TabIndex = 1;
             this.listViewTrainLines.UseCompatibleStateImageBehavior = false;
@@ -243,9 +245,9 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxTrainLines.Controls.Add(this.listViewTrainLines);
-            this.groupBoxTrainLines.Location = new System.Drawing.Point(309, 12);
+            this.groupBoxTrainLines.Location = new System.Drawing.Point(321, 12);
             this.groupBoxTrainLines.Name = "groupBoxTrainLines";
-            this.groupBoxTrainLines.Size = new System.Drawing.Size(663, 403);
+            this.groupBoxTrainLines.Size = new System.Drawing.Size(651, 403);
             this.groupBoxTrainLines.TabIndex = 2;
             this.groupBoxTrainLines.TabStop = false;
             this.groupBoxTrainLines.Text = "Train Lines";
@@ -265,7 +267,6 @@
             // buttonSaveDetailsOfStation
             // 
             this.buttonSaveDetailsOfStation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSaveDetailsOfStation.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonSaveDetailsOfStation.Location = new System.Drawing.Point(872, 422);
             this.buttonSaveDetailsOfStation.Name = "buttonSaveDetailsOfStation";
             this.buttonSaveDetailsOfStation.Size = new System.Drawing.Size(100, 30);
@@ -273,6 +274,10 @@
             this.buttonSaveDetailsOfStation.Text = "Save";
             this.buttonSaveDetailsOfStation.UseVisualStyleBackColor = true;
             this.buttonSaveDetailsOfStation.Click += new System.EventHandler(this.buttonSaveDetailsOfStation_Click);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
             // 
             // FormDetailsOfStation
             // 
@@ -289,6 +294,7 @@
             this.groupBoxStationInformation.ResumeLayout(false);
             this.groupBoxStationInformation.PerformLayout();
             this.groupBoxTrainLines.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -319,5 +325,6 @@
         private System.Windows.Forms.Label labelTown;
         private System.Windows.Forms.Label labelMinimalTransferTime;
         private System.Windows.Forms.TextBox textBoxMinimalTransferTime;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

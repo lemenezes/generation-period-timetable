@@ -44,6 +44,8 @@
             this.columnHeaderLineNumber = new System.Windows.Forms.ColumnHeader();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxPathValidity = new System.Windows.Forms.TextBox();
+            this.columnHeaderTime = new System.Windows.Forms.ColumnHeader();
+            this.columnHeaderDistance = new System.Windows.Forms.ColumnHeader();
             this.groupBoxConnection.SuspendLayout();
             this.groupBoxPathStages.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +54,7 @@
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonSave.Location = new System.Drawing.Point(472, 422);
+            this.buttonSave.Location = new System.Drawing.Point(582, 422);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(100, 30);
             this.buttonSave.TabIndex = 0;
@@ -82,7 +84,7 @@
             this.groupBoxConnection.Controls.Add(this.textBoxToStation);
             this.groupBoxConnection.Location = new System.Drawing.Point(12, 12);
             this.groupBoxConnection.Name = "groupBoxConnection";
-            this.groupBoxConnection.Size = new System.Drawing.Size(560, 50);
+            this.groupBoxConnection.Size = new System.Drawing.Size(670, 50);
             this.groupBoxConnection.TabIndex = 2;
             this.groupBoxConnection.TabStop = false;
             this.groupBoxConnection.Text = "Connection";
@@ -133,7 +135,7 @@
             this.groupBoxPathStages.Controls.Add(this.textBoxPathValidity);
             this.groupBoxPathStages.Location = new System.Drawing.Point(12, 68);
             this.groupBoxPathStages.Name = "groupBoxPathStages";
-            this.groupBoxPathStages.Size = new System.Drawing.Size(560, 348);
+            this.groupBoxPathStages.Size = new System.Drawing.Size(670, 348);
             this.groupBoxPathStages.TabIndex = 3;
             this.groupBoxPathStages.TabStop = false;
             this.groupBoxPathStages.Text = "Path\'s Stages";
@@ -141,7 +143,7 @@
             // buttonRemoveAllStages
             // 
             this.buttonRemoveAllStages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemoveAllStages.Location = new System.Drawing.Point(449, 81);
+            this.buttonRemoveAllStages.Location = new System.Drawing.Point(559, 81);
             this.buttonRemoveAllStages.Name = "buttonRemoveAllStages";
             this.buttonRemoveAllStages.Size = new System.Drawing.Size(105, 30);
             this.buttonRemoveAllStages.TabIndex = 5;
@@ -152,7 +154,7 @@
             // buttonAddStage
             // 
             this.buttonAddStage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddStage.Location = new System.Drawing.Point(449, 45);
+            this.buttonAddStage.Location = new System.Drawing.Point(559, 45);
             this.buttonAddStage.Name = "buttonAddStage";
             this.buttonAddStage.Size = new System.Drawing.Size(105, 30);
             this.buttonAddStage.TabIndex = 4;
@@ -168,15 +170,18 @@
             this.listViewListOfStages.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderFrom,
             this.columnHeaderTo,
-            this.columnHeaderLineNumber});
+            this.columnHeaderLineNumber,
+            this.columnHeaderTime,
+            this.columnHeaderDistance});
             this.listViewListOfStages.FullRowSelect = true;
             this.listViewListOfStages.GridLines = true;
             this.listViewListOfStages.Location = new System.Drawing.Point(7, 20);
             this.listViewListOfStages.Name = "listViewListOfStages";
-            this.listViewListOfStages.Size = new System.Drawing.Size(436, 296);
+            this.listViewListOfStages.Size = new System.Drawing.Size(546, 296);
             this.listViewListOfStages.TabIndex = 2;
             this.listViewListOfStages.UseCompatibleStateImageBehavior = false;
             this.listViewListOfStages.View = System.Windows.Forms.View.Details;
+            this.listViewListOfStages.SelectedIndexChanged += new System.EventHandler(this.listViewListOfStages_SelectedIndexChanged);
             // 
             // columnHeaderFrom
             // 
@@ -212,17 +217,30 @@
             this.textBoxPathValidity.Size = new System.Drawing.Size(150, 20);
             this.textBoxPathValidity.TabIndex = 0;
             // 
+            // columnHeaderTime
+            // 
+            this.columnHeaderTime.Text = "Time";
+            this.columnHeaderTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderTime.Width = 80;
+            // 
+            // columnHeaderDistance
+            // 
+            this.columnHeaderDistance.Text = "Distance";
+            this.columnHeaderDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderDistance.Width = 80;
+            // 
             // FormEditPathOfConnection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 464);
+            this.ClientSize = new System.Drawing.Size(694, 464);
             this.Controls.Add(this.groupBoxPathStages);
             this.Controls.Add(this.groupBoxConnection);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonSave);
             this.Name = "FormEditPathOfConnection";
             this.Text = "Edit Path of Connection";
+            this.Load += new System.EventHandler(this.FormEditPathOfConnection_Load);
             this.Shown += new System.EventHandler(this.FormEditPathOfConnection_Shown);
             this.groupBoxConnection.ResumeLayout(false);
             this.groupBoxConnection.PerformLayout();
@@ -250,5 +268,7 @@
         private System.Windows.Forms.ColumnHeader columnHeaderLineNumber;
         private System.Windows.Forms.Button buttonRemoveAllStages;
         private System.Windows.Forms.Button buttonAddStage;
+        private System.Windows.Forms.ColumnHeader columnHeaderTime;
+        private System.Windows.Forms.ColumnHeader columnHeaderDistance;
     }
 }

@@ -143,7 +143,7 @@ namespace PeriodicTimetableGeneration.Forms
 
                 lvi.SubItems.Add(timetable.ProgressiveChanges.ToString());
                 lvi.SubItems.Add(timetable.RatingValue.ToString());
-                lvi.SubItems.Add(timetable.GenerationTime.TotalMilliseconds.ToString());
+                lvi.SubItems.Add(timetable.GenerationTime.TotalMilliseconds.ToString("F4"));
                 lvi.SubItems.Add(timetable.Note);
 
                 listViewGeneratingTimetables.Items.Add(lvi);
@@ -634,6 +634,7 @@ namespace PeriodicTimetableGeneration.Forms
             // enable butttons
             this.buttonAbortGeneration.Enabled = true;
             this.buttonCompleteAndStop.Enabled = true;
+            this.CurrentGenerationAlgorithm.IsCancelled = false;
 
             // TODO: select howMany timetables you want
 
