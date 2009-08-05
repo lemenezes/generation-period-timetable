@@ -1,0 +1,23 @@
+TrainLineNumber#300
+Period#10
+#
+Letňany##21:00#0.000
+Prosek##21:02#1.838
+Střížkov##21:04#2.856
+Ládví##21:06#4.420
+Kobylisy##21:08#5.560
+Nádraží Holešovice##21:11#8.310
+Vltavská##21:13#9.360
+Florenc##21:15#10.560
+Hlavní nádraží##21:17#11.380
+Muzeum##21:18#11.810
+I. P. Pavlova##21:20#12.500
+Vyšehrad##21:21#13.790
+Pražského povstání##21:23#14.560
+Pankrác##21:24#15.360
+Budějovická##21:26#16.340
+Kačerov##21:28#17.160
+Roztyly##21:30#18.490
+Chodov##21:32#19.700
+Opatov##21:34#21.100
+Háje#21:35##22.410

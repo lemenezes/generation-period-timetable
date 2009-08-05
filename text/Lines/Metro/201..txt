@@ -1,0 +1,27 @@
+TrainLineNumber#201
+Period#10
+#
+Černý Most##21:05#0.000
+Rajská zahrada##21:07#1.190
+Hloubětín##21:09#2.940
+Kolbenova##21:11#4.480
+Vysočanská##21:13#5.600
+Českomoravská##21:14#6.400
+Palmovka##21:16#7.670
+Invalidovna##21:18#8.840
+Křižíkova##21:20#9.810
+Florenc##21:21#10.900
+Náměstí Republiky##21:23#11.450
+Můstek##21:24#12.250
+Národní třída##21:26#12.740
+Karlovo náměstí##21:27#13.380
+Anděl##21:29#14.600
+Smíchovské nádraží##21:31#15.700
+Radlická##21:34#17.860
+Jinonice##21:36#19.280
+Nové Butovice##21:38#20.650
+Hůrka##21:39#21.330
+Lužiny##21:41#22.480
+Luka##21:42#23.180
+Stodůlky##21:44#24.310
+Zličín#21:46##25.770

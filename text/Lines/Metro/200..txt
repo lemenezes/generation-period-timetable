@@ -1,0 +1,27 @@
+TrainLineNumber#200
+Period#10
+#
+Zličín##21:00#0.000
+Stodůlky##21:02#1.460
+Luka##21:04#2.590
+Lužiny##21:05#3.290
+Hůrka##21:07#4.440
+Nové Butovice##21:08#5.120
+Jinonice##21:10#6.490
+Radlická##21:12#7.910
+Smíchovské nádraží##21:15#10.070
+Anděl##21:17#11.170
+Karlovo náměstí##21:19#12.390
+Národní třída##21:20#13.030
+Můstek##21:21#13.520
+Náměstí Republiky##21:23#14.320
+Florenc##21:24#14.870
+Křižíkova##21:26#15.960
+Invalidovna##21:28#16.930
+Palmovka##21:29#18.100
+Českomoravská##21:31#19.370
+Vysočanská##21:33#20.170
+Kolbenova##21:35#21.290
+Hloubětín##21:37#22.830
+Rajská zahrada##21:39#24.580
+Černý Most#21:40##25.770

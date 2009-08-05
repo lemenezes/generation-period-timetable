@@ -1,0 +1,16 @@
+TrainLineNumber#101
+Period#10
+#
+Dejvická##21:00#0.000
+Hradčanská##21:01#0.830
+Malostranská##21:03#1.660
+Staroměstská##21:04#2.420
+Můstek##21:06#3.170
+Muzeum##21:07#3.860
+Náměstí Míru##21:09#4.650
+Jiřího z Poděbrad##21:10#5.500
+Flora##21:12#6.350
+Želivského##21:14#7.300
+Strašnická##21:16#8.600
+Skalka##21:19#9.970
+Depo Hostivař#21:20##11.003
