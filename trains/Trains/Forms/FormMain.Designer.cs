@@ -67,6 +67,8 @@
             this.tabPageListOfTransfers = new System.Windows.Forms.TabPage();
             this.splitContainerListOfTransfers = new System.Windows.Forms.SplitContainer();
             this.listViewListOfTransfers = new System.Windows.Forms.ListView();
+            this.groupBoxOriginalTimetable = new System.Windows.Forms.GroupBox();
+            this.buttonEvaluateOriginalTimetable = new System.Windows.Forms.Button();
             this.groupBoxGenerationAlgorithm = new System.Windows.Forms.GroupBox();
             this.buttonGenerationAlgorithmRandomized = new System.Windows.Forms.Button();
             this.buttonGenerationAlgorithmDSA = new System.Windows.Forms.Button();
@@ -74,8 +76,6 @@
             this.openFileDialogUpdateTownCategories = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogUpdateConnectedLines = new System.Windows.Forms.OpenFileDialog();
             this.labelWait = new System.Windows.Forms.Label();
-            this.groupBoxOriginalTimetable = new System.Windows.Forms.GroupBox();
-            this.buttonEvaluateOriginalTimetable = new System.Windows.Forms.Button();
             this.columnHeaderName = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderSize = new PeriodicTimetableGeneration.ColHeader();
             this.columnHeaderNumber = new PeriodicTimetableGeneration.ColHeader();
@@ -127,8 +127,8 @@
             this.splitContainerListOfTransfers.Panel1.SuspendLayout();
             this.splitContainerListOfTransfers.Panel2.SuspendLayout();
             this.splitContainerListOfTransfers.SuspendLayout();
-            this.groupBoxGenerationAlgorithm.SuspendLayout();
             this.groupBoxOriginalTimetable.SuspendLayout();
+            this.groupBoxGenerationAlgorithm.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlTG
@@ -647,6 +647,27 @@
             this.listViewListOfTransfers.View = System.Windows.Forms.View.Details;
             this.listViewListOfTransfers.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewListOfTransfers_ColumnClick);
             // 
+            // groupBoxOriginalTimetable
+            // 
+            this.groupBoxOriginalTimetable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBoxOriginalTimetable.Controls.Add(this.buttonEvaluateOriginalTimetable);
+            this.groupBoxOriginalTimetable.Location = new System.Drawing.Point(6, 334);
+            this.groupBoxOriginalTimetable.Name = "groupBoxOriginalTimetable";
+            this.groupBoxOriginalTimetable.Size = new System.Drawing.Size(113, 65);
+            this.groupBoxOriginalTimetable.TabIndex = 9;
+            this.groupBoxOriginalTimetable.TabStop = false;
+            this.groupBoxOriginalTimetable.Text = "Original Timetable";
+            // 
+            // buttonEvaluateOriginalTimetable
+            // 
+            this.buttonEvaluateOriginalTimetable.Location = new System.Drawing.Point(6, 19);
+            this.buttonEvaluateOriginalTimetable.Name = "buttonEvaluateOriginalTimetable";
+            this.buttonEvaluateOriginalTimetable.Size = new System.Drawing.Size(100, 40);
+            this.buttonEvaluateOriginalTimetable.TabIndex = 7;
+            this.buttonEvaluateOriginalTimetable.Text = "Evaluate";
+            this.buttonEvaluateOriginalTimetable.UseVisualStyleBackColor = true;
+            this.buttonEvaluateOriginalTimetable.Click += new System.EventHandler(this.buttonEvaluateOriginalTimetable_Click);
+            // 
             // groupBoxGenerationAlgorithm
             // 
             this.groupBoxGenerationAlgorithm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -711,26 +732,6 @@
             this.labelWait.Text = "Please wait,\r\nprocessing data...";
             this.labelWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelWait.Visible = false;
-            // 
-            // groupBoxOriginalTimetable
-            // 
-            this.groupBoxOriginalTimetable.Controls.Add(this.buttonEvaluateOriginalTimetable);
-            this.groupBoxOriginalTimetable.Location = new System.Drawing.Point(6, 334);
-            this.groupBoxOriginalTimetable.Name = "groupBoxOriginalTimetable";
-            this.groupBoxOriginalTimetable.Size = new System.Drawing.Size(113, 65);
-            this.groupBoxOriginalTimetable.TabIndex = 9;
-            this.groupBoxOriginalTimetable.TabStop = false;
-            this.groupBoxOriginalTimetable.Text = "Original Timetable";
-            // 
-            // buttonEvaluateOriginalTimetable
-            // 
-            this.buttonEvaluateOriginalTimetable.Location = new System.Drawing.Point(6, 19);
-            this.buttonEvaluateOriginalTimetable.Name = "buttonEvaluateOriginalTimetable";
-            this.buttonEvaluateOriginalTimetable.Size = new System.Drawing.Size(100, 40);
-            this.buttonEvaluateOriginalTimetable.TabIndex = 7;
-            this.buttonEvaluateOriginalTimetable.Text = "Evaluate";
-            this.buttonEvaluateOriginalTimetable.UseVisualStyleBackColor = true;
-            this.buttonEvaluateOriginalTimetable.Click += new System.EventHandler(this.buttonEvaluateOriginalTimetable_Click);
             // 
             // columnHeaderName
             // 
@@ -910,8 +911,8 @@
             this.splitContainerListOfTransfers.Panel1.ResumeLayout(false);
             this.splitContainerListOfTransfers.Panel2.ResumeLayout(false);
             this.splitContainerListOfTransfers.ResumeLayout(false);
-            this.groupBoxGenerationAlgorithm.ResumeLayout(false);
             this.groupBoxOriginalTimetable.ResumeLayout(false);
+            this.groupBoxGenerationAlgorithm.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

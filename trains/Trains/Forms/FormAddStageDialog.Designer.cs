@@ -137,6 +137,7 @@
             this.Controls.Add(this.buttonAdd);
             this.Name = "FormAddStageDialog";
             this.Text = "Add Stage";
+            this.Load += new System.EventHandler(this.FormAddStageDialog_Load);
             this.Shown += new System.EventHandler(this.FormAddStageDialog_Shown);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -64,6 +64,8 @@ namespace PeriodicTimetableGeneration.Forms
 
                 lvi.SubItems.Add(stage.ToStationName);
                 lvi.SubItems.Add(stage.LineNumber.ToString());
+                lvi.SubItems.Add(stage.Time.ToString());
+                lvi.SubItems.Add(stage.Distance.ToString());
 
                 listViewListOfStages.Items.Add(lvi);
             }
@@ -211,6 +213,16 @@ namespace PeriodicTimetableGeneration.Forms
                 isValid = true;
 
             return isValid;
+        }
+
+        private void listViewListOfStages_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormEditPathOfConnection_Load(object sender, EventArgs e)
+        {
+
         }
 
 

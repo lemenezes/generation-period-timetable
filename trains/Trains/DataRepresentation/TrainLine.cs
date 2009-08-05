@@ -447,8 +447,51 @@ namespace PeriodicTimetableGeneration
 
 
         #region Public Methods
-        
-        public update
+
+        /// <summary>
+        /// Updates the relative train stops' information.
+        /// </summary>
+        public void updateRelativeTrainStopInformation()
+        {
+            //set initial value
+            Time timeFromStart = Time.MinValue;
+            int kmFromStart = 0;
+
+            Boolean firstStop = true;
+
+            // loop over all stops
+            foreach(TrainStop stop in this.trainStops)
+            {
+                if (firstStop) 
+                {
+                    // km
+                    stop.KmFromPreviousStop = 0;
+                    stop.KmFromStart = 0;
+                    // time
+                    stop.TimeArrival = Time.MinValue;
+                    stop.TimeDeparture = Time.MinValue;
+                    stop.TimeStayingAtStation = Time.MinValue;                    
+                    stop.TimeFromStart = Time.MinValue;
+                    stop.TimeFromPreviousStop = Time.MinValue;
+
+                    firstStop = false;
+                    continue;
+                }
+
+                stop.TimeArrival = timeFromStart += stop.TimeFromPreviousStop;
+                stop.KmFromStart = kmFromStart += stop.KmFromPreviousStop;
+                stop.TimeDeparture = timeFromStart += stop.TimeStayingAtStation;
+            }
+        }
+
+        /// <summary>
+        /// Updates the relative train stops' information.
+        /// </summary>
+        //public void updateDifferentialTrainStopInformation()
+        //{
+
+        //}
+
 
         #endregion
 
