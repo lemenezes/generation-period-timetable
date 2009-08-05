@@ -12,6 +12,8 @@ using System.Collections;
 using PeriodicTimetableGeneration;
 using PeriodicTimetableGeneration.Util;
 using PeriodicTimetableGeneration.Properties;
+using PeriodicTimetableGeneration.Interfaces;
+using PeriodicTimetableGeneration.GenerationAlgorithm;
 
 namespace PeriodicTimetableGeneration
 {
@@ -951,12 +953,26 @@ namespace PeriodicTimetableGeneration
             this.tabControlTG.Enabled = true;
         }
 
-        #endregion
-
         private void tabControlTG_Selecting(object sender, TabControlCancelEventArgs e)
         {
             tabUtil.onTabSelected(sender, e);
         }
+
+        private void buttonEvaluateOriginalTimetable_Click(object sender, EventArgs e)
+        {
+            Timetable tt = TimetableUtil.constructOriginalTimetable(TrainLineCache.getInstance().getCacheContent());
+            FormTimetables form = new FormTimetables(new DummyAlgorithm(tt));
+            form.generateTimetables();
+            form.Show();
+        }
+
+        #endregion
+
+
+
+
+
+
 
 
 

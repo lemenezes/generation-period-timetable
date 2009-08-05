@@ -51,8 +51,10 @@
             this.columnHeaderDistance = new System.Windows.Forms.ColumnHeader();
             this.imageListBig = new System.Windows.Forms.ImageList(this.components);
             this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxConnectionInformation.SuspendLayout();
             this.groupBoxPathStages.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonBack
@@ -70,7 +72,6 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonSave.Location = new System.Drawing.Point(872, 422);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(100, 30);
@@ -93,7 +94,7 @@
             this.groupBoxConnectionInformation.Controls.Add(this.textBoxFrom);
             this.groupBoxConnectionInformation.Location = new System.Drawing.Point(12, 12);
             this.groupBoxConnectionInformation.Name = "groupBoxConnectionInformation";
-            this.groupBoxConnectionInformation.Size = new System.Drawing.Size(300, 154);
+            this.groupBoxConnectionInformation.Size = new System.Drawing.Size(327, 154);
             this.groupBoxConnectionInformation.TabIndex = 2;
             this.groupBoxConnectionInformation.TabStop = false;
             this.groupBoxConnectionInformation.Text = "Connection\'s Information";
@@ -255,6 +256,10 @@
             this.imageListSmall.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListSmall.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // FormDetailsOfConnection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -270,6 +275,7 @@
             this.groupBoxConnectionInformation.ResumeLayout(false);
             this.groupBoxConnectionInformation.PerformLayout();
             this.groupBoxPathStages.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -298,5 +304,6 @@
         private System.Windows.Forms.TextBox textBoxTotalDistance;
         private System.Windows.Forms.TextBox textBoxTotalTime;
         private System.Windows.Forms.TextBox textBoxTo;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

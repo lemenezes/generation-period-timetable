@@ -32,15 +32,19 @@ namespace PeriodicTimetableGeneration.Forms
         /// <summary>
         /// Start time of showing line's timetables.
         /// </summary>
-        private static Time START_TIME_OF_LT = new Time(8, 0);
+        private static Time START_TIME_OF_LT = new Time(0,0);
+        //private static Time START_TIME_OF_LT = new Time(8, 0);
+        
         /// <summary>
         /// End time of showing station's timetables.
         /// </summary>
-        private static Time START_TIME_OF_ST = new Time(8, 0);
+        private static Time START_TIME_OF_ST = new Time(0, 0);
+        //private static Time START_TIME_OF_ST = new Time(8, 0);
         /// <summary>
         /// End time of showing station's timetables.
         /// </summary>
-        private static Time END_TIME_OF_ST = new Time(11, 0);
+        private static Time END_TIME_OF_ST = new Time(4, 0);
+        //private static Time END_TIME_OF_ST = new Time(11, 0);
 
         #endregion
 
@@ -110,6 +114,24 @@ namespace PeriodicTimetableGeneration.Forms
         private void prepareListViewGeneratingTimetable()
         {
 
+            if (CurrentGenerationAlgorithm.Timetables.Count == 0)
+            {
+                MessageBox.Show(
+                    "None of the algorithms returned a feasible solution. The constraints are too strict.", 
+                    "No results found.", 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information
+                );
+            }
+            else
+            {
+                //update
+                updateListViewGeneratingTimetable();
+            }
+        }
+
+        private void updateListViewGeneratingTimetable()
+        {
             listViewGeneratingTimetables.BeginUpdate();
             listViewGeneratingTimetables.Items.Clear();
 
@@ -123,21 +145,11 @@ namespace PeriodicTimetableGeneration.Forms
                 lvi.SubItems.Add(timetable.RatingValue.ToString());
                 lvi.SubItems.Add(timetable.GenerationTime.TotalMilliseconds.ToString());
                 lvi.SubItems.Add(timetable.Note);
-                
+
                 listViewGeneratingTimetables.Items.Add(lvi);
             }
 
             listViewGeneratingTimetables.EndUpdate();
-
-            if (CurrentGenerationAlgorithm.Timetables.Count == 0)
-            {
-                MessageBox.Show(
-                    "None of the algorithms returned a feasible solution. The constraints are too strict.", 
-                    "No results found.", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Information
-                );
-            }
         }
 
         //--------------------------------------------------
@@ -146,25 +158,7 @@ namespace PeriodicTimetableGeneration.Forms
 
         private void buttonStartGeneration_Click(object sender, EventArgs e)
         {
-            // disable button
-            this.buttonStartGeneration.Enabled = false;
-            this.buttonNextGeneratingTimtables.Enabled = false;
-            // enable butttons
-            this.buttonAbortGeneration.Enabled = true;
-            this.buttonCompleteAndStop.Enabled = true;
-
-            // TODO: select howMany timetables you want
-
-            // start asynchronous operation            
-
-            try
-            {
-                this.backgroundWorkerTG.RunWorkerAsync(CurrentGenerationAlgorithm);
-            }
-            catch
-            {
-                ErrorMessageBoxUtil.ShowError("Unexpected algorithm error.");
-            }
+            generateTimetables();
         }
 
         //--------------------------------------------------
@@ -255,7 +249,7 @@ namespace PeriodicTimetableGeneration.Forms
         //--------------------------------------------------
         // ComboBox Selected Line
         //--------------------------------------------------
-
+        
         private void prepareComboBoxSelectedLine(List<TrainLine> lines)
         {
             comboBoxSelectedLine.BeginUpdate();
@@ -466,7 +460,8 @@ namespace PeriodicTimetableGeneration.Forms
 
                 Time arrival = stop.TimeArrival;
                 Time departure = stop.TimeDeparture;
-                int m = (END_TIME_OF_ST - START_TIME_OF_ST).ToMinutes();
+
+                int m = (END_TIME_OF_ST - START_TIME_OF_ST).ToMinutes();                
                 // loop until we are still in interval -> max M
                 for (int i = 0; i * (int)line.Period < m; i++)
                 {
@@ -572,7 +567,7 @@ namespace PeriodicTimetableGeneration.Forms
         {
             // when progress changed, update listView and draw automatically again
             this.progressBarGT.Value = e.ProgressPercentage;
-            prepareListViewGeneratingTimetable();
+            updateListViewGeneratingTimetable();
         }
 
         private void backgroundWorkerTG_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -621,29 +616,40 @@ namespace PeriodicTimetableGeneration.Forms
             this.backgroundWorkerTG.ReportProgress(e.ProgressPercentage, e.UserState);
         }
 
-        private void updateListViewProgressChanged()
-        {
-            listViewGeneratingTimetables.BeginUpdate();
-            // access last timetable
-            Timetable tt = CurrentGenerationAlgorithm.Timetables
-                [CurrentGenerationAlgorithm.Timetables.Count - 1];
-            // access last listView
-            ListViewItem lvi = listViewGeneratingTimetables.Items
-                [listViewGeneratingTimetables.Items.Count - 1];
-            lvi.SubItems[1].Text = tt.ProgressiveChanges.ToString();
-            lvi.SubItems[2].Text = tt.RatingValue.ToString();
-            lvi.SubItems[3].Text = tt.GenerationTime.TotalMilliseconds.ToString();
-            lvi.SubItems[4].Text = tt.Note;
-
-            listViewGeneratingTimetables.EndUpdate();
-        }
-
         #endregion
 
+        #region Private Methods
+        
         private void tabControlGeneratingTimetables_Selecting(object sender, TabControlCancelEventArgs e)
         {
             tabUtil.onTabSelected(sender, e);
         }
+
+
+        public void generateTimetables()
+        {
+            // disable button
+            this.buttonStartGeneration.Enabled = false;
+            this.buttonNextGeneratingTimtables.Enabled = false;
+            // enable butttons
+            this.buttonAbortGeneration.Enabled = true;
+            this.buttonCompleteAndStop.Enabled = true;
+
+            // TODO: select howMany timetables you want
+
+            // start asynchronous operation            
+
+            try
+            {
+                this.backgroundWorkerTG.RunWorkerAsync(CurrentGenerationAlgorithm);
+            }
+            catch
+            {
+                ErrorMessageBoxUtil.ShowError("Unexpected algorithm error.");
+            }
+        }
+
+        #endregion
 
     }
 }

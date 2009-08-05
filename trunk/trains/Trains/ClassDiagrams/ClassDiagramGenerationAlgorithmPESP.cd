@@ -13,9 +13,6 @@
   </Class>
   <Class Name="PeriodicTimetableGeneration.Constraint">
     <Position X="2.5" Y="0.5" Width="1.75" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQACAAhQAQAAQBASAAEwEoAAAEAGgABgBA=</HashCode>
       <FileName>GenerationAlgorithmDSAs\Constraint.cs</FileName>

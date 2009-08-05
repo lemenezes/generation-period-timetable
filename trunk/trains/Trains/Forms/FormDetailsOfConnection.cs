@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using PeriodicTimetableGeneration.GenerationAlgorithmDSAs.Utils;
 
 namespace PeriodicTimetableGeneration.Forms
 {
@@ -90,9 +91,28 @@ namespace PeriodicTimetableGeneration.Forms
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            if (!validate())
+            {
+                return;
+            }
+
             saveConnectionInformation();
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private bool validate()
+        {
+            if (ValidationUtils.isInteger(textBoxPassengers.Text))
+            {
+                errorProvider.SetError(textBoxPassengers, null);
+                return true;
+            }
+            else
+            {
+                errorProvider.SetError(textBoxPassengers, "The number of passengers is not a valid integer.");
+                return false;
+            }
         }
 
         private void saveConnectionInformation() 
