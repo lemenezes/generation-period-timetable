@@ -126,7 +126,7 @@ namespace PeriodicTimetableGeneration
             // move it into that window 
             while (shift < 0)
                 shift += (int) varLine.Period;
-            while (shift > (int)varLine.Period) 
+            while (shift >= (int)varLine.Period) 
                 shift -= (int) varLine.Period;
 
             // store the relative

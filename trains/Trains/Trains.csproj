@@ -88,6 +88,8 @@
     <Compile Include="Enums\Direction.cs" />
     <Compile Include="GenerationAlgorithmDSAs\Utils\LogUtil.cs" />
     <Compile Include="GenerationAlgorithmDSAs\Utils\PropagationUtil.cs" />
+    <Compile Include="GenerationAlgorithmDSAs\Utils\ValidationUtils.cs" />
+    <Compile Include="GenerationAlgorithm\DummyAlgorithm.cs" />
     <Compile Include="GenerationAlgorithm\FinalInput.cs" />
     <Compile Include="Forms\FormAddStageDialog.cs">
       <SubType>Form</SubType>

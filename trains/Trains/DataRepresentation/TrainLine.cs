@@ -446,6 +446,12 @@ namespace PeriodicTimetableGeneration
         #endregion
 
 
+        #region Public Methods
+        
+        public update
+
+        #endregion
+
         #region Private Methods
 
         /// <summary>

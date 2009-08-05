@@ -6,6 +6,11 @@ namespace PeriodicTimetableGeneration
 {
     public enum Period
     {
+
+        /// <summary>
+        /// For subway evening transportation.
+        /// </summary>
+        interval10 = 10,
         interval15 = 15,
         interval30 = 30,
         interval60 = 60,
@@ -19,9 +24,11 @@ namespace PeriodicTimetableGeneration
         public static Period getPeriod(String interval)
         {
             Period newPeriod;
-            int intInterval = Convert.ToInt32(interval);
+            int intInterval = Convert.ToInt32(interval);            
 
-            if (intInterval.Equals((int)Period.interval15))
+            if (intInterval.Equals((int)Period.interval10))
+                newPeriod = Period.interval10;
+            else if (intInterval.Equals((int)Period.interval15))
                 newPeriod = Period.interval15;
             else if (intInterval.Equals((int)Period.interval30))
                 newPeriod = Period.interval30;
@@ -39,7 +46,9 @@ namespace PeriodicTimetableGeneration
             Period newPeriod;
             //int intInterval = Convert.ToInt32(interval);
 
-            if (intInterval.Equals((int)Period.interval15))
+            if (intInterval.Equals((int)Period.interval10))
+                newPeriod = Period.interval10;
+            else if (intInterval.Equals((int)Period.interval15))
                 newPeriod = Period.interval15;
             else if (intInterval.Equals((int)Period.interval30))
                 newPeriod = Period.interval30;

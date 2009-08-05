@@ -48,5 +48,22 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
             return tt;
         }
 
+        /// <summary>
+        /// Constructs the original timetable.
+        /// </summary>
+        /// <param name="lines">The lines.</param>
+        /// <returns></returns>
+        public static Timetable constructOriginalTimetable(List<TrainLine> lines) 
+        {
+            Timetable timetable = new Timetable(1, lines);
+
+            foreach(TrainLineVariable varLine in timetable.TrainLines)
+            {
+                varLine.StartTime = varLine.Line.ConnectedLineShift;
+            }
+
+            return timetable;
+        }
+
     }
 }
