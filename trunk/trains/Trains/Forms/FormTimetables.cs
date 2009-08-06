@@ -10,6 +10,7 @@ using System.Collections;
 using PeriodicTimetableGeneration.Util;
 using PeriodicTimetableGeneration.Interfaces;
 using PeriodicTimetableGeneration.Exceptions;
+using System.Threading;
 
 namespace PeriodicTimetableGeneration.Forms
 {
@@ -167,8 +168,17 @@ namespace PeriodicTimetableGeneration.Forms
 
         private void buttonAbortGeneration_Click(object sender, EventArgs e)
         {
-
+            if (this.workingThread != null) {
+                // Thread is nulled when algorithm stops.
+                Thread thread = this.workingThread;
+                thread.Abort();
+                
+                // Set the progress bar and the other things.
+                MessageBox.Show("Task cancelled by user.", "Task status.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
+
+        Thread workingThread;
 
         //--------------------------------------------------
         // Button COMPLETE and STOP generation
@@ -550,24 +560,31 @@ namespace PeriodicTimetableGeneration.Forms
 
         private void backgroundWorkerTG_DoWork(object sender, DoWorkEventArgs e)
         {
-            // get the worker, who call this method
-            BackgroundWorker worker = sender as BackgroundWorker;
-            IGenerationAlgorithm algorithm = (IGenerationAlgorithm)e.Argument;
-            algorithm.OnProgressChanged += algorithmProgressChanged;
+            try
+            {
+                // get the worker, who call this method
+                BackgroundWorker worker = sender as BackgroundWorker;
+                IGenerationAlgorithm algorithm = (IGenerationAlgorithm)e.Argument;
+                this.workingThread = Thread.CurrentThread;
+                algorithm.OnProgressChanged += algorithmProgressChanged;
 
-            //
-            int number = (int)numericUpDownTimetables.Value;
-            // do generation of timetables
-            algorithm.generateTimetables(number);
+                //
+                int number = (int)numericUpDownTimetables.Value;
+                // do generation of timetables
+                algorithm.generateTimetables(number);
 
-            e.Cancel = algorithm.IsCancelled;
+                e.Cancel = algorithm.IsCancelled;
+            } catch (ThreadAbortException) {
+                this.workingThread = null;
+                Thread.ResetAbort();
+            }
         }
 
         private void backgroundWorkerTG_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             // when progress changed, update listView and draw automatically again
             this.progressBarGT.Value = e.ProgressPercentage;
-            updateListViewGeneratingTimetable();
+            //updateListViewGeneratingTimetable();
         }
 
         private void backgroundWorkerTG_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

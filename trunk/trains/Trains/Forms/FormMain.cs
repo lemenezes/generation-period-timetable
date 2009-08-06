@@ -607,7 +607,7 @@ namespace PeriodicTimetableGeneration
 
         private void updateTownCategoriesFromFile(String fileName)
         {
-            IOUtil.updateTownCategoriesFromFile(fileName);
+            IOUtil.updateStationDetailsFromFile(fileName);
 
         }
 

@@ -287,56 +287,105 @@ namespace PeriodicTimetableGeneration
         /// Reads station's information from file.
         /// </summary>
         /// <returns>The stations.</returns>
-        public static List<TrainStation> readTrainStationFromFile(String fileName)
+        public static List<StationDetail> readTrainStationFromFile(String fileName)
         {
+            const int MANDATORY = 2;
+            const int ALL = 4;
+
+
             List<String[]> listOfStrings = readFromFile(fileName);
-            List<TrainStation> stations = new List<TrainStation>();
+            List<StationDetail> stationDetails = new List<StationDetail>();
 
             if (listOfStrings == null) return null;
-            if (listOfStrings.Count.Equals(0)) return stations;
+            if (listOfStrings.Count.Equals(0)) return stationDetails;
 
             // loop over all items in list of strings
             foreach (String[] strings in listOfStrings) 
             {
-                // if invalid number of parameters, then continue with next item
-                if (!strings.Length.Equals(2)||strings.Length.Equals(3)) continue;
-                
-                // createConstraintSet new train station and fill values
-                TrainStation station = new TrainStation();
-                station.Name = strings[0];
-                station.Inhabitation = Convert.ToInt32(strings[1]);
-
-                // if there is 3rd item represented town
-                if (strings.Length.Equals(3))
-                    // save it
-                    station.Town = strings[2];
-
-                stations.Add(station);
+                //if there is only 2 items
+                if (strings.Length.Equals(MANDATORY))
+                {
+                    stationDetails.Add(new StationDetail(strings[0], Convert.ToInt32(strings[1])));  
+                }
+                else if (strings.Length.Equals(ALL))
+                {
+                    StationDetail details = new StationDetail(strings[0], Convert.ToInt32(strings[1]));
+                    if(strings[2] != "") 
+                        details.MinimalTransferTime = Time.ToTime(Convert.ToInt32(strings[2]));
+                    if (strings[3] != "")
+                        details.Town = strings[3];
+                    stationDetails.Add(details);
+                }
             }
 
-            return stations;
+            return stationDetails;
+        }
+
+        public struct StationDetail 
+        {
+
+            public String StationName;// { get; set; }           
+            public int Inhabitation;// { get; set; }
+            public Time MinimalTransferTime;// { get; set; }
+            public String Town;// { get; set; }
+
+
+            public StationDetail(string stationName, int inhabitation) 
+            {
+                StationName = stationName;
+                Inhabitation = inhabitation;
+                MinimalTransferTime = Time.EmptyValue;
+                Town = "";
+            }
+            public StationDetail(string stationName, int inhabitation, String name)
+            {
+                StationName = stationName;
+                Inhabitation = inhabitation;
+                MinimalTransferTime = Time.EmptyValue;
+                Town = name;
+            }
+            public StationDetail(string stationName, int inhabitation, Time minimalTransferTime)
+            {
+                StationName = stationName;
+                Inhabitation = inhabitation;
+                MinimalTransferTime = minimalTransferTime;
+                Town = "";
+            }
+            public StationDetail(string stationName, int inhabitation, Time minimalTransferTime, String name)
+            {
+                StationName = stationName;
+                Inhabitation = inhabitation;
+                MinimalTransferTime = minimalTransferTime;
+                Town = name;
+            }
         }
 
         /// <summary>
         /// Updates the field town category for stations from file.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        public static void updateTownCategoriesFromFile(String fileName)
+        public static void updateStationDetailsFromFile(String fileName)
         {
-            List<TrainStation> stations = IOUtil.readTrainStationFromFile(fileName);
+            List<StationDetail> stationDetails = IOUtil.readTrainStationFromFile(fileName);
 
-            foreach (TrainStation station in stations)
+            foreach (StationDetail stationDetail in stationDetails)
             {
                 // if station exits in train station cache
-                if (TrainStationCache.getInstance().doesStationExist(station.Name))
+                if (TrainStationCache.getInstance().doesStationExist(stationDetail.StationName))
                 {
                     // find station in cache
                     TrainStation s = TrainStationCache.getInstance()
-                        .getCacheContentOnName(station.Name);
+                        .getCacheContentOnName(stationDetail.StationName);
                     // copy inhabitation
-                    s.Inhabitation = station.Inhabitation;
+                    s.Inhabitation = stationDetail.Inhabitation;
                     // update town category according inhabitation
                     s.updateTownCategory();
+
+                    if (stationDetail.MinimalTransferTime != Time.EmptyValue)
+                        s.MinimalTransferTime = stationDetail.MinimalTransferTime;
+
+                    if (stationDetail.Town != "")
+                        s.Town = stationDetail.Town;
                 }
             }
         }
