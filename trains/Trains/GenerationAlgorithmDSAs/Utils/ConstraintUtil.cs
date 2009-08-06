@@ -48,11 +48,13 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithmDSAs
         {
             // TODO: Retrieve from FinalInput.
 
-            List<Transfer> transfers = new List<Transfer>();
-            foreach (TrainLine line in TrainLineCache.getInstance().getCacheContent())
-            {
-                TransferUtil.createTransfers(line, transfers);
-            }
+            List<Transfer> transfers = FinalInput.getInstance().getCacheContent();
+
+            //List<Transfer> transfers = new List<Transfer>();
+            //foreach (TrainLine line in TrainLineCache.getInstance().getCacheContent())
+            //{
+            //    TransferUtil.createTransfers(line, transfers);
+            //}
 
             return transfers;
         }

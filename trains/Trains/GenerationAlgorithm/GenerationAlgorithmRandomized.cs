@@ -295,13 +295,8 @@ namespace PeriodicTimetableGeneration
 
             timetable.RatingValue = state.Factor;
             timetable.calculateProgressiveChanges();
-
-            Console.WriteLine("------------------------");
-            Console.WriteLine("Timetable: " + timetable.ID);
-            foreach (TrainLineVariable line in timetable.getVariableLines())
-            {
-                Console.WriteLine(line.LineNumber + "> Progress: " + line.ProgressiveChanges + "> Rating: " + line.RatingValue);
-            }
+            
+            LogUtil.printTimetableTransfersEvaluation(timetable, FinalInput.getInstance().getCacheContent());
 
 
             return timetable;

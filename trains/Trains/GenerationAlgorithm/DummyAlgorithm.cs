@@ -53,6 +53,7 @@ namespace PeriodicTimetableGeneration.GenerationAlgorithm
         {
             this.Timetables.Clear();
             this.originalTimetable.calculateRatingValue();
+            LogUtil.printTimetableTransfersEvaluation(originalTimetable, FinalInput.getInstance().getCacheContent());
             this.Timetables.Add(this.originalTimetable);
         }
 

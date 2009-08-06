@@ -428,7 +428,9 @@ namespace PeriodicTimetableGeneration
 
             foreach (Transfer transfer in transfers)
             {
-                ratingValue += calculateTransfer(tt, transfer);
+                int value = calculateTransfer(tt, transfer);
+                ratingValue += value;
+
             }
 
             return ratingValue;
