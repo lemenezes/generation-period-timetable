@@ -259,6 +259,7 @@ namespace PeriodicTimetableGeneration
 			{
 				Console.Error.WriteLine(e.Message);
 				return null;
+                //TODO: throw IOException??
             }
       
             return listString;

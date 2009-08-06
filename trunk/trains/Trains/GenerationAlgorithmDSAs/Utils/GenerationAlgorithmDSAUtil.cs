@@ -206,8 +206,8 @@ namespace PeriodicTimetableGeneration
 
 
                 tt.ProgressiveChanges =  progressiveChanges;
-                LogUtil.printTimetableTransfersEvaluation(tt, FinalInput.getInstance().getCacheContent());
-                Console.Out.WriteLine("gen: {0}, calc: {1}", tt.RatingValue, Timetable.calculateTimetableRatingValue(tt));
+                //LogUtil.printTimetableTransfersEvaluation(tt, FinalInput.getInstance().getCacheContent());
+                //Console.Out.WriteLine("gen: {0}, calc: {1}", tt.RatingValue, Timetable.calculateTimetableRatingValue(tt));
 
                 // add timetable to results
                 timetables.Add(tt);
@@ -235,7 +235,8 @@ namespace PeriodicTimetableGeneration
             // create trian lins independent on solution
             timetable.TrainLines.AddRange(createTrainLineVariablesIndependentOnSolution(solution, trainLineMap));
 
-            timetable.RatingValue = Timetable.calculateTimetableRatingValue(timetable);
+            //timetable.RatingValue =  Timetable.calculateTimetableRatingValue(timetable);
+            timetable.RatingValue = solution.SolutionFactor;
 
             return timetable;
         }

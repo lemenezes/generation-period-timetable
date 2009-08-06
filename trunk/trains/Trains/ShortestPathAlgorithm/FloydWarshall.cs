@@ -220,8 +220,8 @@ namespace PeriodicTimetableGeneration
                     allPath.Add(path);
                 }
 
-            Console.Out.Write("all path ");
-            Console.Out.WriteLine(allPath.Count);
+            //Console.Out.Write("all path ");
+            //Console.Out.WriteLine(allPath.Count);
 
             return allPath;
         }

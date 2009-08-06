@@ -256,9 +256,10 @@ namespace PeriodicTimetableGeneration
         /// <returns></returns>
         public static int evaluateTransferFunction(Transfer transfer, Time time)
         {
-            const int factor = 10;
+            // multiple constant
+            const int FACTOR = 10;
 
-            int result = time.ToMinutes() * transfer.passengers;
+            int result = time.ToMinutes() * transfer.passengers / FACTOR;
             //Console.Out.WriteLine("Rating: " + time.ToMinutes() + " * " + transfers.passengers + " / " + solutionFactor + " = " + result);
             return result;
         }
