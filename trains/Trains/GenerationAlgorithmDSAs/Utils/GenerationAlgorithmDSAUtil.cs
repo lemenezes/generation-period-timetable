@@ -203,11 +203,12 @@ namespace PeriodicTimetableGeneration
                 Timetable tt = constructTimetable(solution, trainLineMap, timetables.Count + 1);
                 tt.Note = note;
                 tt.GenerationTime = runningTime;
-
-
                 tt.ProgressiveChanges =  progressiveChanges;
+
                 //LogUtil.printTimetableTransfersEvaluation(tt, FinalInput.getInstance().getCacheContent());
-                //Console.Out.WriteLine("gen: {0}, calc: {1}", tt.RatingValue, Timetable.calculateTimetableRatingValue(tt));
+                Console.Out.WriteLine("DSA: {0} -> {1}", tt.RatingValue, Timetable.calculateTimetableRatingValue(tt));
+                tt.calculateRatingValue();
+                //LogUtil.printTimetableTransfersEvaluation(tt, FinalInput.getInstance().getCacheContent());
 
                 // add timetable to results
                 timetables.Add(tt);

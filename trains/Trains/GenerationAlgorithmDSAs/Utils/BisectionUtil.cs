@@ -58,7 +58,7 @@ namespace PeriodicTimetableGeneration
             }
 
 			// if the current found value is not valid, move to the looser restrictions
-            while (!MatrixUtils.isValid(result.DiscreteSetMatrix))
+            while (!MatrixUtils.isValid(result.DiscreteSetMatrix) && midpoint <= upperBoundStart)
             {
 				result = PropagationUtil.runPropagationAlgorithm(constraints, constraintSetsCreator, ++midpoint);
             }

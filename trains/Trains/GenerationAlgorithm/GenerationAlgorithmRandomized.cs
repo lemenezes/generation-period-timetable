@@ -138,7 +138,7 @@ namespace PeriodicTimetableGeneration
                 watch.Stop();
                 tt.GenerationTime = watch.Elapsed;
 
-                Console.Out.WriteLine("{0} -> {1}", tt.RatingValue, Timetable.calculateTimetableRatingValue(tt));
+                Console.Out.WriteLine("Random: {0} -> {1}", tt.RatingValue, Timetable.calculateTimetableRatingValue(tt));
 
                 // add timetable
                 timetables.Add(tt);
