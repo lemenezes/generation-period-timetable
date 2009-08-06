@@ -9,7 +9,7 @@ namespace PeriodicTimetableGeneration
 {
     /// <summary>
     /// Class represent Constraint, which model relation between two lines.
-    /// Implements appropriate methods for it.
+    /// Implements appropriate methods for it. t1 happens before t2.
     /// </summary>
     public abstract class Constraint
     {
@@ -21,11 +21,11 @@ namespace PeriodicTimetableGeneration
         /// </summary>
         private Set set;
         /// <summary>
-        /// TrainLine1
+        /// TrainLine1 - arrival.
         /// </summary>
         private TrainLine trainLine1;
         /// <summary>
-        /// TrainLine2
+        /// TrainLine2 - departure.
         /// </summary>
         private TrainLine trainLine2;
         /// <summary>
@@ -406,14 +406,14 @@ namespace PeriodicTimetableGeneration
             // initialize the transfer
             this.transfer.Add(transfer_);
 
-            // first is a line, which transfers ON
-            this.TrainLine1 = transfer_.OnLine;
-            // second is a line, which transfer OFF
-            this.TrainLine2 = transfer_.OffLine;
+            // first is a line, which transfers OFF
+            this.TrainLine1 = transfer_.OffLine;
+            // second is a line, which transfer ON
+            this.TrainLine2 = transfer_.OnLine;
 
             // from train line get trainstop of tranfer, get arrival in minutes
-            this.ConstantMember1 = this.TrainLine1.getTrainStopOnStation(Transfer.Station.Name).TimeDepartureChecked.ToMinutes();
-            this.ConstantMember2 = this.TrainLine2.getTrainStopOnStation(Transfer.Station.Name).TimeArrivalChecked.ToMinutes();
+            this.ConstantMember1 = this.TrainLine1.getTrainStopOnStation(Transfer.Station.Name).TimeArrivalChecked.ToMinutes();
+            this.ConstantMember2 = this.TrainLine2.getTrainStopOnStation(Transfer.Station.Name).TimeDepartureChecked.ToMinutes();
         }
 
         /// <summary>
@@ -483,8 +483,8 @@ namespace PeriodicTimetableGeneration
         {
             // include minimal transter time, Set = {0,1,2,3}; MTT = 5 => {5,6,7,8}
             this.DiscreteSet.Addition(Transfer.Station.MinimalTransferTime.ToMinutes());
-            // reduce constantMembers (x + cm1) - (y + cm2) .. {0..15} => set.additon(-cm1+cm2);
-            this.DiscreteSet.Addition(this.ConstantMember2 - this.ConstantMember1);
+            // reduce constantMembers (x + cm2) - (y + cm1) .. {0..15} => set.additon(-cm2+cm1);
+            this.DiscreteSet.Addition(this.ConstantMember1 - this.ConstantMember2);
             // constantMembers are now zero
             this.ConstantMember1 = 0;
             this.ConstantMember2 = 0;

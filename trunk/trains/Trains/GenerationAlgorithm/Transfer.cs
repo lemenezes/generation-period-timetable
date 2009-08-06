@@ -258,7 +258,7 @@ namespace PeriodicTimetableGeneration
         {
             const int factor = 10;
 
-            int result = time.ToMinutes() * transfer.passengers / factor;
+            int result = time.ToMinutes() * transfer.passengers;
             //Console.Out.WriteLine("Rating: " + time.ToMinutes() + " * " + transfers.passengers + " / " + solutionFactor + " = " + result);
             return result;
         }

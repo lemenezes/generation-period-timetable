@@ -206,6 +206,7 @@ namespace PeriodicTimetableGeneration
 
 
                 tt.ProgressiveChanges =  progressiveChanges;
+                LogUtil.printTimetableTransfersEvaluation(tt, FinalInput.getInstance().getCacheContent());
                 Console.Out.WriteLine("gen: {0}, calc: {1}", tt.RatingValue, Timetable.calculateTimetableRatingValue(tt));
 
                 // add timetable to results
