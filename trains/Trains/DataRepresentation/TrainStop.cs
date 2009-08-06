@@ -86,8 +86,8 @@ namespace PeriodicTimetableGeneration
             this.trainLine = -1;
             this.timeFromStart = Time.EmptyValue;
             this.timeFromPreviousStop = Time.EmptyValue;
-            this.timeDeparture = Time.EmptyValue;
-            this.timeArrival = Time.EmptyValue;
+            this.timeDeparture = Time.MinValue;
+            this.timeArrival = Time.MinValue;
             this.platform = -1;
             this.orderInTrainLine = -1;
             this.kmFromStart = -1;

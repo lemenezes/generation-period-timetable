@@ -362,7 +362,7 @@ namespace PeriodicTimetableGeneration
             foreach (TrainLineVariable connectedVariable in line.ConnectedLinesVariable)
             {
                 // Set the start for variable.
-                changes.Add(new Change(line, line.StartTime));
+                changes.Add(new Change(line, line.StartTime));                
                 connectedVariable.StartTime = startTime - connectedVariable.Line.ConnectedLineShift;
                 connectedVariable.StartTime = PeriodUtil.normalizeTime(connectedVariable.StartTime, connectedVariable.Period);
             }

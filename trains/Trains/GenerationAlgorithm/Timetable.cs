@@ -450,8 +450,8 @@ namespace PeriodicTimetableGeneration
             TrainLineVariable offLine = timetable.getVariableLineOnSelect(transfer.OffLine.LineNumber);
 
             // varline startime, departure from start of line, connected line shif of line
-            Time arrivalTime = offLine.StartTime + offLine.departureFromStopAtIndex(transfer.TrainStopIndexOffLine);
-            Time departureTime = onLine.StartTime + onLine.arrivalToStopAtIndex(transfer.TrainStopIndexOnLine);
+            Time arrivalTime = offLine.StartTime + offLine.arrivalToStopAtIndex(transfer.TrainStopIndexOffLine);
+            Time departureTime = onLine.StartTime + onLine.departureFromStopAtIndex(transfer.TrainStopIndexOnLine);
 
             normalizeTransferTime(ref departureTime, ref arrivalTime, transfer.Station.MinimalTransferTime, (int)onLine.Period, (int)offLine.Period);
             ratingValue = transfer.evaluateTransferFunction(departureTime - arrivalTime);
