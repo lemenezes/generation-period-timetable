@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PeriodicTimetableGeneration</RootNamespace>
-    <AssemblyName>PeriodicTimetableGeneration</AssemblyName>
+    <AssemblyName>PTG</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
