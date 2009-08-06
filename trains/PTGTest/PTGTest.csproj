@@ -61,7 +61,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Trains\Trains.csproj">
+    <ProjectReference Include="..\PTG\PTG.csproj">
       <Project>{6E37814B-4879-4169-8198-9EA2B88D1EE5}</Project>
       <Name>Trains</Name>
     </ProjectReference>
