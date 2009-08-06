@@ -83,8 +83,8 @@ namespace PeriodicTimetableGeneration
                 lvi.Tag = fileInfo.FullName;
                 lvi.ImageIndex = 1;
 
-                Console.WriteLine(fileInfo.FullName);
-                Console.WriteLine(lvi.Tag.ToString());
+                //Console.WriteLine(fileInfo.FullName);
+                //Console.WriteLine(lvi.Tag.ToString());
 
                 ListViewItem.ListViewSubItem lvsi = new ListViewItem.ListViewSubItem();
                 lvsi.Text = fileInfo.Length.ToString();
@@ -99,18 +99,19 @@ namespace PeriodicTimetableGeneration
 
                 listViewLoadFiles.Items.Add(lvi);
 
-                Console.WriteLine("------------------");
-                int i = 0;
-                foreach (ListViewItem.ListViewSubItem sub in lvi.SubItems)
-                {
-                    Console.WriteLine(i + " " + sub.Text);
-                    i++;
-                }
-                Console.WriteLine("subitems total: " + lvi.SubItems.Count);
+                //Console.WriteLine("------------------");
+                //int i = 0;
+                //foreach (ListViewItem.ListViewSubItem sub in lvi.SubItems)
+                //{
+                //    Console.WriteLine(i + " " + sub.Text);
+                //    i++;
+                //}
+                //Console.WriteLine("subitems total: " + lvi.SubItems.Count);
             }
             listViewLoadFiles.EndUpdate();
-            Console.WriteLine(listViewLoadFiles.Items.Count);
-            Console.WriteLine(listViewLoadFiles.Items[0].Text);
+
+            //Console.WriteLine(listViewLoadFiles.Items.Count);
+            //Console.WriteLine(listViewLoadFiles.Items[0].Text);
 
         }
 

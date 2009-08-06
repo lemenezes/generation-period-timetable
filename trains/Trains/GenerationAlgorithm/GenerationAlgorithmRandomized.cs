@@ -142,9 +142,7 @@ namespace PeriodicTimetableGeneration
 
                 // add timetable
                 timetables.Add(tt);
-                
-
-
+  
                 int percentageComplete = (int)((float)i / (float)numberOfTimetables * 100);
                 reportProgress(percentageComplete);
             }
@@ -294,10 +292,10 @@ namespace PeriodicTimetableGeneration
             }
 
             timetable.RatingValue = state.Factor;
+            //int ratingValue = Timetable.calculateTimetableRatingValue(timetable);
             timetable.calculateProgressiveChanges();
             
-            LogUtil.printTimetableTransfersEvaluation(timetable, FinalInput.getInstance().getCacheContent());
-
+            //LogUtil.printTimetableTransfersEvaluation(timetable, FinalInput.getInstance().getCacheContent());
 
             return timetable;
         }
@@ -363,8 +361,7 @@ namespace PeriodicTimetableGeneration
             }
 
             // Compute the factor.
-            int factor = Timetable.calculateTimetableRatingValue(timetable);
-           
+            int factor = Timetable.calculateTimetableRatingValue(timetable);           
 
             // Current state returned.
             return new CurrentState(changes, factor);
